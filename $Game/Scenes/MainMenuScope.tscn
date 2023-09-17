@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmem84jcf7pk5"]
+[gd_scene load_steps=3 format=3 uid="uid://bmem84jcf7pk5"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/MainMenuScope.cs" id="1_j84gn"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuNode.cs" id="2_l1f2b"]
 
 [node name="MainMenuScope" type="Node"]
 script = ExtResource("1_j84gn")
+mainMenuNodePath = NodePath("MainMenuNode")
+
+[node name="MainMenuNode" type="Node" parent="."]
+script = ExtResource("2_l1f2b")
