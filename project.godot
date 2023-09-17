@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TapNFlap"
-run/main_scene="res://$Game/Scenes/Init.tscn"
+run/main_scene="res://$Game/Scenes/MainMenuScope.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
