@@ -1,0 +1,27 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapNFlap", "TapNFlap.csproj", "{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapNFlap.Tests", "TapNFlap.Tests\TapNFlap.Tests.csproj", "{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
