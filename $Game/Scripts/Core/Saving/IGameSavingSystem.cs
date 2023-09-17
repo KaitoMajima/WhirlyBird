@@ -1,6 +1,4 @@
-﻿namespace TapNFlap.Core.Saving;
-
-public interface IGameSavingSystem<TSave, TUSave> where TUSave : TSave
+﻿public interface IGameSavingSystem<TSave, TUSave> where TUSave : TSave
 {
     void Setup (
         string userDataDirectoryName,

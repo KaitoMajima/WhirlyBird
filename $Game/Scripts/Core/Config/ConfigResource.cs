@@ -1,7 +1,5 @@
 ﻿using Godot;
 
-namespace TapNFlap.Core.Config;
-
 [GlobalClass]
 public partial class ConfigResource : Resource
 {

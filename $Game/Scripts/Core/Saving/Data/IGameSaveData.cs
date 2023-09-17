@@ -1,6 +1,4 @@
-﻿namespace TapNFlap.Core.Saving.Data;
-
-public interface IGameSaveData
+﻿public interface IGameSaveData
 {
     int Highscore { get; }
 }

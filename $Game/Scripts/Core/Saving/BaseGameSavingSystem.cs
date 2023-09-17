@@ -1,8 +1,4 @@
 ﻿using System.IO;
-using TapNFlap.Core.Saving.Cryptography;
-using TapNFlap.Core.Saving.Serialization;
-
-namespace TapNFlap.Core.Saving;
 
 public abstract class BaseGameSavingSystem<TSave, TUSave> : IGameSavingSystem<TSave, TUSave> where TUSave : TSave
 {

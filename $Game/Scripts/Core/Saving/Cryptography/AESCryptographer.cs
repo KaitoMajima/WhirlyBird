@@ -3,8 +3,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace TapNFlap.Core.Saving.Cryptography;
-
 public class AESCryptographer : ICryptographer
 {
     const int IV_BYTE_COUNT = 16;

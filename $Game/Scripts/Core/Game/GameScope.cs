@@ -1,17 +1,5 @@
 ﻿using Godot;
-using Newtonsoft.Json;
-using TapNFlap.Core.Config;
-using TapNFlap.Core.Game.Nodes;
-using TapNFlap.Core.Game.Resources;
-using TapNFlap.Core.Saving;
-using TapNFlap.Core.Saving.Cryptography;
-using TapNFlap.Core.Saving.Data;
-using TapNFlap.Core.Saving.Factories;
-using TapNFlap.Core.Saving.Serialization;
-using TapNFlap.Core.Utils;
-using static TapNFlap.Core.Utils.GlobalSettings.Paths.Game;
-
-namespace TapNFlap.Core.Game;
+using static GlobalSettings.Paths.Game;
 
 public partial class GameScope : SingletonNode<GameScope>
 {

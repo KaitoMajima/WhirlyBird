@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-namespace TapNFlap.Core.Saving.Data;
-
 [JsonObject(MemberSerialization.OptIn)]
 public class GameSaveData : IGameSaveData
 {

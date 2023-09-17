@@ -1,7 +1,5 @@
 ﻿using Godot;
 
-namespace TapNFlap.Core.Utils;
-
 public partial class SingletonNode<T> : Node where T : SingletonNode<T>
 {
     public static T Instance { get; private set; }

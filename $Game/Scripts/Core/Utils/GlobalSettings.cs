@@ -1,6 +1,4 @@
-﻿namespace TapNFlap.Core.Utils;
-
-public static class GlobalSettings
+﻿public static class GlobalSettings
 {
     public static class Paths
     {

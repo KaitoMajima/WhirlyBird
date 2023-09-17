@@ -1,6 +1,4 @@
-﻿namespace TapNFlap.Core.Saving.Cryptography;
-
-public class NullCryptographer : ICryptographer
+﻿public class NullCryptographer : ICryptographer
 {
     public string Key { get; set; }
     

@@ -1,8 +1,5 @@
 ﻿using Godot;
-using TapNFlap.Core.Utils;
-using static TapNFlap.Core.Utils.GlobalSettings.Paths.Loading;
-
-namespace TapNFlap.Core.Loading;
+using static GlobalSettings.Paths.Loading;
 
 public partial class LoadingScope : SingletonNode<LoadingScope>
 {
