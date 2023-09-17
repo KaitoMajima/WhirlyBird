@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CryptographyResource" load_steps=2 format=3 uid="uid://q47m8inf4qjl"]
+
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Config/CryptographyResource.cs" id="1_1d0s0"]
+
+[resource]
+script = ExtResource("1_1d0s0")
+UseCryptographyInProduction = true
+UseCryptographyInEditor = false
+CryptographyKey = "B0tGY0xB5UcGg6T9FkjZAQz0PCmaXPyW"

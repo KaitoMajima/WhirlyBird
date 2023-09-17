@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ConfigResource" load_steps=3 format=3 uid="uid://cmo64dgxdvpol"]
+
+[ext_resource type="Resource" uid="uid://q47m8inf4qjl" path="res://$Game/Resources/CryptographyResource.tres" id="1_hy6lx"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Config/ConfigResource.cs" id="1_rx4gq"]
+
+[resource]
+script = ExtResource("1_rx4gq")
+CryptographyResource = ExtResource("1_hy6lx")

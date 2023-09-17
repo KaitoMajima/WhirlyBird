@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://cnl10axhk81e4"]
+[gd_scene load_steps=4 format=3 uid="uid://cnl10axhk81e4"]
+
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Game/Nodes/GameNode.cs" id="1_ov235"]
+[ext_resource type="Resource" uid="uid://clt725uh2yb8o" path="res://$Game/Resources/GameSettingsResource.tres" id="2_xkuaw"]
+[ext_resource type="Resource" uid="uid://cmo64dgxdvpol" path="res://$Game/Resources/ConfigResource.tres" id="3_dihkc"]
 
 [node name="GameNode" type="Node"]
+script = ExtResource("1_ov235")
+GameSettingsResource = ExtResource("2_xkuaw")
+ConfigResource = ExtResource("3_dihkc")
