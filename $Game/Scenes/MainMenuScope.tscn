@@ -1,11 +1,130 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmem84jcf7pk5"]
+[gd_scene load_steps=12 format=3 uid="uid://bmem84jcf7pk5"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/MainMenuScope.cs" id="1_j84gn"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuNode.cs" id="2_l1f2b"]
+[ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="3_2u0oq"]
+[ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="4_mqqj0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5op8"]
+bg_color = Color(0.494118, 0.592157, 0.839216, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pqknj"]
+texture = ExtResource("3_2u0oq")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ex2v7"]
+font = ExtResource("4_mqqj0")
+font_size = 141
+shadow_size = 21
+shadow_color = Color(0.258824, 0.588235, 0.639216, 1)
+shadow_offset = Vector2(4.635, 3.585)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ct4qj"]
+bg_color = Color(0.258824, 0.584314, 0.635294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wrbw"]
+bg_color = Color(0.227451, 0.529412, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7kny"]
+bg_color = Color(0.121569, 0.321569, 0.34902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sbi1"]
+bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 
 [node name="MainMenuScope" type="Node"]
 script = ExtResource("1_j84gn")
-mainMenuNodePath = NodePath("MainMenuNode")
 
 [node name="MainMenuNode" type="Node" parent="."]
 script = ExtResource("2_l1f2b")
+
+[node name="MainMenuCanvas" type="CanvasLayer" parent="MainMenuNode"]
+
+[node name="GUI" type="Control" parent="MainMenuNode/MainMenuCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="Panel" parent="MainMenuNode/MainMenuCanvas/GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i5op8")
+
+[node name="Bird" type="Panel" parent="MainMenuNode/MainMenuCanvas/GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -250.0
+offset_right = 98.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_pqknj")
+
+[node name="Label" type="Label" parent="MainMenuNode/MainMenuCanvas/GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -287.5
+offset_top = -139.0
+offset_right = 287.5
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TAP N'FLAP"
+label_settings = SubResource("LabelSettings_ex2v7")
+
+[node name="Button" type="Button" parent="MainMenuNode/MainMenuCanvas/GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 94.0
+offset_right = 144.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_mqqj0")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_ct4qj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1wrbw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a7kny")
+text = "Play"
+
+[node name="Button2" type="Button" parent="MainMenuNode/MainMenuCanvas/GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 193.0
+offset_right = 144.0
+offset_bottom = 261.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/icon_normal_color = Color(0.258824, 0.584314, 0.635294, 1)
+theme_override_colors/icon_pressed_color = Color(0.121569, 0.321569, 0.34902, 1)
+theme_override_colors/icon_hover_color = Color(0.227451, 0.529412, 0.576471, 1)
+theme_override_fonts/font = ExtResource("4_mqqj0")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_4sbi1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1wrbw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a7kny")
+text = "Exit"
