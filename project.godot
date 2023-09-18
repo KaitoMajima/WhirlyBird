@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 LoadingScope="*res://$Game/Scripts/Core/Loading/LoadingScope.cs"
 GameScope="*res://$Game/Scripts/Core/Game/GameScope.cs"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="TapNFlap"
