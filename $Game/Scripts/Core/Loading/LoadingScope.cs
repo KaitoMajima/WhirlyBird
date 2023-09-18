@@ -10,4 +10,9 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
         Node loadingNode = loadingNodeScene.Instantiate();
         AddChild(loadingNode);
     }
+
+    public void Load (PackedScene scene)
+    {
+        GD.Print($"Loading scene {scene}!");
+    }
 }

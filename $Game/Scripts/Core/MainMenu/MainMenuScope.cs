@@ -1,14 +1,45 @@
 ﻿using Godot;
-using Godot.Sharp.Extras;
 
 public partial class MainMenuScope : Node
 {
-    [NodePath] 
-    public MainMenuNode _mainMenuNode;
+    #region NodePaths
+    [Export] NodePath mainMenuNodePath;
+    #endregion
+
+    #region Nodes
+    public IMainMenuNode MainMenuNode { get; private set; }
+    #endregion
+
+    #region Scopes
+    GameScope GameScope => GameScope.Instance;
+    #endregion
     
     public override void _Ready ()
     {
-        this.OnReady();
-        GD.Print("Is Main Menu Node null?", _mainMenuNode == null);
+        CreateNodes();
+        ProcessNodesInitialization();
+    }
+
+    public override void _ExitTree ()
+    {
+        ProcessNodesDisposal();
+    }
+
+    void CreateNodes ()
+    {
+        MainMenuNode = MainMenuNodeFactory.CreateMainMenuNode(
+            this,
+            mainMenuNodePath
+        );
+    }
+    
+    void ProcessNodesInitialization ()
+    {
+        MainMenuNode.Initialize();
+    }
+    
+    void ProcessNodesDisposal ()
+    {
+        MainMenuNode.Dispose();
     }
 }
