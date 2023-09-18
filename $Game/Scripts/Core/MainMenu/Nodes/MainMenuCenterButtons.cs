@@ -11,17 +11,22 @@ public partial class MainMenuCenterButtons : Node
     
     [Export]
     PackedScene PlayButtonScene { get; set; }
+    
+    [Export]
+    NodePath SceneToUnloadPath { get; set; }
     #endregion
 
     #region Nodes
     Button playButton;
     Button exitButton;
+    Node sceneToUnload;
     #endregion
 
     public void Initialize ()
     {
         playButton = GetNode<Button>(PlayButtonPath);
         exitButton = GetNode<Button>(ExitButtonPath);
+        sceneToUnload = GetNode<Node>(SceneToUnloadPath);
         AddButtonListeners();
     }
 
@@ -39,7 +44,7 @@ public partial class MainMenuCenterButtons : Node
 
     void HandlePlayButtonPressed ()
     {
-        LoadingScope.Instance.Load(PlayButtonScene);
+        LoadingScope.Instance.Load(PlayButtonScene, sceneToUnload);
     }
 
     void HandleExitButtonPressed ()

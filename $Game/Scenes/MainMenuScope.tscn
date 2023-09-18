@@ -38,11 +38,11 @@ mainMenuNodePath = NodePath("MainMenuNode")
 
 [node name="MainMenuNode" type="Node" parent="."]
 script = ExtResource("2_l1f2b")
-MainMenuCenterButtonsPath = NodePath("MainMenuCanvas/GUI/CenterButtons")
+MainMenuCenterButtonsPath = NodePath("MainMenuCanvas/CenterContainer/CenterButtons")
 
 [node name="MainMenuCanvas" type="CanvasLayer" parent="MainMenuNode"]
 
-[node name="GUI" type="Control" parent="MainMenuNode/MainMenuCanvas"]
+[node name="CenterContainer" type="Control" parent="MainMenuNode/MainMenuCanvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +50,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="Panel" parent="MainMenuNode/MainMenuCanvas/GUI"]
+[node name="BG" type="Panel" parent="MainMenuNode/MainMenuCanvas/CenterContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +59,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i5op8")
 
-[node name="Bird" type="Panel" parent="MainMenuNode/MainMenuCanvas/GUI"]
+[node name="Bird" type="Panel" parent="MainMenuNode/MainMenuCanvas/CenterContainer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,7 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pqknj")
 
-[node name="Label" type="Label" parent="MainMenuNode/MainMenuCanvas/GUI"]
+[node name="Label" type="Label" parent="MainMenuNode/MainMenuCanvas/CenterContainer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -90,7 +90,7 @@ grow_vertical = 2
 text = "TAP N'FLAP"
 label_settings = SubResource("LabelSettings_ex2v7")
 
-[node name="CenterButtons" type="Control" parent="MainMenuNode/MainMenuCanvas/GUI"]
+[node name="CenterButtons" type="Control" parent="MainMenuNode/MainMenuCanvas/CenterContainer"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -98,8 +98,9 @@ script = ExtResource("5_lfsk0")
 PlayButtonPath = NodePath("Play")
 ExitButtonPath = NodePath("Exit")
 PlayButtonScene = ExtResource("6_iyktt")
+SceneToUnloadPath = NodePath("../../../..")
 
-[node name="Play" type="Button" parent="MainMenuNode/MainMenuCanvas/GUI/CenterButtons"]
+[node name="Play" type="Button" parent="MainMenuNode/MainMenuCanvas/CenterContainer/CenterButtons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,7 +120,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_1wrbw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a7kny")
 text = "Play"
 
-[node name="Exit" type="Button" parent="MainMenuNode/MainMenuCanvas/GUI/CenterButtons"]
+[node name="Exit" type="Button" parent="MainMenuNode/MainMenuCanvas/CenterContainer/CenterButtons"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
