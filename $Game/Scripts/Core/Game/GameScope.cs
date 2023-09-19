@@ -1,7 +1,4 @@
-﻿using Godot;
-using static GlobalSettings.Paths.Game;
-
-public partial class GameScope : SingletonNode<GameScope>
+﻿public partial class GameScope : SingletonNode<GameScope>
 {
     #region Resources
     ConfigResource ConfigResource => GameNode.ConfigResource;
@@ -20,18 +17,10 @@ public partial class GameScope : SingletonNode<GameScope>
     public override void _Ready ()
     {
         base._Ready();
-        InitializeScope();
+        CreateNodes();
         CreateSave();
     }
-
-    void InitializeScope ()
-    {
-        PackedScene gameNodeScene = GD.Load<PackedScene>(GAME_NODE_SCENE_PATH);
-        GameNode gameNode = gameNodeScene.Instantiate<GameNode>();
-        AddChild(gameNode);
-        GameNode = gameNode;
-    }
-
+    
     void CreateSave ()
     {
         CryptographyResource cryptographyResource = ConfigResource.CryptographyResource;
@@ -49,5 +38,10 @@ public partial class GameScope : SingletonNode<GameScope>
 
         GameSavingSystem = GameSaveDataFactory.CreateGameSavingSystem(cryptographer, serializer);
         GameSaveData = GameSaveDataFactory.CreateGameSaveData(GameSavingSystem);
+    }
+    
+    void CreateNodes ()
+    {
+        GameNode = GameFactory.CreateGameNode(this);
     }
 }
