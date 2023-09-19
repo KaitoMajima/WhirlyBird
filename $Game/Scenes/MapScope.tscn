@@ -1,16 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=14 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
+[ext_resource type="Texture2D" uid="uid://da8fjqg52nqgi" path="res://$Game/Art/Game/hills1.png" id="2_ov2ra"]
+[ext_resource type="Texture2D" uid="uid://dufsddfapqsq4" path="res://$Game/Art/Game/tree03.png" id="3_16834"]
+[ext_resource type="Texture2D" uid="uid://cfyblv3wsnbmd" path="res://$Game/Art/Game/cloud2.png" id="3_fj4u8"]
+[ext_resource type="Texture2D" uid="uid://0y2suthnvtan" path="res://$Game/Art/Game/sky.png" id="3_telee"]
+[ext_resource type="Texture2D" uid="uid://bkdj6hd57587m" path="res://$Game/Art/Game/mountain1.png" id="4_7mfdf"]
+[ext_resource type="Texture2D" uid="uid://ckkkbwmeta2mg" path="res://$Game/Art/Game/cloud5.png" id="4_l4e8t"]
+[ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
+[ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
+[ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_plyan"]
+[sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
-font_size = 178
+font_size = 72
+shadow_size = 11
+shadow_color = Color(0.2, 0.760784, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
+blend_mode = 1
 
 [node name="MapScope" type="Node"]
 
-[node name="MapCanvas" type="CanvasLayer" parent="."]
+[node name="MapNode" type="Node" parent="."]
 
-[node name="HUDContainer" type="Control" parent="MapCanvas"]
+[node name="MapCanvas" type="CanvasLayer" parent="MapNode"]
+
+[node name="HUD" type="Control" parent="MapNode/MapCanvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,18 +37,200 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MapCanvas/HUDContainer"]
+[node name="Label" type="Label" parent="MapNode/MapCanvas/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "777"
+label_settings = SubResource("LabelSettings_fylxt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MapNode/MapCanvas/HUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -89.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = 85.0
+grow_horizontal = 0
+
+[node name="Panel" type="Panel" parent="MapNode/MapCanvas/HUD/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -13.5
+offset_top = -19.5
+offset_right = -3.5
+offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "GAME"
-label_settings = SubResource("LabelSettings_plyan")
+theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
+
+[node name="Panel2" type="Panel" parent="MapNode/MapCanvas/HUD/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 2.5
+offset_top = -19.5
+offset_right = 12.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
+
+[node name="MapWorld2D" type="Node2D" parent="MapNode"]
+
+[node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
+
+[node name="Sky" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+position = Vector2(679, 271)
+scale = Vector2(1.9541, 1.00587)
+texture = ExtResource("3_telee")
+
+[node name="Sun" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+modulate = Color(0.996094, 0.796875, 0, 1)
+self_modulate = Color(0.996094, 0.796875, 0, 1)
+material = SubResource("CanvasItemMaterial_lvqwc")
+position = Vector2(-100.302, -124.271)
+scale = Vector2(0.417673, 0.811415)
+texture = ExtResource("10_ls0su")
+
+[node name="Cloud" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-156.082, -193.862)
+scale = Vector2(0.192506, 0.436373)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-271.736, -63.6266)
+scale = Vector2(0.120813, 0.27386)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud4" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-321.887, 9.94165)
+scale = Vector2(0.120813, 0.27386)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud5" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-25.0754, -5.96503)
+scale = Vector2(0.158648, 0.359623)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-80.3439, -151.113)
+scale = Vector2(0.232699, 0.527483)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud9" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-122.307, -85.4983)
+scale = Vector2(0.341879, 0.66417)
+texture = ExtResource("5_hak22")
+
+[node name="Cloud10" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-410.419, -114.329)
+scale = Vector2(0.259939, 0.504984)
+texture = ExtResource("6_ygtwg")
+
+[node name="Cloud11" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-357.197, -159.067)
+scale = Vector2(0.205783, 0.399776)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud12" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(18.4228, -70.5858)
+scale = Vector2(0.205783, 0.399776)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud13" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+texture_filter = 1
+position = Vector2(-457.716, 33.0744)
+scale = Vector2(0.410466, 0.764114)
+texture = ExtResource("5_hak22")
+
+[node name="Tree" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+texture_filter = 1
+position = Vector2(-181, 363)
+scale = Vector2(1.60417, 1.60417)
+texture = ExtResource("3_16834")
+
+[node name="Tree2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+texture_filter = 1
+position = Vector2(-100, 419)
+scale = Vector2(1.13021, 1.13021)
+texture = ExtResource("3_16834")
+
+[node name="Tree3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+texture_filter = 1
+position = Vector2(621, 398)
+scale = Vector2(1.48958, 1.48958)
+texture = ExtResource("3_16834")
+
+[node name="Mountain" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+texture_filter = 1
+position = Vector2(149.515, 437.079)
+scale = Vector2(-0.427745, 0.427745)
+texture = ExtResource("4_7mfdf")
+
+[node name="Mountain2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+texture_filter = 1
+position = Vector2(307, 354)
+scale = Vector2(0.687269, 0.687269)
+texture = ExtResource("4_7mfdf")
+
+[node name="Hills" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
+modulate = Color(0.627451, 0.866667, 0.741176, 1)
+position = Vector2(-3, -9)
+
+[node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+texture_filter = 1
+position = Vector2(180, 492)
+texture = ExtResource("2_ov2ra")
+
+[node name="Sprite2D2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+texture_filter = 1
+position = Vector2(1179, 492)
+texture = ExtResource("2_ov2ra")
+
+[node name="Sprite2D3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+position = Vector2(677.5, 1066.5)
+scale = Vector2(1.95605, 1.00293)
+texture = ExtResource("3_telee")
+
+[node name="Duck" type="Sprite2D" parent="MapNode/MapWorld2D"]
+position = Vector2(-10, 334)
+scale = Vector2(0.632353, 0.632353)
+texture = ExtResource("10_ls0su")
+
+[node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
+position = Vector2(216, 338)
+zoom = Vector2(1.35, 1.35)
+
+[node name="Sprite2D2" type="Sprite2D" parent="MapNode/MapWorld2D"]
+position = Vector2(236, 223)
