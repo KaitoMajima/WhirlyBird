@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=15 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
 [ext_resource type="Texture2D" uid="uid://da8fjqg52nqgi" path="res://$Game/Art/Game/hills1.png" id="2_ov2ra"]
@@ -22,6 +22,9 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
 blend_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
+radius = 41.0
 
 [node name="MapScope" type="Node"]
 
@@ -223,10 +226,17 @@ position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="Duck" type="Sprite2D" parent="MapNode/MapWorld2D"]
+[node name="RigidBody2D" type="RigidBody2D" parent="MapNode/MapWorld2D"]
 position = Vector2(-10, 334)
-scale = Vector2(0.632353, 0.632353)
+gravity_scale = 0.7
+
+[node name="Duck" type="Sprite2D" parent="MapNode/MapWorld2D/RigidBody2D"]
+scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_ls0su")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/RigidBody2D"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_slndq")
 
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
 position = Vector2(216, 338)
