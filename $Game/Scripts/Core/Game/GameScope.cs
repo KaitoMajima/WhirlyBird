@@ -21,6 +21,11 @@
         CreateSave();
     }
     
+    void CreateNodes ()
+    {
+        GameNode = GameFactory.CreateGameNode(this);
+    }
+    
     void CreateSave ()
     {
         CryptographyResource cryptographyResource = ConfigResource.CryptographyResource;
@@ -38,10 +43,5 @@
 
         GameSavingSystem = GameSaveDataFactory.CreateGameSavingSystem(cryptographer, serializer);
         GameSaveData = GameSaveDataFactory.CreateGameSaveData(GameSavingSystem);
-    }
-    
-    void CreateNodes ()
-    {
-        GameNode = GameFactory.CreateGameNode(this);
     }
 }

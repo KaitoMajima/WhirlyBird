@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public static class MainMenuNodeFactory
+public static class MainMenuFactory
 {
     public static IMainMenuNode CreateMainMenuNode (
         Node callerNode,

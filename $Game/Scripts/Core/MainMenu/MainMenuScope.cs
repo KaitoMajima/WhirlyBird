@@ -17,28 +17,28 @@ public partial class MainMenuScope : Node
     public override void _Ready ()
     {
         CreateNodes();
-        ProcessNodesInitialization();
+        InitializeNodes();
     }
 
     public override void _ExitTree ()
     {
-        ProcessNodesDisposal();
+        DisposeNodes();
     }
 
     void CreateNodes ()
     {
-        MainMenuNode = MainMenuNodeFactory.CreateMainMenuNode(
+        MainMenuNode = MainMenuFactory.CreateMainMenuNode(
             this,
             mainMenuNodePath
         );
     }
     
-    void ProcessNodesInitialization ()
+    void InitializeNodes ()
     {
         MainMenuNode.Initialize();
     }
     
-    void ProcessNodesDisposal ()
+    void DisposeNodes ()
     {
         MainMenuNode.Dispose();
     }

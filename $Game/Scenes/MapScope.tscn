@@ -1,12 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=19 format=3 uid="uid://ftlyy01osjm"]
 
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapNode.cs" id="2_0em68"]
 [ext_resource type="Texture2D" uid="uid://da8fjqg52nqgi" path="res://$Game/Art/Game/hills1.png" id="2_ov2ra"]
 [ext_resource type="Texture2D" uid="uid://dufsddfapqsq4" path="res://$Game/Art/Game/tree03.png" id="3_16834"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapUICanvasNode.cs" id="3_ddteq"]
 [ext_resource type="Texture2D" uid="uid://cfyblv3wsnbmd" path="res://$Game/Art/Game/cloud2.png" id="3_fj4u8"]
 [ext_resource type="Texture2D" uid="uid://0y2suthnvtan" path="res://$Game/Art/Game/sky.png" id="3_telee"]
 [ext_resource type="Texture2D" uid="uid://bkdj6hd57587m" path="res://$Game/Art/Game/mountain1.png" id="4_7mfdf"]
 [ext_resource type="Texture2D" uid="uid://ckkkbwmeta2mg" path="res://$Game/Art/Game/cloud5.png" id="4_l4e8t"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapWorld2DNode.cs" id="5_4vban"]
 [ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
@@ -27,12 +31,18 @@ blend_mode = 1
 radius = 41.0
 
 [node name="MapScope" type="Node"]
+script = ExtResource("1_aly4s")
+mapNodePath = NodePath("MapNode")
+mapUICanvasNodePath = NodePath("MapNode/MapUICanvas")
+mapWorld2DNodePath = NodePath("MapNode/MapWorld2D")
 
 [node name="MapNode" type="Node" parent="."]
+script = ExtResource("2_0em68")
 
-[node name="MapCanvas" type="CanvasLayer" parent="MapNode"]
+[node name="MapUICanvas" type="CanvasLayer" parent="MapNode"]
+script = ExtResource("3_ddteq")
 
-[node name="HUD" type="Control" parent="MapNode/MapCanvas"]
+[node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,7 +50,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MapNode/MapCanvas/HUD"]
+[node name="Label" type="Label" parent="MapNode/MapUICanvas/HUD"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -54,7 +64,7 @@ label_settings = SubResource("LabelSettings_fylxt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="MapNode/MapCanvas/HUD"]
+[node name="Button" type="Button" parent="MapNode/MapUICanvas/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -65,7 +75,7 @@ offset_right = -28.0
 offset_bottom = 85.0
 grow_horizontal = 0
 
-[node name="Panel" type="Panel" parent="MapNode/MapCanvas/HUD/Button"]
+[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/HUD/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -80,7 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="Panel2" type="Panel" parent="MapNode/MapCanvas/HUD/Button"]
+[node name="Panel2" type="Panel" parent="MapNode/MapUICanvas/HUD/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -96,6 +106,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
 [node name="MapWorld2D" type="Node2D" parent="MapNode"]
+script = ExtResource("5_4vban")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 

@@ -19,12 +19,12 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
         base._Ready();
         CreateModels();
         CreateNodes();
-        ProcessNodesInitialization();
+        InitializeNodes();
     }
 
     public override void _ExitTree ()
     {
-        ProcessNodesDisposal();
+        DisposeNodes();
     }
 
     public void Load (PackedScene scene, Node unloadNode = null)
@@ -42,12 +42,12 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
         LoadingNode = LoadingFactory.CreateLoadingNode(this, LoadingModel);
     }
     
-    void ProcessNodesInitialization ()
+    void InitializeNodes ()
     {
         LoadingNode.Initialize();
     }
 
-    void ProcessNodesDisposal ()
+    void DisposeNodes ()
     {
         LoadingNode.Dispose();
     }
