@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://88f4yxfmmipd"]
 
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_cgcok"]
-[ext_resource type="Script" path="res://$Game/Scripts/Core/Loading/Nodes/LoadingNode.cs" id="1_ok7od"]
+[ext_resource type="Script" path="res://$Game/Scripts/Loading/Nodes/LoadingNode.cs" id="1_ok7od"]
 
 [sub_resource type="Animation" id="Animation_t6rm7"]
 resource_name = "FadeIn"
@@ -18,21 +18,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_fs1h6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LoadingVisualsContainer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_b8xwt"]
 resource_name = "FadeOut"
 tracks/0/type = "value"
@@ -46,6 +31,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fs1h6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingVisualsContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hxkm2"]

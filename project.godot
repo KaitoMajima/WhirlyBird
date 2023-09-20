@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-LoadingScope="*res://$Game/Scripts/Core/Loading/LoadingScope.cs"
+LoadingScope="*res://$Game/Scripts/Loading/LoadingScope.cs"
 GameScope="*res://$Game/Scripts/Core/Game/GameScope.cs"
 
 [display]
