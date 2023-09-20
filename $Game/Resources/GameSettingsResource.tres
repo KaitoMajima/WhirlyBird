@@ -1,6 +1,0 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://clt725uh2yb8o"]
-
-[ext_resource type="Script" path="res://$Game/Scripts/Core/Game/Resources/GameSettingsResource.cs" id="1_wse2m"]
-
-[resource]
-script = ExtResource("1_wse2m")

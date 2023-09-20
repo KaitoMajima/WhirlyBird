@@ -66,14 +66,14 @@ bg_color = Color(0.305882, 0.682353, 0.545098, 1)
 
 [node name="LoadingNode" type="Node"]
 script = ExtResource("1_ok7od")
-AnimationPlayerPath = NodePath("LoadingCanvas/LoadingVisualsContainer/AnimationPlayer")
-ProgressBarPath = NodePath("LoadingCanvas/LoadingVisualsContainer/ProgressBar")
+AnimationPlayerPath = NodePath("LoadingUICanvas/LoadingVisualsContainer/AnimationPlayer")
+ProgressBarPath = NodePath("LoadingUICanvas/LoadingVisualsContainer/ProgressBar")
 FadeInAnimation = &"FadeIn"
 FadeOutAnimation = &"FadeOut"
 
-[node name="LoadingCanvas" type="CanvasLayer" parent="."]
+[node name="LoadingUICanvas" type="CanvasLayer" parent="."]
 
-[node name="LoadingVisualsContainer" type="Control" parent="LoadingCanvas"]
+[node name="LoadingVisualsContainer" type="Control" parent="LoadingUICanvas"]
 modulate = Color(1, 1, 1, 0)
 z_index = 77
 layout_mode = 3
@@ -83,13 +83,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingCanvas/LoadingVisualsContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingUICanvas/LoadingVisualsContainer"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_hxkm2")
 }
 
-[node name="Panel" type="Panel" parent="LoadingCanvas/LoadingVisualsContainer"]
+[node name="Panel" type="Panel" parent="LoadingUICanvas/LoadingVisualsContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -98,7 +98,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fmbdr")
 
-[node name="ProgressBar" type="ProgressBar" parent="LoadingCanvas/LoadingVisualsContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="LoadingUICanvas/LoadingVisualsContainer"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

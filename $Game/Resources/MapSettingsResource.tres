@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MapSettingsResource" load_steps=2 format=3 uid="uid://tlg2p7kqkx3b"]
+
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Game/Resources/MapSettingsResource.cs" id="1_sae3r"]
+
+[resource]
+script = ExtResource("1_sae3r")
+PlayerSettingsJsonPath = "res://$Game/JsonSettings/playerSettings.json"

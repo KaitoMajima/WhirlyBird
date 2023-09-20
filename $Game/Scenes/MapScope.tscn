@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=22 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapNode.cs" id="2_0em68"]
+[ext_resource type="Resource" uid="uid://tlg2p7kqkx3b" path="res://$Game/Resources/MapSettingsResource.tres" id="2_87dp6"]
 [ext_resource type="Texture2D" uid="uid://da8fjqg52nqgi" path="res://$Game/Art/Game/hills1.png" id="2_ov2ra"]
 [ext_resource type="Texture2D" uid="uid://dufsddfapqsq4" path="res://$Game/Art/Game/tree03.png" id="3_16834"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapUICanvasNode.cs" id="3_ddteq"]
@@ -14,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
+[ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerController.cs" id="15_0y104"]
+[ext_resource type="InputEventAction" uid="uid://dglyag6he71yv" path="res://$Game/Resources/InputEventActions/MainAction.tres" id="16_ewyrl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
@@ -35,6 +38,7 @@ script = ExtResource("1_aly4s")
 mapNodePath = NodePath("MapNode")
 mapUICanvasNodePath = NodePath("MapNode/MapUICanvas")
 mapWorld2DNodePath = NodePath("MapNode/MapWorld2D")
+MapSettingsResource = ExtResource("2_87dp6")
 
 [node name="MapNode" type="Node" parent="."]
 script = ExtResource("2_0em68")
@@ -107,6 +111,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
 [node name="MapWorld2D" type="Node2D" parent="MapNode"]
 script = ExtResource("5_4vban")
+playerControllerPath = NodePath("Duck")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 
@@ -237,15 +242,17 @@ position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="MapNode/MapWorld2D"]
+[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D"]
 position = Vector2(-10, 334)
 gravity_scale = 0.7
+script = ExtResource("15_0y104")
+inputEventAction = ExtResource("16_ewyrl")
 
-[node name="Duck" type="Sprite2D" parent="MapNode/MapWorld2D/RigidBody2D"]
+[node name="Sprite" type="Sprite2D" parent="MapNode/MapWorld2D/Duck"]
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_ls0su")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck"]
 shape = SubResource("CircleShape2D_slndq")
 
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]

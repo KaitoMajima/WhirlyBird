@@ -2,7 +2,6 @@
 {
     #region Resources
     ConfigResource ConfigResource => GameNode.ConfigResource;
-    GameSettingsResource GameSettingsResource => GameNode.GameSettingsResource;
     #endregion
 
     #region Models

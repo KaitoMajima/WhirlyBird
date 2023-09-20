@@ -2,7 +2,7 @@
 
 public partial class MapScope : SingletonNode<MapScope>
 {
-    #region NodePaths
+    #region Node Paths
     [Export] NodePath mapNodePath;
     [Export] NodePath mapUICanvasNodePath;
     [Export] NodePath mapWorld2DNodePath;
@@ -20,10 +20,15 @@ public partial class MapScope : SingletonNode<MapScope>
     public IMapWorld2DNode MapWorld2DNode => MapNode.MapWorld2DNode;
     #endregion
     
+    #region Resources
+    [Export]
+    public MapSettingsResource MapSettingsResource { get; private set; }
+    #endregion
+    
     #region Scopes
     GameScope GameScope => GameScope.Instance;
     #endregion
-
+    
     public override void _Ready ()
     {
         CreateModels();
@@ -40,7 +45,7 @@ public partial class MapScope : SingletonNode<MapScope>
 
     void CreateModels ()
     {
-        MapModel = MapFactory.CreateMapModel();
+        MapModel = MapFactory.CreateMapModel(MapSettingsResource);
     }
     
     void CreateNodes ()
@@ -49,7 +54,9 @@ public partial class MapScope : SingletonNode<MapScope>
             this, 
             mapNodePath, 
             mapUICanvasNodePath, 
-            mapWorld2DNodePath
+            mapWorld2DNodePath,
+            MapUICanvasModel,
+            MapWorld2DModel
         );
     }
     

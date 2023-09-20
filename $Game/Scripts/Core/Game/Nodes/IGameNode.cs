@@ -1,6 +1,4 @@
-﻿
-public interface IGameNode
+﻿public interface IGameNode
 {
-    GameSettingsResource GameSettingsResource { get;  }
     ConfigResource ConfigResource { get; }
 }
