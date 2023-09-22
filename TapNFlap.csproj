@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="$Game\Resources\" />
-    <Folder Include="$Game\Scripts\Player\Factories\" />
     <Folder Include="TapNFlap.Tests\obj\Debug\net6.0\" />
   </ItemGroup>
 
