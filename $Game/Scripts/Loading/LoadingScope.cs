@@ -2,6 +2,10 @@
 
 public partial class LoadingScope : SingletonNode<LoadingScope>
 {
+    #region Resources
+    LoadingConfigResource LoadingConfigResource => LoadingNode.LoadingConfigResource;
+    #endregion
+    
     #region Nodes
     public ILoadingNode LoadingNode { get; private set; }
     #endregion
@@ -19,17 +23,19 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
         base._Ready();
         CreateModels();
         CreateNodes();
+        InitializeModels();
         InitializeNodes();
     }
 
     public override void _ExitTree ()
     {
+        DisposeModels();
         DisposeNodes();
     }
 
-    public void Load (PackedScene scene, Node unloadNode = null)
+    public void Load (string scenePath, Node unloadNode = null)
     {
-        LoadingModel.SetupLoad(scene, unloadNode);
+        LoadingModel.StartLoad(scenePath, unloadNode);
     }
 
     void CreateModels ()
@@ -42,9 +48,19 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
         LoadingNode = LoadingFactory.CreateLoadingNode(this, LoadingModel);
     }
     
+    void InitializeModels ()
+    {
+        LoadingModel.Setup(LoadingConfigResource);
+    }
+    
     void InitializeNodes ()
     {
         LoadingNode.Initialize();
+    }
+    
+    void DisposeModels ()
+    {
+        LoadingModel.Dispose();
     }
 
     void DisposeNodes ()

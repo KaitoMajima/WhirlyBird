@@ -9,8 +9,8 @@ public partial class MainMenuCenterButtons : Node
     [Export]
     NodePath ExitButtonPath { get; set; }
     
-    [Export]
-    PackedScene PlayButtonScene { get; set; }
+    [Export(PropertyHint.File, "*.tscn")]
+    string PlayButtonScenePath { get; set; }
     
     [Export]
     NodePath SceneToUnloadPath { get; set; }
@@ -44,7 +44,7 @@ public partial class MainMenuCenterButtons : Node
 
     void HandlePlayButtonPressed ()
     {
-        LoadingScope.Instance.Load(PlayButtonScene, sceneToUnload);
+        LoadingScope.Instance.Load(PlayButtonScenePath, sceneToUnload);
     }
 
     void HandleExitButtonPressed ()

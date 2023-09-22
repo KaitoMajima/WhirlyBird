@@ -3,6 +3,9 @@
 public partial class LoadingNode : Node, ILoadingNode
 {
     [Export]
+    public LoadingConfigResource LoadingConfigResource { get; private set; }
+    
+    [Export]
     NodePath AnimationPlayerPath { get; set; }
     
     [Export]
@@ -24,7 +27,7 @@ public partial class LoadingNode : Node, ILoadingNode
         if (model.IsLoading)
             model.ProcessLoading();
     }
-    
+
     public void Setup (ILoadingModel model)
     {
         this.model = model;

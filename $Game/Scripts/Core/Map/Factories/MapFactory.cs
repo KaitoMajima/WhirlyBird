@@ -34,8 +34,12 @@ public static class MapFactory
         return mapNode;
     }
 
-    static IMapUICanvasModel CreateMapUICanvasModel () => new MapUICanvasModel();
-    
+    static IMapUICanvasModel CreateMapUICanvasModel ()
+    {
+        IPauseModel pauseModel = new PauseModel();
+        return new MapUICanvasModel(pauseModel);
+    }
+
     static IMapWorld2DModel CreateMapWorld2DModel (MapSettingsResource mapSettingsResource)
     {
         IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
@@ -50,7 +54,7 @@ public static class MapFactory
     )
     {
         IMapUICanvasNode mapUICanvasNode = callerNode.GetNode<MapUICanvasNode>(mapUICanvasNodePath);
-        mapUICanvasNode.Setup();
+        mapUICanvasNode.Setup(mapUICanvasModel.PauseModel);
         return mapUICanvasNode;
     }
 

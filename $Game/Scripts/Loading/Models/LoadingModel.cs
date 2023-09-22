@@ -10,24 +10,42 @@ public class LoadingModel : ILoadingModel
     public event Action<PackedScene> OnLoadingFinished;
 
     public bool IsLoading { get; private set; }
+
+    LoadingConfigResource loadingConfig;
     
-    PackedScene sceneToLoad;
+    string sceneLoadPath;
     Node nodeToUnload;
-    
-    public void SetupLoad (PackedScene scene, Node unloadNode = null)
+
+    public void Setup (LoadingConfigResource loadingConfig)
     {
-        sceneToLoad = scene;
+        this.loadingConfig = loadingConfig;
+    }
+
+    public void StartLoad (string scenePath, Node unloadNode = null)
+    {
+        sceneLoadPath = scenePath;
         nodeToUnload = unloadNode;
         OnLoadingStarted?.Invoke();
     }
-    
+
     public void InitiateLoading ()
     {
+        if (IsLoading)
+        {
+            GD.PushWarning("Warning: Tried to load a scene when a scene is already being loaded!");
+            return;
+        }
+        
         IsLoading = true;
         
-        ResourceLoader.LoadThreadedRequest(sceneToLoad.ResourcePath);
-        nodeToUnload?.QueueFree();
-        nodeToUnload = null;
+        Error error = ResourceLoader.LoadThreadedRequest(
+            sceneLoadPath, useSubThreads: 
+            loadingConfig.UseMultiThreadedLoading
+        );
+        
+        if (error != Error.Ok)
+            throw new InvalidOperationException("Could not load the scene in the specified path!");
+        
         OnLoadingInitiated?.Invoke();
     }
 
@@ -35,7 +53,7 @@ public class LoadingModel : ILoadingModel
     {
         Array loadingProgress = new();
         ResourceLoader.ThreadLoadStatus loadStatus =
-            ResourceLoader.LoadThreadedGetStatus(sceneToLoad.ResourcePath, loadingProgress);
+            ResourceLoader.LoadThreadedGetStatus(sceneLoadPath, loadingProgress);
         
         switch (loadStatus)
         {
@@ -78,9 +96,16 @@ public class LoadingModel : ILoadingModel
     
     void HandleThreadLoadStatusIsLoaded ()
     {
-        PackedScene scene = (PackedScene)ResourceLoader.LoadThreadedGet(sceneToLoad.ResourcePath);
-        sceneToLoad = null;
+        PackedScene scene = (PackedScene)ResourceLoader.LoadThreadedGet(sceneLoadPath);
+        sceneLoadPath = null;
         IsLoading = false;
+        nodeToUnload?.QueueFree();
+        nodeToUnload = null;
         OnLoadingFinished?.Invoke(scene);
+    }
+
+    public void Dispose ()
+    {
+        
     }
 }

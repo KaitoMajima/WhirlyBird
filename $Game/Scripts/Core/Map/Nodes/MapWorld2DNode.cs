@@ -3,7 +3,7 @@
 public partial class MapWorld2DNode : Node, IMapWorld2DNode
 {
     [Export] 
-    NodePath playerControllerPath;
+    NodePath PlayerControllerPath { get; set; }
 
     public PlayerController PlayerController { get; private set; }
 
@@ -16,7 +16,7 @@ public partial class MapWorld2DNode : Node, IMapWorld2DNode
     
     public void Initialize ()
     {
-        PlayerController = GetNode<PlayerController>(playerControllerPath);
+        PlayerController = GetNode<PlayerController>(PlayerControllerPath);
         PlayerController.Setup(playerModel);
         PlayerController.Initialize();
     }

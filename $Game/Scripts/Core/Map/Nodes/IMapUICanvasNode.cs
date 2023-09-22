@@ -2,6 +2,6 @@
 
 public interface IMapUICanvasNode : IDisposable
 {
-    void Setup ();
+    void Setup (IPauseModel pauseModel);
     void Initialize ();
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-public interface ILoadingModel
+public interface ILoadingModel : IDisposable
 {
     event Action OnLoadingStarted;
     event Action OnLoadingInitiated;
@@ -10,7 +10,9 @@ public interface ILoadingModel
     
     bool IsLoading { get; }
 
-    void SetupLoad (PackedScene scene, Node unloadNode = null);
+    void Setup (LoadingConfigResource loadingConfig);
+    void StartLoad (string scenePath, Node unloadNode = null);
+
     void InitiateLoading ();
     void ProcessLoading ();
 }

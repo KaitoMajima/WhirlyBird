@@ -2,5 +2,6 @@
 
 public interface IMapUICanvasModel : IDisposable
 {
+    IPauseModel PauseModel { get; }
     void Initialize ();
 }

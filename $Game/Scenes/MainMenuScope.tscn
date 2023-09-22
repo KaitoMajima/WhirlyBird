@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmem84jcf7pk5"]
+[gd_scene load_steps=13 format=3 uid="uid://bmem84jcf7pk5"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/MainMenuScope.cs" id="1_j84gn"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuNode.cs" id="2_l1f2b"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="3_2u0oq"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="4_mqqj0"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuCenterButtons.cs" id="5_lfsk0"]
-[ext_resource type="PackedScene" uid="uid://ftlyy01osjm" path="res://$Game/Scenes/MapScope.tscn" id="6_iyktt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5op8"]
 bg_color = Color(0.494118, 0.592157, 0.839216, 1)
@@ -38,11 +37,11 @@ mainMenuNodePath = NodePath("MainMenuNode")
 
 [node name="MainMenuNode" type="Node" parent="."]
 script = ExtResource("2_l1f2b")
-MainMenuCenterButtonsPath = NodePath("MainMenuCanvas/Center/CenterButtons")
+MainMenuCenterButtonsPath = NodePath("MainMenuUICanvas/Center/CenterButtons")
 
-[node name="MainMenuCanvas" type="CanvasLayer" parent="MainMenuNode"]
+[node name="MainMenuUICanvas" type="CanvasLayer" parent="MainMenuNode"]
 
-[node name="Center" type="Control" parent="MainMenuNode/MainMenuCanvas"]
+[node name="Center" type="Control" parent="MainMenuNode/MainMenuUICanvas"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,7 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="Panel" parent="MainMenuNode/MainMenuCanvas/Center"]
+[node name="BG" type="Panel" parent="MainMenuNode/MainMenuUICanvas/Center"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +58,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i5op8")
 
-[node name="Bird" type="Panel" parent="MainMenuNode/MainMenuCanvas/Center"]
+[node name="Bird" type="Panel" parent="MainMenuNode/MainMenuUICanvas/Center"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,7 +73,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_pqknj")
 
-[node name="Label" type="Label" parent="MainMenuNode/MainMenuCanvas/Center"]
+[node name="Label" type="Label" parent="MainMenuNode/MainMenuUICanvas/Center"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -90,7 +89,7 @@ grow_vertical = 2
 text = "TAP N'FLAP"
 label_settings = SubResource("LabelSettings_ex2v7")
 
-[node name="CenterButtons" type="VBoxContainer" parent="MainMenuNode/MainMenuCanvas/Center"]
+[node name="CenterButtons" type="VBoxContainer" parent="MainMenuNode/MainMenuUICanvas/Center"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -107,10 +106,10 @@ theme_override_constants/separation = 20
 script = ExtResource("5_lfsk0")
 PlayButtonPath = NodePath("Play")
 ExitButtonPath = NodePath("Exit")
-PlayButtonScene = ExtResource("6_iyktt")
+PlayButtonScenePath = "res://$Game/Scenes/MapScope.tscn"
 SceneToUnloadPath = NodePath("../../../..")
 
-[node name="Play" type="Button" parent="MainMenuNode/MainMenuCanvas/Center/CenterButtons"]
+[node name="Play" type="Button" parent="MainMenuNode/MainMenuUICanvas/Center/CenterButtons"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_mqqj0")
 theme_override_font_sizes/font_size = 36
@@ -119,7 +118,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_1wrbw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a7kny")
 text = "Play"
 
-[node name="Exit" type="Button" parent="MainMenuNode/MainMenuCanvas/Center/CenterButtons"]
+[node name="Exit" type="Button" parent="MainMenuNode/MainMenuUICanvas/Center/CenterButtons"]
 layout_mode = 2
 theme_override_colors/icon_normal_color = Color(0.258824, 0.584314, 0.635294, 1)
 theme_override_colors/icon_pressed_color = Color(0.121569, 0.321569, 0.34902, 1)
