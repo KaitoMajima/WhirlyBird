@@ -9,7 +9,7 @@ public static class MapFactory
     {
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider);
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(mapSettingsResource);
-        IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel();
+        IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
     }
@@ -48,7 +48,7 @@ public static class MapFactory
 
     static IMapUICanvasModel CreateMapUICanvasModel (ITimeProvider timeProvider)
     {
-        IPauseModel pauseModel = new PauseModel(timeProvider);
+        IPauseModel pauseModel = PauseFactory.CreatePauseModel(timeProvider);
         return new MapUICanvasModel(pauseModel);
     }
 
@@ -59,8 +59,8 @@ public static class MapFactory
         return new MapWorld2DModel(playerModel);
     }
 
-    static IMapInputDetectionModel CreateMapInputDetectionModel () 
-        => new MapInputDetectionModel();
+    static IMapInputDetectionModel CreateMapInputDetectionModel (IPauseModel pauseModel) 
+        => new MapInputDetectionModel(pauseModel);
 
     static IMapUICanvasNode CreateMapUICanvasNode (
         Node callerNode,
