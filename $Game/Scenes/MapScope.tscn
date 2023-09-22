@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=35 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -18,10 +18,10 @@
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerController.cs" id="15_0y104"]
-[ext_resource type="InputEventAction" uid="uid://dglyag6he71yv" path="res://$Game/Resources/InputEventActions/MainAction.tres" id="16_ewyrl"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
@@ -85,11 +85,15 @@ IsRelative = true
 EaseType = 1
 TransitionType = 5
 
+[sub_resource type="InputEventAction" id="InputEventAction_4x0ob"]
+action = &"main_action"
+
 [node name="MapScope" type="Node"]
 script = ExtResource("1_aly4s")
 mapNodePath = NodePath("MapNode")
 mapUICanvasNodePath = NodePath("MapNode/MapUICanvas")
 mapWorld2DNodePath = NodePath("MapNode/MapWorld2D")
+mapInputDetectionNodePath = NodePath("MapNode/InputDetector")
 MapSettingsResource = ExtResource("2_87dp6")
 
 [node name="MapNode" type="Node" parent="."]
@@ -392,7 +396,6 @@ texture = ExtResource("3_telee")
 position = Vector2(-10, 334)
 gravity_scale = 0.7
 script = ExtResource("15_0y104")
-inputEventAction = ExtResource("16_ewyrl")
 jumpingAnimation = NodePath("Animations/ScaleDown")
 rotateAnimation = NodePath("Animations/Rotate")
 
@@ -422,3 +425,7 @@ texture = ExtResource("10_ls0su")
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
+
+[node name="InputDetector" type="Node" parent="MapNode"]
+script = ExtResource("23_xrhcv")
+mainActionInputEvent = SubResource("InputEventAction_4x0ob")

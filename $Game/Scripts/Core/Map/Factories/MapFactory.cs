@@ -9,8 +9,9 @@ public static class MapFactory
     {
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider);
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(mapSettingsResource);
+        IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel();
 
-        return new MapModel(mapUICanvasModel, mapWorld2DModel);
+        return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
     }
 
     public static IMapNode CreateMapNode (
@@ -18,8 +19,10 @@ public static class MapFactory
         NodePath mapNodePath,
         NodePath mapUICanvasNodePath,
         NodePath mapWorld2dNodePath,
+        NodePath mapInputDetectionNodePath,
         IMapUICanvasModel mapUICanvasModel,
-        IMapWorld2DModel mapWorld2DModel
+        IMapWorld2DModel mapWorld2DModel,
+        IMapInputDetectionModel mapInputDetectionModel
     )
     {
         IMapUICanvasNode mapUICanvasNode = CreateMapUICanvasNode(
@@ -30,10 +33,16 @@ public static class MapFactory
         IMapWorld2DNode mapWorld2DNode = CreateMapWorld2DNode(
             callerNode, 
             mapWorld2dNodePath,
-            mapWorld2DModel
+            mapWorld2DModel,
+            mapInputDetectionModel
+        );
+        IMapInputDetectionNode mapInputDetectionNode = CreateMapInputDetectionNode(
+            callerNode, 
+            mapInputDetectionNodePath, 
+            mapInputDetectionModel
         );
         IMapNode mapNode = callerNode.GetNode<MapNode>(mapNodePath);
-        mapNode.Setup(mapUICanvasNode, mapWorld2DNode);
+        mapNode.Setup(mapUICanvasNode, mapWorld2DNode, mapInputDetectionNode);
         return mapNode;
     }
 
@@ -50,6 +59,9 @@ public static class MapFactory
         return new MapWorld2DModel(playerModel);
     }
 
+    static IMapInputDetectionModel CreateMapInputDetectionModel () 
+        => new MapInputDetectionModel();
+
     static IMapUICanvasNode CreateMapUICanvasNode (
         Node callerNode,
         NodePath mapUICanvasNodePath,
@@ -64,11 +76,23 @@ public static class MapFactory
     static IMapWorld2DNode CreateMapWorld2DNode (
         Node callerNode,
         NodePath mapWorld2dNodePath,
-        IMapWorld2DModel mapWorld2DModel
+        IMapWorld2DModel mapWorld2DModel,
+        IMapInputDetectionModel mapInputDetectionModel
     )
     {
         IMapWorld2DNode mapWorld2DNode = callerNode.GetNode<MapWorld2DNode>(mapWorld2dNodePath);
-        mapWorld2DNode.Setup(mapWorld2DModel.PlayerModel);
+        mapWorld2DNode.Setup(mapWorld2DModel.PlayerModel, mapInputDetectionModel);
         return mapWorld2DNode;
+    }
+    
+    static IMapInputDetectionNode CreateMapInputDetectionNode (
+        Node callerNode,
+        NodePath mapInputDetectionPath,
+        IMapInputDetectionModel mapInputDetectionModel
+    )
+    {
+        IMapInputDetectionNode mapInputDetectionNode = callerNode.GetNode<MapInputDetectionNode>(mapInputDetectionPath);
+        mapInputDetectionNode.Setup(mapInputDetectionModel);
+        return mapInputDetectionNode;
     }
 }

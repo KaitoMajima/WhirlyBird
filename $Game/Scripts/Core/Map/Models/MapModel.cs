@@ -2,14 +2,17 @@
 {
     public IMapUICanvasModel MapUICanvasModel { get; }
     public IMapWorld2DModel MapWorld2DModel { get; }
+    public IMapInputDetectionModel MapInputDetectionModel { get; }
 
     public MapModel (
         IMapUICanvasModel mapUICanvasModel, 
-        IMapWorld2DModel mapWorld2DModel
+        IMapWorld2DModel mapWorld2DModel,
+        IMapInputDetectionModel mapInputDetectionModel
     )
     {
         MapUICanvasModel = mapUICanvasModel;
         MapWorld2DModel = mapWorld2DModel;
+        MapInputDetectionModel = mapInputDetectionModel;
     }
     
     public void Initialize ()
