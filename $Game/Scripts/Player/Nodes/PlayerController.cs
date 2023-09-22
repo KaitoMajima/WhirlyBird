@@ -5,6 +5,12 @@ public partial class PlayerController : RigidBody2D
     [Export] 
     InputEventAction inputEventAction;
 
+    [Export] 
+    TweenManager jumpingAnimation;
+    
+    [Export] 
+    TweenManager rotateAnimation;
+
     IPlayerModel playerModel;
     
     public override void _Process (double delta)
@@ -27,5 +33,7 @@ public partial class PlayerController : RigidBody2D
     {
         LinearVelocity = Vector2.Zero;
         ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
+        jumpingAnimation.PlayTween();
+        rotateAnimation.PlayTween();
     }
 }

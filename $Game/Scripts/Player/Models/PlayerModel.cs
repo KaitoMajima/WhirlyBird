@@ -1,7 +1,7 @@
 ﻿public class PlayerModel : IPlayerModel
 {
-    const float JUMP_MULTIPLIER = 50;
-    const float GRAVITY_SCALE_MULTIPLIER = 0.5f;
+    const float JUMP_MULTIPLIER = 59;
+    const float GRAVITY_SCALE_MULTIPLIER = 0.6f;
     
     public float PlayerSize => playerSettings.PlayerSize;
     public float GravityScale => playerSettings.PlayerGravityScale * GRAVITY_SCALE_MULTIPLIER;

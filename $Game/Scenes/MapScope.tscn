@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=34 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -19,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerController.cs" id="15_0y104"]
 [ext_resource type="InputEventAction" uid="uid://dglyag6he71yv" path="res://$Game/Resources/InputEventActions/MainAction.tres" id="16_ewyrl"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
@@ -53,6 +56,34 @@ blend_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
 radius = 41.0
+
+[sub_resource type="Resource" id="Resource_xkt4k"]
+script = ExtResource("21_n6477")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 1
+ProcessMode = 0
+TweenTimeScale = 1.0
+LoopAmount = 10
+Duration = 0.77
+Delay = 0.0
+IsRelative = false
+EaseType = 1
+TransitionType = 10
+
+[sub_resource type="Resource" id="Resource_l883g"]
+script = ExtResource("21_n6477")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 0
+ProcessMode = 0
+TweenTimeScale = 1.0
+LoopAmount = 0
+Duration = 3.0
+Delay = 0.0
+IsRelative = true
+EaseType = 1
+TransitionType = 5
 
 [node name="MapScope" type="Node"]
 script = ExtResource("1_aly4s")
@@ -357,22 +388,37 @@ position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D"]
+[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation")]
 position = Vector2(-10, 334)
 gravity_scale = 0.7
 script = ExtResource("15_0y104")
 inputEventAction = ExtResource("16_ewyrl")
-
-[node name="Sprite" type="Sprite2D" parent="MapNode/MapWorld2D/Duck"]
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("10_ls0su")
+jumpingAnimation = NodePath("Animations/ScaleDown")
+rotateAnimation = NodePath("Animations/Rotate")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck"]
 shape = SubResource("CircleShape2D_slndq")
 
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Duck"]
+
+[node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/Duck/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("20_dt3kt")
+TargetScale = Vector2(1.4, 0.4)
+tweeningTransform = NodePath("../../SpriteAnchor")
+TweenSettings = SubResource("Resource_xkt4k")
+
+[node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/Duck/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("22_toj4j")
+TargetRotationDegrees = 77.0
+tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
+TweenSettings = SubResource("Resource_l883g")
+
+[node name="SpriteAnchor" type="Node2D" parent="MapNode/MapWorld2D/Duck"]
+
+[node name="Sprite" type="Sprite2D" parent="MapNode/MapWorld2D/Duck/SpriteAnchor"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("10_ls0su")
+
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
-
-[node name="Sprite2D2" type="Sprite2D" parent="MapNode/MapWorld2D"]
-position = Vector2(236, 223)
