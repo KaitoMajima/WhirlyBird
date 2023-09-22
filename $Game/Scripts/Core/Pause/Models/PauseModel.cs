@@ -1,12 +1,33 @@
-﻿public class PauseModel : IPauseModel
+﻿using System;
+
+public class PauseModel : IPauseModel
 {
-    public void Initialize ()
+    public event Action OnPauseTriggered;
+    public bool IsPaused { get; private set; }
+
+    readonly ITimeProvider timeProvider;
+
+    public PauseModel (ITimeProvider timeProvider)
     {
-        
+        this.timeProvider = timeProvider;
     }
-    
-    public void Dispose ()
-    {
         
+    public void SetPause (bool pauseState)
+    {
+        IsPaused = pauseState;
+        SetTimeScale();
+        OnPauseTriggered?.Invoke();
+    }
+
+    public void PauseToggle ()
+    {
+        IsPaused = !IsPaused;
+        SetTimeScale();
+        OnPauseTriggered?.Invoke();
+    }
+
+    void SetTimeScale ()
+    {
+        timeProvider.TimeScale = IsPaused ? 0 : 1;
     }
 }

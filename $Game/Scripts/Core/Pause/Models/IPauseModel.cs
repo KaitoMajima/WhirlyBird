@@ -1,6 +1,10 @@
 ﻿using System;
 
-public interface IPauseModel : IDisposable
+public interface IPauseModel
 {
-    void Initialize ();
+    event Action OnPauseTriggered;
+    bool IsPaused { get; }
+
+    void SetPause (bool pauseState);
+    void PauseToggle ();
 }

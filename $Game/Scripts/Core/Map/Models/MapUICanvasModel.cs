@@ -9,11 +9,11 @@
     
     public void Initialize ()
     {
-        PauseModel.Initialize();
+        
     }
     
     public void Dispose ()
     {
-        PauseModel.Dispose();
+        
     }
 }

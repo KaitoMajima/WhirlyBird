@@ -1,7 +1,12 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public partial class PauseMenuCenterButtons : Node
 {
+    public event Action OnResumeButtonPressed;
+    public event Action OnRetryButtonPressed;
+    public event Action OnMainMenuButtonPressed;
+    
     #region Node Paths
     [Export]
     NodePath ResumeButtonPath { get; set; }
@@ -14,16 +19,12 @@ public partial class PauseMenuCenterButtons : Node
     
     [Export(PropertyHint.File, "*.tscn")]
     string MainMenuScenePath { get; set; }
-    
-    [Export]
-    NodePath SceneToUnloadPath { get; set; }
     #endregion
 
     #region Nodes
     Button resumeButton;
     Button retryButton;
     Button mainMenuButton;
-    Node sceneToUnload;
     #endregion
 
     public void Initialize ()
@@ -31,7 +32,6 @@ public partial class PauseMenuCenterButtons : Node
         resumeButton = GetNode<Button>(ResumeButtonPath);
         retryButton = GetNode<Button>(RetryButtonPath);
         mainMenuButton = GetNode<Button>(MainMenuButtonPath);
-        sceneToUnload = GetNode<Node>(SceneToUnloadPath);
         AddButtonListeners();
     }
 
@@ -49,20 +49,14 @@ public partial class PauseMenuCenterButtons : Node
         mainMenuButton.Pressed -= HandleMainMenuButtonPressed;
     }
 
-    void HandleResumeButtonPressed ()
-    {
-        //unpause
-    }
-    
-    void HandleRetryButtonPressed ()
-    {
-        LoadingScope.Instance.Load(sceneToUnload.SceneFilePath, sceneToUnload);
-    }
-    
-    void HandleMainMenuButtonPressed ()
-    {
-        LoadingScope.Instance.Load(MainMenuScenePath, sceneToUnload);
-    }
+    void HandleResumeButtonPressed () 
+        => OnResumeButtonPressed!();
+
+    void HandleRetryButtonPressed () 
+        => OnRetryButtonPressed!();
+
+    void HandleMainMenuButtonPressed () 
+        => OnMainMenuButtonPressed!();
 
     public new void Dispose ()
     {

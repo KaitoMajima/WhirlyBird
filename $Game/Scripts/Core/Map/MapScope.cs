@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class MapScope : SingletonNode<MapScope>
+public partial class MapScope : Node
 {
     #region Node Paths
     [Export] NodePath mapNodePath;
@@ -45,7 +45,10 @@ public partial class MapScope : SingletonNode<MapScope>
 
     void CreateModels ()
     {
-        MapModel = MapFactory.CreateMapModel(MapSettingsResource);
+        MapModel = MapFactory.CreateMapModel(
+            GameScope.TimeProvider, 
+            MapSettingsResource
+        );
     }
     
     void CreateNodes ()

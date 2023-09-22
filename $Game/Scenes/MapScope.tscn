@@ -67,6 +67,7 @@ script = ExtResource("2_0em68")
 [node name="MapUICanvas" type="CanvasLayer" parent="MapNode"]
 script = ExtResource("3_ddteq")
 PauseNodePath = NodePath("PauseNode")
+PauseButtonPath = NodePath("HUD/PauseButton")
 
 [node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
 layout_mode = 3
@@ -90,7 +91,7 @@ label_settings = SubResource("LabelSettings_fylxt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="MapNode/MapUICanvas/HUD"]
+[node name="PauseButton" type="Button" parent="MapNode/MapUICanvas/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -101,7 +102,7 @@ offset_right = -28.0
 offset_bottom = 85.0
 grow_horizontal = 0
 
-[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/HUD/Button"]
+[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/HUD/PauseButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -114,9 +115,10 @@ offset_right = -3.5
 offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="Panel2" type="Panel" parent="MapNode/MapUICanvas/HUD/Button"]
+[node name="Panel2" type="Panel" parent="MapNode/MapUICanvas/HUD/PauseButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -129,6 +131,7 @@ offset_right = 12.5
 offset_bottom = 18.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
 [node name="PauseNode" type="Control" parent="MapNode/MapUICanvas"]
@@ -140,6 +143,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_0ps5p")
 CenterButtonsPath = NodePath("CenterButtons")
+SceneToUnloadPath = NodePath("../../..")
+MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode"]
 layout_mode = 1
@@ -185,7 +190,6 @@ ResumeButtonPath = NodePath("Resume")
 RetryButtonPath = NodePath("Retry")
 MainMenuButtonPath = NodePath("MainMenu")
 MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
-SceneToUnloadPath = NodePath("../../../..")
 
 [node name="Resume" type="Button" parent="MapNode/MapUICanvas/PauseNode/CenterButtons"]
 layout_mode = 2

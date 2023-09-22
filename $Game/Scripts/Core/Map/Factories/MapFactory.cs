@@ -2,9 +2,12 @@
 
 public static class MapFactory
 {
-    public static IMapModel CreateMapModel (MapSettingsResource mapSettingsResource)
+    public static IMapModel CreateMapModel (
+        ITimeProvider timeProvider, 
+        MapSettingsResource mapSettingsResource
+    )
     {
-        IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel();
+        IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider);
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(mapSettingsResource);
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel);
@@ -34,9 +37,9 @@ public static class MapFactory
         return mapNode;
     }
 
-    static IMapUICanvasModel CreateMapUICanvasModel ()
+    static IMapUICanvasModel CreateMapUICanvasModel (ITimeProvider timeProvider)
     {
-        IPauseModel pauseModel = new PauseModel();
+        IPauseModel pauseModel = new PauseModel(timeProvider);
         return new MapUICanvasModel(pauseModel);
     }
 

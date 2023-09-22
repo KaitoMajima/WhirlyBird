@@ -4,6 +4,10 @@
     ConfigResource ConfigResource => GameNode.ConfigResource;
     #endregion
 
+    #region Providers
+    public ITimeProvider TimeProvider { get; private set; }
+    #endregion
+    
     #region Models
     public IGameSaveData GameSaveData { get; private set; }
     public IMainGameSavingSystem GameSavingSystem { get; private set; }
@@ -16,10 +20,16 @@
     public override void _Ready ()
     {
         base._Ready();
+        CreateProviders();
         CreateNodes();
         CreateSave();
     }
-    
+
+    void CreateProviders ()
+    {
+        TimeProvider = new TimeProvider();
+    }
+
     void CreateNodes ()
     {
         GameNode = GameFactory.CreateGameNode(this);
