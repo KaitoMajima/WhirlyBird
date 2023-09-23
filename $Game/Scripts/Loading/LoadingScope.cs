@@ -1,7 +1,9 @@
 ﻿using Godot;
 
-public partial class LoadingScope : SingletonNode<LoadingScope>
+public partial class LoadingScope : SingletonNode
 {
+    public static LoadingScope Instance { get; private set; }
+    
     #region Resources
     LoadingConfigResource LoadingConfigResource => LoadingNode.LoadingConfigResource;
     #endregion
@@ -21,6 +23,7 @@ public partial class LoadingScope : SingletonNode<LoadingScope>
     public override void _Ready ()
     {
         base._Ready();
+        Instance = RegisterSingletonInstance(this);
         CreateModels();
         CreateNodes();
         InitializeModels();

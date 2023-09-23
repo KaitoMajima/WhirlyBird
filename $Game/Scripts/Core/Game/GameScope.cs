@@ -1,9 +1,7 @@
-﻿public partial class GameScope : SingletonNode<GameScope>
+﻿public partial class GameScope : SingletonNode
 {
-    #region Resources
-    ConfigResource ConfigResource => GameNode.ConfigResource;
-    #endregion
-
+    public static GameScope Instance { get; private set; }
+    
     #region Providers
     public ITimeProvider TimeProvider { get; private set; }
     #endregion
@@ -17,9 +15,14 @@
     public IGameNode GameNode { get; private set; }
     #endregion
     
+    #region Resources
+    ConfigResource ConfigResource => GameNode.ConfigResource;
+    #endregion
+    
     public override void _Ready ()
     {
         base._Ready();
+        Instance = RegisterSingletonInstance(this);
         CreateProviders();
         CreateNodes();
         CreateSave();

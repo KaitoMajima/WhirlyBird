@@ -1,14 +1,20 @@
 ﻿using Godot;
+using Godot.Collections;
 
-public partial class SingletonNode<T> : Node where T : SingletonNode<T>
+public partial class SingletonNode : Node
 {
-    public static T Instance { get; private set; }
-    
-    public override void _Ready ()
+    static readonly Dictionary<string, Node> instances = new();
+
+    protected T RegisterSingletonInstance<T>(T instance) where T : Node
     {
-        if (Instance != null)
-            QueueFree();
+        string typeName = typeof(T).FullName;
+
+        if (instances.ContainsKey(typeName!))
+            instance.QueueFree();
         else
-            Instance = (T)this;
+            instances[typeName] = instance;
+
+        T registeredInstance = (T)instances[typeName];
+        return registeredInstance;
     }
 }
