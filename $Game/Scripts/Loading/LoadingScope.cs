@@ -9,7 +9,7 @@ public partial class LoadingScope : SingletonNode
     #endregion
     
     #region Nodes
-    public ILoadingNode LoadingNode { get; private set; }
+    public LoadingNode LoadingNode { get; private set; }
     #endregion
 
     #region Models
@@ -24,8 +24,8 @@ public partial class LoadingScope : SingletonNode
     {
         base._Ready();
         Instance = RegisterSingletonInstance(this);
-        CreateModels();
-        CreateNodes();
+        SetupModels();
+        SetupNodes();
         InitializeModels();
         InitializeNodes();
     }
@@ -41,12 +41,12 @@ public partial class LoadingScope : SingletonNode
         LoadingModel.StartLoad(scenePath, unloadNode);
     }
 
-    void CreateModels ()
+    void SetupModels ()
     {
         LoadingModel = LoadingFactory.CreateLoadingModel();
     }
     
-    void CreateNodes ()
+    void SetupNodes ()
     {
         LoadingNode = LoadingFactory.CreateLoadingNode(this, LoadingModel);
     }

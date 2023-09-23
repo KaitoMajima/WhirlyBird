@@ -1,15 +1,14 @@
 ﻿using Godot;
 
-public partial class PauseNode : Control, IPauseNode
+public partial class PauseNode : Control
 {
     [Export]
     public PauseMenuCenterButtons CenterButtons { get; set; }
-    
-    [Export] 
-    Node SceneToUnload { get; set; }
-    
+
     [Export(PropertyHint.File, "*.tscn")]
     string MainMenuScenePath { get; set; }
+    
+    [Export] Node sceneToUnload;
     
     IPauseModel pauseModel;
 
@@ -63,13 +62,13 @@ public partial class PauseNode : Control, IPauseNode
     void HandleRetryButtonPressed ()
     {
         pauseModel.SetPause(false);
-        LoadingScope.Instance.Load(SceneToUnload.SceneFilePath, SceneToUnload);
+        LoadingScope.Instance.Load(sceneToUnload.SceneFilePath, sceneToUnload);
     }
     
     void HandleMainMenuButtonPressed ()
     {
         pauseModel.SetPause(false);
-        LoadingScope.Instance.Load(MainMenuScenePath, SceneToUnload);
+        LoadingScope.Instance.Load(MainMenuScenePath, sceneToUnload);
     }
 
     public new void Dispose ()

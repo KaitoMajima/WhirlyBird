@@ -1,9 +1,8 @@
 ﻿using Godot;
 
-public partial class MapInputDetectionNode : Node, IMapInputDetectionNode
+public partial class MapInputDetectionNode : Node
 {
-    [Export] 
-    InputEventAction mainActionInputEvent;
+    [Export] InputEventAction mainActionInputEvent;
 
     IMapInputDetectionModel inputDetectionModel;
     

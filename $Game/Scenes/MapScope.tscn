@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Pause/Nodes/PauseMenuCenterButtons.cs" id="6_5dx4p"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
-[ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerController.cs" id="15_0y104"]
+[ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerControllerNode.cs" id="18_l1c2b"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarManagerNode.cs" id="22_dpy58"]
@@ -56,6 +56,9 @@ bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
 blend_mode = 1
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
+radius = 44.0114
+
 [sub_resource type="Resource" id="Resource_xkt4k"]
 script = ExtResource("21_n6477")
 InitializeMethod = 0
@@ -84,27 +87,28 @@ IsRelative = true
 EaseType = 1
 TransitionType = 5
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
-radius = 44.0114
-
 [sub_resource type="InputEventAction" id="InputEventAction_4x0ob"]
 action = &"main_action"
 
-[node name="MapScope" type="Node"]
+[node name="MapScope" type="Node" node_paths=PackedStringArray("MapNode")]
 script = ExtResource("1_aly4s")
 mapNodePath = NodePath("MapNode")
 mapUICanvasNodePath = NodePath("MapNode/MapUICanvas")
 mapWorld2DNodePath = NodePath("MapNode/MapWorld2D")
 mapInputDetectionNodePath = NodePath("MapNode/InputDetector")
+MapNode = NodePath("MapNode")
 MapSettingsResource = ExtResource("2_87dp6")
 
-[node name="MapNode" type="Node" parent="."]
+[node name="MapNode" type="Node" parent="." node_paths=PackedStringArray("MapUICanvasNode", "MapWorld2DNode", "MapInputDetectionNode")]
 script = ExtResource("2_0em68")
+MapUICanvasNode = NodePath("MapUICanvas")
+MapWorld2DNode = NodePath("MapWorld2D")
+MapInputDetectionNode = NodePath("InputDetector")
 
-[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseButton", "PauseNodeInstance")]
+[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "pauseButton")]
 script = ExtResource("3_ddteq")
-PauseButton = NodePath("HUD/PauseButton")
-PauseNodeInstance = NodePath("PauseNode")
+PauseNode = NodePath("PauseNode")
+pauseButton = NodePath("HUD/PauseButton")
 
 [node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
 layout_mode = 3
@@ -171,7 +175,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "SceneToUnload")]
+[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "sceneToUnload")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -180,8 +184,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_0ps5p")
 CenterButtons = NodePath("CenterButtons")
-SceneToUnload = NodePath("../../..")
 MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+sceneToUnload = NodePath("../../..")
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode"]
 layout_mode = 1
@@ -261,10 +265,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerController", "PillarManagerNodeInstance")]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerControllerNode", "PillarManagerNode")]
 script = ExtResource("5_4vban")
-PlayerController = NodePath("Duck")
-PillarManagerNodeInstance = NodePath("PillarManagerNode")
+PlayerControllerNode = NodePath("PlayerDuck")
+PillarManagerNode = NodePath("PillarManagerNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 
@@ -395,42 +399,6 @@ position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "collisionDetector")]
-position = Vector2(-10, 334)
-gravity_scale = 0.7
-script = ExtResource("15_0y104")
-jumpingAnimation = NodePath("Animations/ScaleDown")
-rotateAnimation = NodePath("Animations/Rotate")
-collisionDetector = NodePath("CollisionDetector")
-
-[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Duck"]
-
-[node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/Duck/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("20_dt3kt")
-TargetScale = Vector2(1.4, 0.4)
-tweeningTransform = NodePath("../../SpriteAnchor")
-TweenSettings = SubResource("Resource_xkt4k")
-
-[node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/Duck/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("22_toj4j")
-TargetRotationDegrees = 77.0
-tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
-TweenSettings = SubResource("Resource_l883g")
-
-[node name="SpriteAnchor" type="Node2D" parent="MapNode/MapWorld2D/Duck"]
-
-[node name="Sprite" type="Sprite2D" parent="MapNode/MapWorld2D/Duck/SpriteAnchor"]
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("10_ls0su")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck"]
-shape = SubResource("CircleShape2D_slndq")
-
-[node name="CollisionDetector" type="Area2D" parent="MapNode/MapWorld2D/Duck"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck/CollisionDetector"]
-shape = SubResource("CircleShape2D_slndq")
-
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
@@ -447,6 +415,49 @@ PillarNodePack = ExtResource("23_by3dm")
 [node name="PillarSpawnPoint" type="Node2D" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
 [node name="PillarSpawnTimer" type="Timer" parent="MapNode/MapWorld2D/PillarManagerNode"]
+
+[node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform")]
+position = Vector2(-10, 334)
+script = ExtResource("18_l1c2b")
+jumpingAnimation = NodePath("RigidBody/Contents/Animations/ScaleDown")
+rotateAnimation = NodePath("RigidBody/Contents/Animations/Rotate")
+rigidBody2D = NodePath("RigidBody")
+collisionDetector = NodePath("RigidBody/Contents/CollisionDetector")
+contentsTransform = NodePath("RigidBody/Contents")
+rigidBodyShapeTransform = NodePath("RigidBody/CollisionShape2D")
+
+[node name="RigidBody" type="RigidBody2D" parent="MapNode/MapWorld2D/PlayerDuck"]
+gravity_scale = 0.7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody"]
+shape = SubResource("CircleShape2D_slndq")
+
+[node name="Contents" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody"]
+
+[node name="SpriteAnchor" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
+
+[node name="Sprite" type="Sprite2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("10_ls0su")
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
+
+[node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("20_dt3kt")
+TargetScale = Vector2(1.4, 0.4)
+tweeningTransform = NodePath("../../SpriteAnchor")
+TweenSettings = SubResource("Resource_xkt4k")
+
+[node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("22_toj4j")
+TargetRotationDegrees = 77.0
+tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
+TweenSettings = SubResource("Resource_l883g")
+
+[node name="CollisionDetector" type="Area2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/CollisionDetector"]
+shape = SubResource("CircleShape2D_slndq")
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")

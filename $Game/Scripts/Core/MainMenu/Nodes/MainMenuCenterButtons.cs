@@ -2,31 +2,15 @@
 
 public partial class MainMenuCenterButtons : Node
 {
-    #region Node Paths
-    [Export]
-    NodePath PlayButtonPath { get; set; }
+    [Export(PropertyHint.File, "*.tscn")] 
+    string playButtonScenePath;
     
-    [Export]
-    NodePath ExitButtonPath { get; set; }
+    [Export] Button playButton;
+    [Export] Button exitButton;
+    [Export] Node sceneToUnload;
     
-    [Export(PropertyHint.File, "*.tscn")]
-    string PlayButtonScenePath { get; set; }
-    
-    [Export]
-    NodePath SceneToUnloadPath { get; set; }
-    #endregion
-
-    #region Nodes
-    Button playButton;
-    Button exitButton;
-    Node sceneToUnload;
-    #endregion
-
     public void Initialize ()
     {
-        playButton = GetNode<Button>(PlayButtonPath);
-        exitButton = GetNode<Button>(ExitButtonPath);
-        sceneToUnload = GetNode<Node>(SceneToUnloadPath);
         AddButtonListeners();
     }
 
@@ -44,7 +28,7 @@ public partial class MainMenuCenterButtons : Node
 
     void HandlePlayButtonPressed ()
     {
-        LoadingScope.Instance.Load(PlayButtonScenePath, sceneToUnload);
+        LoadingScope.Instance.Load(playButtonScenePath, sceneToUnload);
     }
 
     void HandleExitButtonPressed ()

@@ -6,7 +6,7 @@ public static class LoadingFactory
     public static ILoadingModel CreateLoadingModel () 
         => new LoadingModel();
 
-    public static ILoadingNode CreateLoadingNode (Node callerNode, ILoadingModel loadingModel)
+    public static LoadingNode CreateLoadingNode (Node callerNode, ILoadingModel loadingModel)
     {
         PackedScene loadingNodeScene = GD.Load<PackedScene>(LOADING_NODE_SCENE_PATH);
         LoadingNode loadingNode = loadingNodeScene.Instantiate<LoadingNode>();

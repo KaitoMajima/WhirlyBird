@@ -1,18 +1,17 @@
 ﻿using Godot;
 
-public partial class MainMenuNode : Node, IMainMenuNode
+public partial class MainMenuNode : Node
 {
-    [Export]
-    MainMenuCenterButtons MainMenuCenterButtons { get; set; }
+    [Export] MainMenuCenterButtons mainMenuCenterButtons;
 
     public void Initialize ()
     {
-        MainMenuCenterButtons.Initialize();
+        mainMenuCenterButtons.Initialize();
     }
 
     public new void Dispose ()
     {
-        MainMenuCenterButtons.Dispose();
+        mainMenuCenterButtons.Dispose();
         base.Dispose();
     }
 }

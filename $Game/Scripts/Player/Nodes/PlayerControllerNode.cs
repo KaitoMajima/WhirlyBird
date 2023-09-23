@@ -1,16 +1,14 @@
 ﻿using System;
 using Godot;
 
-public partial class PlayerController : RigidBody2D
+public partial class PlayerControllerNode : Node2D
 {
-    [Export] 
-    TweenManager jumpingAnimation;
-    
-    [Export] 
-    TweenManager rotateAnimation;
-
-    [Export] 
-    Area2D collisionDetector;
+    [Export] TweenManager jumpingAnimation;
+    [Export] TweenManager rotateAnimation;
+    [Export] RigidBody2D rigidBody2D;
+    [Export] Area2D collisionDetector;
+    [Export] Node2D contentsTransform;
+    [Export] Node2D rigidBodyShapeTransform;
 
     IPlayerModel playerModel;
     IMapInputDetectionModel inputDetectionModel;
@@ -26,15 +24,28 @@ public partial class PlayerController : RigidBody2D
 
     public void Initialize ()
     {
-        GravityScale = playerModel.GravityScale;
+        SetupPlayerSize();
+        SetupPlayerGravityScale();
         AddModelListeners();
         AddRigidBodyListeners();
+    }
+    
+    void SetupPlayerSize ()
+    {
+        Vector2 playerSize = new(playerModel.PlayerSize, playerModel.PlayerSize);
+        contentsTransform.Scale = playerSize;
+        rigidBodyShapeTransform.Scale = playerSize;
+    }
+    
+    void SetupPlayerGravityScale ()
+    {
+        rigidBody2D.GravityScale = playerModel.GravityScale;
     }
 
     void ApplyJump ()
     {
-        LinearVelocity = Vector2.Zero;
-        ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
+        rigidBody2D.LinearVelocity = Vector2.Zero;
+        rigidBody2D.ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
         jumpingAnimation.PlayTween();
         rotateAnimation.PlayTween();
     }
@@ -47,7 +58,7 @@ public partial class PlayerController : RigidBody2D
         switch (collideable.CollisionType)
         {
             case MapCollisionType.Score:
-                if (collideable.TotalCollisions > 0)
+                if (collideable.TotalCollisions > 1)
                     break;
                 playerModel.Score();
                 break;

@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class LoadingNode : Node, ILoadingNode
+public partial class LoadingNode : Node
 {
     [Export]
     public LoadingConfigResource LoadingConfigResource { get; private set; }

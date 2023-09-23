@@ -2,43 +2,35 @@
 {
     public static GameScope Instance { get; private set; }
     
-    #region Providers
     public ITimeProvider TimeProvider { get; private set; }
-    #endregion
     
-    #region Models
     public IGameSaveData GameSaveData { get; private set; }
     public IMainGameSavingSystem GameSavingSystem { get; private set; }
-    #endregion
     
-    #region Nodes
-    public IGameNode GameNode { get; private set; }
-    #endregion
+    public GameNode GameNode { get; private set; }
     
-    #region Resources
     ConfigResource ConfigResource => GameNode.ConfigResource;
-    #endregion
     
     public override void _Ready ()
     {
         base._Ready();
         Instance = RegisterSingletonInstance(this);
-        CreateProviders();
-        CreateNodes();
-        CreateSave();
+        SetupProviders();
+        SetupNodes();
+        SetupSave();
     }
 
-    void CreateProviders ()
+    void SetupProviders ()
     {
         TimeProvider = new TimeProvider();
     }
 
-    void CreateNodes ()
+    void SetupNodes ()
     {
         GameNode = GameFactory.CreateGameNode(this);
     }
     
-    void CreateSave ()
+    void SetupSave ()
     {
         CryptographyResource cryptographyResource = ConfigResource.CryptographyResource;
 

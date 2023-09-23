@@ -2,40 +2,31 @@
 
 public partial class MapScope : Node
 {
-    #region Node Paths
     [Export] NodePath mapNodePath;
     [Export] NodePath mapUICanvasNodePath;
     [Export] NodePath mapWorld2DNodePath;
     [Export] NodePath mapInputDetectionNodePath;
-    #endregion
-
-    #region Models
+    
     public IMapModel MapModel { get; private set; }
     public IMapUICanvasModel MapUICanvasModel => MapModel.MapUICanvasModel;
     public IMapWorld2DModel MapWorld2DModel => MapModel.MapWorld2DModel;
     public IMapInputDetectionModel MapInputDetectionModel => MapModel.MapInputDetectionModel;
-    #endregion
     
-    #region Nodes
-    public IMapNode MapNode { get; private set; }
-    public IMapUICanvasNode MapUICanvasNode => MapNode.MapUICanvasNode;
-    public IMapWorld2DNode MapWorld2DNode => MapNode.MapWorld2DNode;
-    public IMapInputDetectionNode MapInputDetectionNode => MapNode.MapInputDetectionNode;
-    #endregion
+    [Export]
+    public MapNode MapNode { get; private set; }
+    public MapUICanvasNode MapUICanvasNode => MapNode.MapUICanvasNode;
+    public MapWorld2DNode MapWorld2DNode => MapNode.MapWorld2DNode;
+    public MapInputDetectionNode MapInputDetectionNode => MapNode.MapInputDetectionNode;
     
-    #region Resources
     [Export]
     public MapSettingsResource MapSettingsResource { get; private set; }
-    #endregion
     
-    #region Scopes
     GameScope GameScope => GameScope.Instance;
-    #endregion
     
     public override void _Ready ()
     {
-        CreateModels();
-        CreateNodes();
+        SetupModels();
+        SetupNodes();
         InitializeModels();
         InitializeNodes();
     }
@@ -46,7 +37,7 @@ public partial class MapScope : Node
         DisposeNodes();
     }
 
-    void CreateModels ()
+    void SetupModels ()
     {
         MapModel = MapFactory.CreateMapModel(
             GameScope.TimeProvider, 
@@ -54,17 +45,13 @@ public partial class MapScope : Node
         );
     }
     
-    void CreateNodes ()
+    void SetupNodes ()
     {
-        MapNode = MapFactory.CreateMapNode(
-            this, 
-            mapNodePath, 
-            mapUICanvasNodePath, 
-            mapWorld2DNodePath,
-            mapInputDetectionNodePath,
-            MapUICanvasModel,
-            MapWorld2DModel,
-            MapInputDetectionModel
+        MapNode.Setup(
+            MapUICanvasModel.PauseModel, 
+            MapWorld2DModel.PlayerModel, 
+            MapInputDetectionModel, 
+            MapWorld2DModel.PillarManagerModel
         );
     }
     

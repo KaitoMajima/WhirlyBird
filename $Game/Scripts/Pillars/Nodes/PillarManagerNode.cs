@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class PillarManagerNode : Node, IPillarManagerNode
+public partial class PillarManagerNode : Node
 {
     [Export]
     Vector2 PillarSpawnPosition { get; set; }
@@ -14,7 +14,7 @@ public partial class PillarManagerNode : Node, IPillarManagerNode
     [Export] 
     PackedScene PillarNodePack;
 
-    readonly DualStatePool<IPillarNode> pillarPool = new();
+    readonly DualStatePool<PillarNode> pillarPool = new();
 
     IPillarManagerModel model;
     

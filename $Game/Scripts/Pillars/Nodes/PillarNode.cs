@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class PillarNode : Node2D, IPillarNode
+public partial class PillarNode : Node2D
 {
     [Export] 
     PillarDamageHitboxNode UpperPillarDamageHitbox { get; set; }

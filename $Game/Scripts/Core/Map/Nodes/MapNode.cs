@@ -1,20 +1,30 @@
 ﻿using Godot;
 
-public partial class MapNode : Node, IMapNode
+public partial class MapNode : Node
 {
-    public IMapUICanvasNode MapUICanvasNode { get; private set; }
-    public IMapWorld2DNode MapWorld2DNode { get; private set; }
-    public IMapInputDetectionNode MapInputDetectionNode { get; private set; }
+    [Export]
+    public MapUICanvasNode MapUICanvasNode { get; private set; }
+    
+    [Export]
+    public MapWorld2DNode MapWorld2DNode { get; private set; }
+    
+    [Export]
+    public MapInputDetectionNode MapInputDetectionNode { get; private set; }
     
     public void Setup (
-        IMapUICanvasNode mapUICanvasNode, 
-        IMapWorld2DNode mapWorld2DNode, 
-        IMapInputDetectionNode mapInputDetectionNode
+        IPauseModel pauseModel,
+        IPlayerModel playerModel,
+        IMapInputDetectionModel mapInputDetectionModel,
+        IPillarManagerModel pillarManagerModel
     )
     {
-        MapUICanvasNode = mapUICanvasNode;
-        MapWorld2DNode = mapWorld2DNode;
-        MapInputDetectionNode = mapInputDetectionNode;
+        MapUICanvasNode.Setup(pauseModel);
+        MapWorld2DNode.Setup(
+            playerModel,
+            mapInputDetectionModel, 
+            pillarManagerModel
+        );
+        MapInputDetectionNode.Setup(mapInputDetectionModel);
     }
     
     public void Initialize ()

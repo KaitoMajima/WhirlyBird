@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarScoreHitboxNode.cs" id="4_oyjvf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1p6qa"]
-size = Vector2(70, 196)
+size = Vector2(70, 207)
 
 [node name="Pillar" type="Node2D" node_paths=PackedStringArray("UpperPillarDamageHitbox", "LowerPillarDamageHitbox", "PillarScoreHitbox")]
 script = ExtResource("1_2rnhs")
@@ -15,7 +15,8 @@ LowerPillarDamageHitbox = NodePath("LowerPillar/LowerBody2D")
 PillarScoreHitbox = NodePath("ScoreTrigger")
 
 [node name="UpperPillar" type="Node2D" parent="."]
-position = Vector2(0, -200)
+position = Vector2(0, -250)
+scale = Vector2(1.5, 1.5)
 
 [node name="UpperBody2D" type="AnimatableBody2D" parent="UpperPillar"]
 sync_to_physics = false
@@ -33,7 +34,8 @@ rotation = -3.14159
 polygon = PackedVector2Array(73, -34, 80, -44, 34, -100, -33, -101, -76, -48, -71, -39, -72, 109, 72, 109)
 
 [node name="LowerPillar" type="Node2D" parent="."]
-position = Vector2(0, 200)
+position = Vector2(0, 250)
+scale = Vector2(1.5, 1.5)
 
 [node name="LowerBody2D" type="AnimatableBody2D" parent="LowerPillar"]
 sync_to_physics = false
@@ -54,5 +56,5 @@ polygon = PackedVector2Array(73, -34, 80, -44, 34, -100, -33, -101, -76, -48, -7
 script = ExtResource("4_oyjvf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreTrigger"]
-position = Vector2(0, -1)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_1p6qa")

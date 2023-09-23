@@ -1,14 +1,12 @@
 ﻿using Godot;
 
-public partial class MapWorld2DNode : Node, IMapWorld2DNode
+public partial class MapWorld2DNode : Node
 {
     [Export]
-    public PlayerController PlayerController { get; private set; }
+    public PlayerControllerNode PlayerControllerNode { get; private set; }
     
     [Export]
-    PillarManagerNode PillarManagerNodeInstance { get; set; }
-    
-    public IPillarManagerNode PillarManagerNode { get; private set; }
+    public PillarManagerNode PillarManagerNode { get; private set; }
 
     IPlayerModel playerModel;
     IMapInputDetectionModel mapInputDetectionModel;
@@ -27,10 +25,9 @@ public partial class MapWorld2DNode : Node, IMapWorld2DNode
     
     public void Initialize ()
     {
-        PlayerController.Setup(playerModel, mapInputDetectionModel);
-        PlayerController.Initialize();
+        PlayerControllerNode.Setup(playerModel, mapInputDetectionModel);
+        PlayerControllerNode.Initialize();
         
-        PillarManagerNode = PillarManagerNodeInstance;
         PillarManagerNode.Setup(pillarManagerModel);
         PillarManagerNode.Initialize();
     }

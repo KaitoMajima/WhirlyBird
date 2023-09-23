@@ -31,13 +31,13 @@ bg_color = Color(0.121569, 0.321569, 0.34902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sbi1"]
 bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 
-[node name="MainMenuScope" type="Node" node_paths=PackedStringArray("mainMenuNode")]
+[node name="MainMenuScope" type="Node" node_paths=PackedStringArray("MainMenuNode")]
 script = ExtResource("1_j84gn")
-mainMenuNode = NodePath("MainMenuNode")
+MainMenuNode = NodePath("MainMenuNode")
 
-[node name="MainMenuNode" type="Node" parent="." node_paths=PackedStringArray("MainMenuCenterButtons")]
+[node name="MainMenuNode" type="Node" parent="." node_paths=PackedStringArray("mainMenuCenterButtons")]
 script = ExtResource("2_l1f2b")
-MainMenuCenterButtons = NodePath("MainMenuUICanvas/Center/CenterButtons")
+mainMenuCenterButtons = NodePath("MainMenuUICanvas/Center/CenterButtons")
 
 [node name="MainMenuUICanvas" type="CanvasLayer" parent="MainMenuNode"]
 
@@ -89,7 +89,7 @@ grow_vertical = 2
 text = "TAP N'FLAP"
 label_settings = SubResource("LabelSettings_ex2v7")
 
-[node name="CenterButtons" type="VBoxContainer" parent="MainMenuNode/MainMenuUICanvas/Center"]
+[node name="CenterButtons" type="VBoxContainer" parent="MainMenuNode/MainMenuUICanvas/Center" node_paths=PackedStringArray("playButton", "exitButton", "sceneToUnload")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -104,10 +104,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
 script = ExtResource("5_lfsk0")
-PlayButtonPath = NodePath("Play")
-ExitButtonPath = NodePath("Exit")
-PlayButtonScenePath = "res://$Game/Scenes/MapScope.tscn"
-SceneToUnloadPath = NodePath("../../../..")
+playButtonScenePath = "res://$Game/Scenes/MapScope.tscn"
+playButton = NodePath("Play")
+exitButton = NodePath("Exit")
+sceneToUnload = NodePath("../../../..")
 
 [node name="Play" type="Button" parent="MainMenuNode/MainMenuUICanvas/Center/CenterButtons"]
 layout_mode = 2

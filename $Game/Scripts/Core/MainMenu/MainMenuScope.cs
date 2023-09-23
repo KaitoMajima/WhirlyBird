@@ -2,15 +2,10 @@
 
 public partial class MainMenuScope : Node
 {
-    #region Nodes
-    [Export] MainMenuNode mainMenuNode;
-
-    public IMainMenuNode MainMenuNode => mainMenuNode;
-    #endregion
-
-    #region Scopes
+    [Export]
+    public MainMenuNode MainMenuNode { get; private set; }
+    
     GameScope GameScope => GameScope.Instance;
-    #endregion
     
     public override void _Ready ()
     {

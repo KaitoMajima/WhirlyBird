@@ -1,14 +1,11 @@
 ﻿using Godot;
 
-public partial class MapUICanvasNode : Node, IMapUICanvasNode
+public partial class MapUICanvasNode : Node
 {
     [Export]
-    Button PauseButton { get; set; }
+    public PauseNode PauseNode { get; private set; }
     
-    [Export]
-    PauseNode PauseNodeInstance { get; set; }
-    
-    public IPauseNode PauseNode { get; private set; }
+    [Export] Button pauseButton;
 
     IPauseModel pauseModel;
     
@@ -19,7 +16,6 @@ public partial class MapUICanvasNode : Node, IMapUICanvasNode
     
     public void Initialize ()
     {
-        PauseNode = PauseNodeInstance;
         PauseNode.Setup(pauseModel);
         PauseNode.Initialize();
         
@@ -28,12 +24,12 @@ public partial class MapUICanvasNode : Node, IMapUICanvasNode
 
     void AddButtonListeners ()
     {
-        PauseButton.Pressed += HandlePauseButtonPressed;
+        pauseButton.Pressed += HandlePauseButtonPressed;
     }
     
     void RemoveButtonListeners ()
     {
-        PauseButton.Pressed -= HandlePauseButtonPressed;
+        pauseButton.Pressed -= HandlePauseButtonPressed;
     }
 
     void HandlePauseButtonPressed ()

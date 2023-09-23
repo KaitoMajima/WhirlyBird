@@ -3,7 +3,7 @@ using static GlobalSettings.Paths.Game;
 
 public static class GameFactory
 {
-    public static IGameNode CreateGameNode (Node callerNode)
+    public static GameNode CreateGameNode (Node callerNode)
     {
         PackedScene gameNodeScene = GD.Load<PackedScene>(GAME_NODE_SCENE_PATH);
         GameNode gameNode = gameNodeScene.Instantiate<GameNode>();
