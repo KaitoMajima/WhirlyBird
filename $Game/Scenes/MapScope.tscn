@@ -99,10 +99,10 @@ MapSettingsResource = ExtResource("2_87dp6")
 [node name="MapNode" type="Node" parent="."]
 script = ExtResource("2_0em68")
 
-[node name="MapUICanvas" type="CanvasLayer" parent="MapNode"]
+[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseButton", "PauseNodeInstance")]
 script = ExtResource("3_ddteq")
-PauseNodePath = NodePath("PauseNode")
-PauseButtonPath = NodePath("HUD/PauseButton")
+PauseButton = NodePath("HUD/PauseButton")
+PauseNodeInstance = NodePath("PauseNode")
 
 [node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
 layout_mode = 3
@@ -259,9 +259,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode"]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerController")]
 script = ExtResource("5_4vban")
-PlayerControllerPath = NodePath("Duck")
+PlayerController = NodePath("Duck")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 

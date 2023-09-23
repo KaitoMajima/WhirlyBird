@@ -35,9 +35,9 @@ bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 script = ExtResource("1_j84gn")
 mainMenuNode = NodePath("MainMenuNode")
 
-[node name="MainMenuNode" type="Node" parent="."]
+[node name="MainMenuNode" type="Node" parent="." node_paths=PackedStringArray("MainMenuCenterButtons")]
 script = ExtResource("2_l1f2b")
-MainMenuCenterButtonsPath = NodePath("MainMenuUICanvas/Center/CenterButtons")
+MainMenuCenterButtons = NodePath("MainMenuUICanvas/Center/CenterButtons")
 
 [node name="MainMenuUICanvas" type="CanvasLayer" parent="MainMenuNode"]
 
