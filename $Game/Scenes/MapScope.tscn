@@ -169,7 +169,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas"]
+[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "SceneToUnload")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,8 +177,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_0ps5p")
-CenterButtonsPath = NodePath("CenterButtons")
-SceneToUnloadPath = NodePath("../../..")
+CenterButtons = NodePath("CenterButtons")
+SceneToUnload = NodePath("../../..")
 MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode"]
@@ -425,6 +425,8 @@ texture = ExtResource("10_ls0su")
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
+
+[node name="Pillars" type="Node2D" parent="MapNode/MapWorld2D"]
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")

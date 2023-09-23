@@ -2,24 +2,17 @@
 
 public partial class MainMenuNode : Node, IMainMenuNode
 {
-    #region Node Paths
     [Export]
-    NodePath MainMenuCenterButtonsPath { get; set; }
-    #endregion
-
-    #region Nodes
-    MainMenuCenterButtons mainMenuCenterButtons;
-    #endregion
+    MainMenuCenterButtons MainMenuCenterButtons { get; set; }
 
     public void Initialize ()
     {
-        mainMenuCenterButtons = GetNode<MainMenuCenterButtons>(MainMenuCenterButtonsPath);
-        mainMenuCenterButtons.Initialize();
+        MainMenuCenterButtons.Initialize();
     }
 
     public new void Dispose ()
     {
-        mainMenuCenterButtons.Dispose();
+        MainMenuCenterButtons.Dispose();
         base.Dispose();
     }
 }

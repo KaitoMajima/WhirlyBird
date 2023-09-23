@@ -31,9 +31,9 @@ bg_color = Color(0.121569, 0.321569, 0.34902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sbi1"]
 bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 
-[node name="MainMenuScope" type="Node"]
+[node name="MainMenuScope" type="Node" node_paths=PackedStringArray("mainMenuNode")]
 script = ExtResource("1_j84gn")
-mainMenuNodePath = NodePath("MainMenuNode")
+mainMenuNode = NodePath("MainMenuNode")
 
 [node name="MainMenuNode" type="Node" parent="."]
 script = ExtResource("2_l1f2b")

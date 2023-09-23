@@ -2,16 +2,15 @@
 
 public partial class MapUICanvasNode : Node, IMapUICanvasNode
 {
-    [Export] 
-    NodePath PauseNodePath { get; set; }
+    [Export]
+    Button PauseButton { get; set; }
     
     [Export]
-    NodePath PauseButtonPath { get; set; }
-
+    PauseNode PauseNodeInstance { get; set; }
+    
     public IPauseNode PauseNode { get; private set; }
 
     IPauseModel pauseModel;
-    Button pauseButton;
     
     public void Setup (IPauseModel pauseModel)
     {
@@ -20,23 +19,21 @@ public partial class MapUICanvasNode : Node, IMapUICanvasNode
     
     public void Initialize ()
     {
-        PauseNode = GetNode<IPauseNode>(PauseNodePath);
+        PauseNode = PauseNodeInstance;
         PauseNode.Setup(pauseModel);
         PauseNode.Initialize();
-
-        pauseButton = GetNode<Button>(PauseButtonPath);
-
+        
         AddButtonListeners();
     }
 
     void AddButtonListeners ()
     {
-        pauseButton.Pressed += HandlePauseButtonPressed;
+        PauseButton.Pressed += HandlePauseButtonPressed;
     }
     
     void RemoveButtonListeners ()
     {
-        pauseButton.Pressed -= HandlePauseButtonPressed;
+        PauseButton.Pressed -= HandlePauseButtonPressed;
     }
 
     void HandlePauseButtonPressed ()

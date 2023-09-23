@@ -2,12 +2,10 @@
 
 public partial class MainMenuScope : Node
 {
-    #region NodePaths
-    [Export] NodePath mainMenuNodePath;
-    #endregion
-
     #region Nodes
-    public IMainMenuNode MainMenuNode { get; private set; }
+    [Export] MainMenuNode mainMenuNode;
+
+    public IMainMenuNode MainMenuNode => mainMenuNode;
     #endregion
 
     #region Scopes
@@ -16,21 +14,12 @@ public partial class MainMenuScope : Node
     
     public override void _Ready ()
     {
-        CreateNodes();
         InitializeNodes();
     }
 
     public override void _ExitTree ()
     {
         DisposeNodes();
-    }
-
-    void CreateNodes ()
-    {
-        MainMenuNode = MainMenuFactory.CreateMainMenuNode(
-            this,
-            mainMenuNodePath
-        );
     }
     
     void InitializeNodes ()

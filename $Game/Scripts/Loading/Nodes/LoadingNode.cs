@@ -6,10 +6,10 @@ public partial class LoadingNode : Node, ILoadingNode
     public LoadingConfigResource LoadingConfigResource { get; private set; }
     
     [Export]
-    NodePath AnimationPlayerPath { get; set; }
+    AnimationPlayer AnimationPlayer { get; set; }
     
     [Export]
-    NodePath ProgressBarPath { get; set; }
+    ProgressBar ProgressBar { get; set; }
 
     [Export] 
     StringName FadeInAnimation { get; set; }
@@ -19,9 +19,6 @@ public partial class LoadingNode : Node, ILoadingNode
 
     ILoadingModel model;
     
-    AnimationPlayer animationPlayer;
-    ProgressBar progressBar;
-
     public override void _Process (double delta)
     {
         if (model.IsLoading)
@@ -35,25 +32,23 @@ public partial class LoadingNode : Node, ILoadingNode
 
     public void Initialize ()
     {
-        animationPlayer = GetNode<AnimationPlayer>(AnimationPlayerPath);
-        progressBar = GetNode<ProgressBar>(ProgressBarPath);
         AddModelListeners();
         AddAnimationListeners();
     }
 
     void SetLoadingProgress (double progress)
     {
-        progressBar.Value = progress;
+        ProgressBar.Value = progress;
     }
     
     void FadeIn ()
     {
-        animationPlayer.Play(FadeInAnimation);
+        AnimationPlayer.Play(FadeInAnimation);
     }
     
     void FadeOut ()
     {
-        animationPlayer.Play(FadeOutAnimation);
+        AnimationPlayer.Play(FadeOutAnimation);
     }
     
     void HandleLoadingStarted ()
@@ -90,7 +85,7 @@ public partial class LoadingNode : Node, ILoadingNode
 
     void AddAnimationListeners ()
     {
-        animationPlayer.AnimationFinished += HandleAnimationFinished;
+        AnimationPlayer.AnimationFinished += HandleAnimationFinished;
     }
     
     void RemoveModelListeners ()
@@ -102,7 +97,7 @@ public partial class LoadingNode : Node, ILoadingNode
     
     void RemoveAnimationListeners ()
     {
-        animationPlayer.AnimationFinished -= HandleAnimationFinished;
+        AnimationPlayer.AnimationFinished -= HandleAnimationFinished;
     }
 
     public new void Dispose ()

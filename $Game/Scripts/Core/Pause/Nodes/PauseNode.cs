@@ -3,18 +3,15 @@
 public partial class PauseNode : Control, IPauseNode
 {
     [Export]
-    NodePath CenterButtonsPath { get; set; }
+    public PauseMenuCenterButtons CenterButtons { get; set; }
     
-    [Export]
-    NodePath SceneToUnloadPath { get; set; }
+    [Export] 
+    Node SceneToUnload { get; set; }
     
     [Export(PropertyHint.File, "*.tscn")]
     string MainMenuScenePath { get; set; }
     
-    public PauseMenuCenterButtons CenterButtons { get; private set; }
-
     IPauseModel pauseModel;
-    Node sceneToUnload;
 
     public void Setup (IPauseModel pauseModel)
     {
@@ -23,8 +20,6 @@ public partial class PauseNode : Control, IPauseNode
 
     public void Initialize ()
     {
-        sceneToUnload = GetNode<Node>(SceneToUnloadPath);
-        CenterButtons = GetNode<PauseMenuCenterButtons>(CenterButtonsPath);
         CenterButtons.Initialize();
         Visible = false;
         AddModelListeners();
@@ -68,13 +63,13 @@ public partial class PauseNode : Control, IPauseNode
     void HandleRetryButtonPressed ()
     {
         pauseModel.SetPause(false);
-        LoadingScope.Instance.Load(sceneToUnload.SceneFilePath, sceneToUnload);
+        LoadingScope.Instance.Load(SceneToUnload.SceneFilePath, SceneToUnload);
     }
     
     void HandleMainMenuButtonPressed ()
     {
         pauseModel.SetPause(false);
-        LoadingScope.Instance.Load(MainMenuScenePath, sceneToUnload);
+        LoadingScope.Instance.Load(MainMenuScenePath, SceneToUnload);
     }
 
     public new void Dispose ()
