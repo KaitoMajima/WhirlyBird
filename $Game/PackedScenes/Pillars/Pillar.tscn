@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://dka5givt7tlai"]
+
+[ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarNode.cs" id="1_2rnhs"]
+[ext_resource type="Texture2D" uid="uid://4nnth13ht1vb" path="res://$Game/Art/Game/house_grey_side.png" id="1_qh63o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p6qa"]
+size = Vector2(70, 196)
+
+[node name="Pillar" type="Node2D" node_paths=PackedStringArray("UpperPillarBody", "LowerPillarBody", "PillarScoreTrigger")]
+script = ExtResource("1_2rnhs")
+UpperPillarBody = NodePath("UpperPillar/UpperBody2D/UpperArea2D")
+LowerPillarBody = NodePath("LowerPillar/LowerBody2D/LowerArea2D")
+PillarScoreTrigger = NodePath("ScoreTrigger")
+
+[node name="UpperPillar" type="Node2D" parent="."]
+position = Vector2(0, -200)
+
+[node name="UpperBody2D" type="AnimatableBody2D" parent="UpperPillar"]
+sync_to_physics = false
+
+[node name="Contents" type="Node2D" parent="UpperPillar/UpperBody2D"]
+scale = Vector2(1, -1)
+
+[node name="Sprite2D" type="Sprite2D" parent="UpperPillar/UpperBody2D/Contents"]
+scale = Vector2(1, 1.25287)
+texture = ExtResource("1_qh63o")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UpperPillar/UpperBody2D"]
+rotation = -3.14159
+polygon = PackedVector2Array(73, -34, 80, -44, 34, -100, -33, -101, -76, -48, -71, -39, -72, 109, 72, 109)
+
+[node name="UpperArea2D" type="Area2D" parent="UpperPillar/UpperBody2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UpperPillar/UpperBody2D/UpperArea2D"]
+rotation = -3.14159
+polygon = PackedVector2Array(75, -35, 82, -47, 35, -106, -35, -106, -84, -43, -74, -37, -72, 109, 72, 109)
+
+[node name="LowerPillar" type="Node2D" parent="."]
+position = Vector2(0, 200)
+
+[node name="LowerBody2D" type="AnimatableBody2D" parent="LowerPillar"]
+sync_to_physics = false
+
+[node name="Contents" type="Node2D" parent="LowerPillar/LowerBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LowerPillar/LowerBody2D/Contents"]
+scale = Vector2(1, 1.25287)
+texture = ExtResource("1_qh63o")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LowerPillar/LowerBody2D"]
+rotation = -3.14159
+scale = Vector2(1, -1)
+polygon = PackedVector2Array(73, -34, 80, -44, 34, -100, -33, -101, -76, -48, -71, -39, -72, 109, 72, 109)
+
+[node name="LowerArea2D" type="Area2D" parent="LowerPillar/LowerBody2D"]
+scale = Vector2(1, -1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LowerPillar/LowerBody2D/LowerArea2D"]
+rotation = -3.14159
+polygon = PackedVector2Array(75, -35, 82, -47, 35, -106, -35, -106, -84, -43, -74, -37, -72, 109, 72, 109)
+
+[node name="ScoreTrigger" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreTrigger"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_1p6qa")

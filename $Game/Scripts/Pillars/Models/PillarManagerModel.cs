@@ -1,7 +1,10 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public class PillarManagerModel : IPillarManagerModel
 {
+    public event Action OnPillarSpawn;
+    
     Timer currentTimer;
     
     public void StartTimedSpawning (Timer timer)
@@ -14,7 +17,7 @@ public class PillarManagerModel : IPillarManagerModel
 
     void HandleTimerTimeout ()
     {
-        GD.Print("Spawning!");
+        OnPillarSpawn?.Invoke();
     }
     
     void AddTimerListeners ()

@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class PlayerController : RigidBody2D
+public partial class PlayerController : RigidBody2D, ICollideable
 {
     [Export] 
     TweenManager jumpingAnimation;
