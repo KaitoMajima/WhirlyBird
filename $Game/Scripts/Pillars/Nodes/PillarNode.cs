@@ -1,15 +1,16 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public partial class PillarNode : Node2D
 {
-    [Export] 
-    PillarDamageHitboxNode UpperPillarDamageHitbox { get; set; }
+    public event Action<PillarNode> OnPillarMarkedForDestruction;
     
-    [Export] 
-    PillarDamageHitboxNode LowerPillarDamageHitbox { get; set; }
+    [Export] PillarDamageHitboxNode upperPillarDamageHitbox;
+    [Export] PillarDamageHitboxNode lowerPillarDamageHitbox;
+    [Export] PillarScoreHitboxNode pillarScoreHitbox;
+    [Export] Timer pillarSpawnTimer;
 
-    [Export] 
-    PillarScoreHitboxNode PillarScoreHitbox { get; set; }
+    IPillarModel pillarModel;
     
     public override void _PhysicsProcess (double delta)
     {
@@ -17,9 +18,19 @@ public partial class PillarNode : Node2D
         Position += speed;
     }
 
+    public void Setup (IPillarModel pillarModel)
+    {
+        this.pillarModel = pillarModel;
+    }
+
     public void Initialize ()
     {
+        RemoveTriggerListeners();
+        AddModelListeners();
         AddTriggerListeners();
+        
+        ResetPillarHitboxes();
+        pillarModel.StartTimedDestruction(pillarSpawnTimer);
     }
 
     public void SetPosition (Vector2 position)
@@ -27,11 +38,21 @@ public partial class PillarNode : Node2D
         Position = position;
     }
     
+    void ResetPillarHitboxes ()
+    {
+        upperPillarDamageHitbox.Reset();
+        lowerPillarDamageHitbox.Reset();
+        pillarScoreHitbox.Reset();
+    }
+    
     void TriggerScore () 
         => GD.Print("Pillar has detected a score!");
 
     void TriggerDamage () 
         => GD.Print("Pillar has damaged!");
+
+    void HandlePillarMarkedForDestruction () 
+        => OnPillarMarkedForDestruction?.Invoke(this);
 
     void HandleScoreDetected () 
         => TriggerScore();
@@ -42,22 +63,33 @@ public partial class PillarNode : Node2D
     void HandleUpperPillarDamageDetected () 
         => TriggerDamage();
 
+    void AddModelListeners ()
+    {
+        pillarModel.OnPillarMarkedForDestruction += HandlePillarMarkedForDestruction;
+    }
+    
     void AddTriggerListeners ()
     {
-        PillarScoreHitbox.OnScoreDetected += HandleScoreDetected;
-        UpperPillarDamageHitbox.OnDamageDetected += HandleUpperPillarDamageDetected;
-        LowerPillarDamageHitbox.OnDamageDetected += HandleLowerPillarDamageDetected;
+        pillarScoreHitbox.OnScoreDetected += HandleScoreDetected;
+        upperPillarDamageHitbox.OnDamageDetected += HandleUpperPillarDamageDetected;
+        lowerPillarDamageHitbox.OnDamageDetected += HandleLowerPillarDamageDetected;
+    }
+    
+    void RemoveModelListeners ()
+    {
+        pillarModel.OnPillarMarkedForDestruction -= HandlePillarMarkedForDestruction;
     }
     
     void RemoveTriggerListeners ()
     {
-        PillarScoreHitbox.OnScoreDetected -= HandleScoreDetected;
-        UpperPillarDamageHitbox.OnDamageDetected -= HandleUpperPillarDamageDetected;
-        LowerPillarDamageHitbox.OnDamageDetected -= HandleLowerPillarDamageDetected;
+        pillarScoreHitbox.OnScoreDetected -= HandleScoreDetected;
+        upperPillarDamageHitbox.OnDamageDetected -= HandleUpperPillarDamageDetected;
+        lowerPillarDamageHitbox.OnDamageDetected -= HandleLowerPillarDamageDetected;
     }
 
     public new void Dispose ()
     {
+        RemoveModelListeners();
         RemoveTriggerListeners();
         base.Dispose();
     }

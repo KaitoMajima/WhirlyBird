@@ -3,6 +3,6 @@
     MapCollisionType CollisionType { get; } 
     int TotalCollisions { get; }
 
-    void ResetView ();
+    void Reset ();
     void NotifyCollision ();
 }

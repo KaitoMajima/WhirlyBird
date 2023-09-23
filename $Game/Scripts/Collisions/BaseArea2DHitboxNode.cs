@@ -6,7 +6,7 @@ public abstract partial class BaseArea2DHitboxNode : Area2D, ICollideable
         
     public int TotalCollisions { get; private set; }
         
-    public virtual void ResetView ()
+    public virtual void Reset ()
     {
         TotalCollisions = 0;
     }

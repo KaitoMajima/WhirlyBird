@@ -1,18 +1,12 @@
-﻿using Godot;
+﻿using System.Collections.Generic;
+using Godot;
 
 public partial class PillarManagerNode : Node
 {
-    [Export]
-    Vector2 PillarSpawnPosition { get; set; }
-    
-    [Export]
-    Timer PillarSpawnTimer { get; set; }
-
-    [Export] 
-    Node PillarSpawnParent { get; set; }
-
-    [Export] 
-    PackedScene PillarNodePack;
+    [Export] Vector2 pillarSpawnPosition;
+    [Export] Timer pillarSpawnTimer;
+    [Export] Node pillarSpawnParent;
+    [Export] PackedScene pillarNodePack;
 
     readonly DualStatePool<PillarNode> pillarPool = new();
 
@@ -26,15 +20,41 @@ public partial class PillarManagerNode : Node
     public void Initialize ()
     {
         AddModelListeners();
-        model.StartTimedSpawning(PillarSpawnTimer);
+        model.StartTimedSpawning(pillarSpawnTimer);
+    }
+    
+    PillarNode CreatePillar ()
+    {
+        PillarNode pillar = pillarNodePack.Instantiate<PillarNode>();
+        pillar.SetPosition(pillarSpawnPosition);
+        pillarSpawnParent.AddChild(pillar);
+        return pillar;
     }
     
     void HandlePillarSpawn ()
     {
-        PillarNode pillar = PillarNodePack.Instantiate<PillarNode>();
-        pillar.SetPosition(PillarSpawnPosition);
-        PillarSpawnParent.AddChild(pillar);
+        PillarNode pillar = pillarPool.Fetch() ?? CreatePillar();
+        SetupPillar(pillar);
+    }
+
+    void SetupPillar (PillarNode pillar)
+    {
+        IPillarModel pillarModel = PillarFactory.CreatePillarModel();
+        pillarPool.InsertAsActive(pillar);
+        pillar.SetPosition(pillarSpawnPosition);
+        pillar.SetActive(true);
+        
+        pillar.Setup(pillarModel);
         pillar.Initialize();
+        
+        AddPillarNodeListeners(pillar);
+    }
+
+    void HandlePillarMarkedForDestruction (PillarNode pillar)
+    {
+        pillar.SetActive(false);
+        pillarPool.InsertAsInactive(pillar);
+        RemovePillarNodeListeners(pillar);
     }
     
     void AddModelListeners ()
@@ -42,14 +62,33 @@ public partial class PillarManagerNode : Node
         model.OnPillarSpawn += HandlePillarSpawn;
     }
     
+    void AddPillarNodeListeners (PillarNode pillar)
+    {
+        pillar.OnPillarMarkedForDestruction += HandlePillarMarkedForDestruction;
+    }
+    
     void RemoveModelListeners ()
     {
         model.OnPillarSpawn -= HandlePillarSpawn;
+    }
+    
+    void RemovePillarNodeListeners (PillarNode pillar)
+    {
+        pillar.OnPillarMarkedForDestruction -= HandlePillarMarkedForDestruction;
     }
 
     public new void Dispose ()
     {
         RemoveModelListeners();
+        
+        HashSet<PillarNode> activePillars = pillarPool.ActiveItemsSet;
+
+        foreach (PillarNode activePillar in activePillars)
+        {
+            RemovePillarNodeListeners(activePillar);
+            activePillar.Dispose();
+        }
+        
         base.Dispose();
     }
 }

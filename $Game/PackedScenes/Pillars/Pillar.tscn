@@ -8,11 +8,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1p6qa"]
 size = Vector2(70, 207)
 
-[node name="Pillar" type="Node2D" node_paths=PackedStringArray("UpperPillarDamageHitbox", "LowerPillarDamageHitbox", "PillarScoreHitbox")]
+[node name="Pillar" type="Node2D" node_paths=PackedStringArray("upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox", "pillarSpawnTimer")]
 script = ExtResource("1_2rnhs")
-UpperPillarDamageHitbox = NodePath("UpperPillar/UpperBody2D")
-LowerPillarDamageHitbox = NodePath("LowerPillar/LowerBody2D")
-PillarScoreHitbox = NodePath("ScoreTrigger")
+upperPillarDamageHitbox = NodePath("UpperPillar/UpperBody2D")
+lowerPillarDamageHitbox = NodePath("LowerPillar/LowerBody2D")
+pillarScoreHitbox = NodePath("ScoreTrigger")
+pillarSpawnTimer = NodePath("PillarDestructionTimer")
 
 [node name="UpperPillar" type="Node2D" parent="."]
 position = Vector2(0, -250)
@@ -58,3 +59,6 @@ script = ExtResource("4_oyjvf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScoreTrigger"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_1p6qa")
+
+[node name="PillarDestructionTimer" type="Timer" parent="."]
+wait_time = 3.0

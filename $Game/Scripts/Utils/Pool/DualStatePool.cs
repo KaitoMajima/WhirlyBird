@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class DualStatePool<T> where T : class
+public class DualStatePool<T>
 {
     public HashSet<T> AllItemsSet { get; } = new();
     public HashSet<T> ActiveItemsSet { get; } = new();
@@ -9,7 +9,7 @@ public class DualStatePool<T> where T : class
     public T Fetch ()
     {
         if (InactiveItemsPool.Count == 0) 
-            return null;
+            return default;
             
         T item = InactiveItemsPool.Pop();
         ActiveItemsSet.Add(item);

@@ -403,12 +403,12 @@ texture = ExtResource("3_telee")
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
 
-[node name="PillarManagerNode" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("PillarSpawnTimer", "PillarSpawnParent")]
+[node name="PillarManagerNode" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("pillarSpawnTimer", "pillarSpawnParent")]
 script = ExtResource("22_dpy58")
-PillarSpawnPosition = Vector2(786, 332)
-PillarSpawnTimer = NodePath("PillarSpawnTimer")
-PillarSpawnParent = NodePath("PillarSpawnParent")
-PillarNodePack = ExtResource("23_by3dm")
+pillarSpawnPosition = Vector2(786, 332)
+pillarSpawnTimer = NodePath("PillarSpawnTimer")
+pillarSpawnParent = NodePath("PillarSpawnParent")
+pillarNodePack = ExtResource("23_by3dm")
 
 [node name="PillarSpawnParent" type="Node2D" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
