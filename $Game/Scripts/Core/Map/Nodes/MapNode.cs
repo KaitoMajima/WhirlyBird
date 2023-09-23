@@ -14,18 +14,21 @@ public partial class MapNode : Node, IMapNode
     {
         MapUICanvasNode = mapUICanvasNode;
         MapWorld2DNode = mapWorld2DNode;
+        MapInputDetectionNode = mapInputDetectionNode;
     }
     
     public void Initialize ()
     {
         MapUICanvasNode.Initialize();
         MapWorld2DNode.Initialize();
+        MapInputDetectionNode.Initialize();
     }
 
     public new void Dispose ()
     {
         MapUICanvasNode.Dispose();
         MapWorld2DNode.Dispose();
+        MapInputDetectionNode.Dispose();
         base.Dispose();
     }
 }

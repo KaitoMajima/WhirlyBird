@@ -2,6 +2,7 @@
 
 public class MapInputDetectionModel : IMapInputDetectionModel
 {
+    public event Action OnMainActionBlocked;
     public event Action<InputType> OnMainActionTriggered;
     
     readonly IPauseModel pauseModel;
@@ -14,7 +15,11 @@ public class MapInputDetectionModel : IMapInputDetectionModel
     public void MainActionTrigger (InputType inputType)
     {
         if (pauseModel.IsPaused)
+        {
+            if (inputType == InputType.JustPressed)
+                OnMainActionBlocked?.Invoke();
             return;
+        }
         
         OnMainActionTriggered?.Invoke(inputType);
     }
