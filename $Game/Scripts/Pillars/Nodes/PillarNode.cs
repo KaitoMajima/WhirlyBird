@@ -1,19 +1,15 @@
-﻿using System;
-using Godot;
+﻿using Godot;
 
 public partial class PillarNode : Node2D, IPillarNode
 {
-    public event Action OnPillarScoreTriggered;
-    public event Action OnPillarDamageTriggered;
+    [Export] 
+    PillarDamageHitboxNode UpperPillarDamageHitbox { get; set; }
     
     [Export] 
-    Area2D UpperPillarBody { get; set; }
-    
-    [Export] 
-    Area2D LowerPillarBody { get; set; }
+    PillarDamageHitboxNode LowerPillarDamageHitbox { get; set; }
 
     [Export] 
-    Area2D PillarScoreTrigger { get; set; }
+    PillarScoreHitboxNode PillarScoreHitbox { get; set; }
     
     public override void _PhysicsProcess (double delta)
     {
@@ -31,43 +27,33 @@ public partial class PillarNode : Node2D, IPillarNode
         Position = position;
     }
     
-    void TriggerScore (Node2D body)
-    {
-        if (body is not ICollideable)
-            return;
-            
-        OnPillarScoreTriggered?.Invoke();
-    }
+    void TriggerScore () 
+        => GD.Print("Pillar has detected a score!");
 
-    void TriggerDamage (Node body)
-    {
-        if (body is not ICollideable)
-            return;
-        
-        OnPillarDamageTriggered?.Invoke();
-    }
+    void TriggerDamage () 
+        => GD.Print("Pillar has damaged!");
 
-    void HandleScoreEntered (Node2D body) 
-        => TriggerScore(body);
+    void HandleScoreDetected () 
+        => TriggerScore();
 
-    void HandleUpperPillarEntered (Node body) 
-        => TriggerDamage(body);
+    void HandleLowerPillarDamageDetected () 
+        => TriggerDamage();
 
-    void HandleLowerPillarEntered (Node body) 
-        => TriggerDamage(body);
+    void HandleUpperPillarDamageDetected () 
+        => TriggerDamage();
 
     void AddTriggerListeners ()
     {
-        PillarScoreTrigger.BodyEntered += HandleScoreEntered;
-        UpperPillarBody.BodyEntered += HandleUpperPillarEntered;
-        LowerPillarBody.BodyEntered += HandleLowerPillarEntered;
+        PillarScoreHitbox.OnScoreDetected += HandleScoreDetected;
+        UpperPillarDamageHitbox.OnDamageDetected += HandleUpperPillarDamageDetected;
+        LowerPillarDamageHitbox.OnDamageDetected += HandleLowerPillarDamageDetected;
     }
-
+    
     void RemoveTriggerListeners ()
     {
-        PillarScoreTrigger.BodyEntered -= HandleScoreEntered;
-        UpperPillarBody.BodyEntered -= HandleUpperPillarEntered;
-        LowerPillarBody.BodyEntered -= HandleLowerPillarEntered;
+        PillarScoreHitbox.OnScoreDetected -= HandleScoreDetected;
+        UpperPillarDamageHitbox.OnDamageDetected -= HandleUpperPillarDamageDetected;
+        LowerPillarDamageHitbox.OnDamageDetected -= HandleLowerPillarDamageDetected;
     }
 
     public new void Dispose ()

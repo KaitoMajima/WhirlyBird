@@ -33,20 +33,8 @@ public partial class PillarManagerNode : Node, IPillarManagerNode
     {
         PillarNode pillar = PillarNodePack.Instantiate<PillarNode>();
         pillar.SetPosition(PillarSpawnPosition);
-        pillar.OnPillarScoreTriggered += HandlePillarScoreTriggered;
-        pillar.OnPillarDamageTriggered += HandlePillarDamageTriggered;
         PillarSpawnParent.AddChild(pillar);
         pillar.Initialize();
-    }
-
-    void HandlePillarScoreTriggered ()
-    {
-        GD.Print("Scored!");
-    }
-    
-    void HandlePillarDamageTriggered ()
-    {
-        GD.Print("Damaged!");
     }
     
     void AddModelListeners ()

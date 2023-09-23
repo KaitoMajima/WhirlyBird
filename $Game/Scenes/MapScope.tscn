@@ -85,7 +85,7 @@ EaseType = 1
 TransitionType = 5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
-radius = 41.0
+radius = 44.0114
 
 [sub_resource type="InputEventAction" id="InputEventAction_4x0ob"]
 action = &"main_action"
@@ -395,12 +395,13 @@ position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation")]
+[node name="Duck" type="RigidBody2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "collisionDetector")]
 position = Vector2(-10, 334)
 gravity_scale = 0.7
 script = ExtResource("15_0y104")
 jumpingAnimation = NodePath("Animations/ScaleDown")
 rotateAnimation = NodePath("Animations/Rotate")
+collisionDetector = NodePath("CollisionDetector")
 
 [node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Duck"]
 
@@ -423,6 +424,11 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_ls0su")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck"]
+shape = SubResource("CircleShape2D_slndq")
+
+[node name="CollisionDetector" type="Area2D" parent="MapNode/MapWorld2D/Duck"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/Duck/CollisionDetector"]
 shape = SubResource("CircleShape2D_slndq")
 
 [node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
