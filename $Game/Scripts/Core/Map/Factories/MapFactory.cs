@@ -56,7 +56,12 @@ public static class MapFactory
     {
         IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
         IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings);
-        return new MapWorld2DModel(playerModel);
+        IPillarManagerModel pillarManagerModel = PillarFactory.CreatePillarManagerModel();
+        
+        return new MapWorld2DModel(
+            playerModel, 
+            pillarManagerModel
+        );
     }
 
     static IMapInputDetectionModel CreateMapInputDetectionModel (IPauseModel pauseModel) 
@@ -81,7 +86,11 @@ public static class MapFactory
     )
     {
         IMapWorld2DNode mapWorld2DNode = callerNode.GetNode<MapWorld2DNode>(mapWorld2dNodePath);
-        mapWorld2DNode.Setup(mapWorld2DModel.PlayerModel, mapInputDetectionModel);
+        mapWorld2DNode.Setup(
+            mapWorld2DModel.PlayerModel, 
+            mapInputDetectionModel, 
+            mapWorld2DModel.PillarManagerModel
+        );
         return mapWorld2DNode;
     }
     

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=36 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerController.cs" id="15_0y104"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
+[ext_resource type="Script" path="res://$Game/Scripts/Core/Pillars/Nodes/PillarManagerNode.cs" id="22_sdnvo"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
 
@@ -259,9 +260,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerController")]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerController", "PillarManagerNodeInstance")]
 script = ExtResource("5_4vban")
 PlayerController = NodePath("Duck")
+PillarManagerNodeInstance = NodePath("PillarManagerNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 
@@ -426,7 +428,13 @@ texture = ExtResource("10_ls0su")
 position = Vector2(216, 338)
 zoom = Vector2(1.35, 1.35)
 
-[node name="Pillars" type="Node2D" parent="MapNode/MapWorld2D"]
+[node name="PillarManagerNode" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("PillarSpawnTimer")]
+script = ExtResource("22_sdnvo")
+PillarSpawnTimer = NodePath("PillarSpawnTimer")
+
+[node name="PillarSpawnPoint" type="Node2D" parent="MapNode/MapWorld2D/PillarManagerNode"]
+
+[node name="PillarSpawnTimer" type="Timer" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")
