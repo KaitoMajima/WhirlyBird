@@ -5,6 +5,9 @@ public abstract partial class TweenManager : Node
     [Export] 
     public TweenSettingsResource TweenSettings { get; private set; }
 
+    [Export] 
+    public bool KillLastTween;
+
     public Tween MainTween { get; private set; }
 
     #region Initialize Methods
@@ -32,7 +35,9 @@ public abstract partial class TweenManager : Node
 
     public virtual void PlayTween ()
     {
-        StopTween();
+        if (KillLastTween)
+            StopTween();
+        
         MainTween = CreateTween();
         TweenSettings.ApplyTweenSettings(MainTween);
         TriggerTween(TweenSettings.Direction == TweenSettingsResource.TweenDirection.Backwards);

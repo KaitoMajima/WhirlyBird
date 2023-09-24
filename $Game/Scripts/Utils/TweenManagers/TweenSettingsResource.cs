@@ -13,7 +13,7 @@ public partial class TweenSettingsResource : Resource
     public TweenDirection Direction;
     
     [Export]
-    public TweenProcessMode ProcessMode;
+    public TweenProcessMode ProcessMode = TweenProcessMode.Idle;
 
     [Export]
     public float TweenTimeScale = 1;
@@ -26,6 +26,10 @@ public partial class TweenSettingsResource : Resource
     [Export]
     public float Delay;
 
+    //TODO: Eventually change to Godot built-in amplitude/overshoot
+    [Export] 
+    public float Amplitude;
+
     [Export] 
     public bool IsRelative;
     
@@ -36,8 +40,11 @@ public partial class TweenSettingsResource : Resource
     
     public void ApplyTweenSettings (Tween tween)
     {
-        tween.SetEase(EaseType).SetTrans(TransitionType).SetLoops(LoopAmount)
-            .SetSpeedScale(TweenTimeScale).SetProcessMode(ProcessMode);
+        tween.SetEase(EaseType)
+            .SetTrans(TransitionType)
+            .SetLoops(LoopAmount)
+            .SetSpeedScale(TweenTimeScale)
+            .SetProcessMode(ProcessMode);
 
         tween.TweenInterval(Delay);
     }

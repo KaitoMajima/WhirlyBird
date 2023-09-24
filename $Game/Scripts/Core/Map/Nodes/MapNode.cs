@@ -15,10 +15,11 @@ public partial class MapNode : Node
         IPauseModel pauseModel,
         IPlayerModel playerModel,
         IMapInputDetectionModel mapInputDetectionModel,
-        IPillarManagerModel pillarManagerModel
+        IPillarManagerModel pillarManagerModel,
+        IScoreCounterModel scoreCounterModel
     )
     {
-        MapUICanvasNode.Setup(pauseModel);
+        MapUICanvasNode.Setup(pauseModel, scoreCounterModel);
         MapWorld2DNode.Setup(
             playerModel,
             mapInputDetectionModel, 

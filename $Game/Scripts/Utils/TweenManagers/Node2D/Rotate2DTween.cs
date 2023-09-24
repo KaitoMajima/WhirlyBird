@@ -2,8 +2,6 @@
 
 public partial class Rotate2DTween : TweenManager
 {
-    const string PROPERTY_NAME = "rotation_degrees";
-    
     [Export] public float TargetRotationDegrees { get; set; }
     [Export] Node2D tweeningTransform;
 
@@ -28,7 +26,27 @@ public partial class Rotate2DTween : TweenManager
         float tweenRotationDegrees = backwards ? originalRotationDegrees : TargetRotationDegrees;
         if (TweenSettings.IsRelative)
             tweenRotationDegrees += CurrentRotationDegrees;
+
+        float lastRotationDegrees = CurrentRotationDegrees;
         
-        MainTween.TweenProperty(tweeningTransform, PROPERTY_NAME, tweenRotationDegrees, TweenSettings.Duration);
+        MainTween.TweenMethod(Callable.From<int>(progress => 
+            SetRotationDegrees(lastRotationDegrees, tweenRotationDegrees, progress, TweenSettings.Amplitude)),
+            lastRotationDegrees, 
+            tweenRotationDegrees, 
+            TweenSettings.Duration
+        );
+    }
+    
+    void SetRotationDegrees (float startValue, float endValue, float progress, float amplitude)
+    {
+        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration)
+        {
+            CurrentRotationDegrees = endValue;
+            MainTween.Kill();
+        }
+        
+        float value = TweenExtensions.OvershootTween(startValue, endValue, progress, amplitude);
+
+        CurrentRotationDegrees = value;
     }
 }

@@ -2,8 +2,6 @@
 
 public partial class Move2DTween : TweenManager
 {
-    const string PROPERTY_NAME = "position";
-    
     [Export] public Vector2 TargetDestination { get; set; }
     [Export] Node2D tweeningTransform;
 
@@ -28,7 +26,28 @@ public partial class Move2DTween : TweenManager
         Vector2 tweenPosition = backwards ? originalPosition : TargetDestination;
         if (TweenSettings.IsRelative)
             tweenPosition += CurrentPosition;
+
+        Vector2 lastPosition = CurrentPosition;
         
-        MainTween.TweenProperty(tweeningTransform, PROPERTY_NAME, tweenPosition, TweenSettings.Duration);
+        MainTween.TweenMethod(Callable.From<Vector2>(progress => 
+            SetPosition(lastPosition, tweenPosition, progress, TweenSettings.Amplitude)),
+            lastPosition,
+            tweenPosition,
+            TweenSettings.Duration
+        );
+    }
+    
+    void SetPosition (Vector2 startValue, Vector2 endValue, Vector2 progress, float amplitude)
+    {
+        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration)
+        {
+            CurrentPosition = endValue;
+            MainTween.Kill();
+        }
+        
+        float xValue = TweenExtensions.OvershootTween(startValue.X, endValue.X, progress.X, amplitude);
+        float yValue = TweenExtensions.OvershootTween(startValue.Y, endValue.Y, progress.Y, amplitude);
+
+        CurrentPosition = new Vector2(xValue, yValue);
     }
 }

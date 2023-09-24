@@ -6,17 +6,18 @@
         MapSettingsResource mapSettingsResource
     )
     {
-        IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider);
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource);
+        IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider, mapWorld2DModel.PlayerModel);
         IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
     }
 
-    static IMapUICanvasModel CreateMapUICanvasModel (ITimeProvider timeProvider)
+    static IMapUICanvasModel CreateMapUICanvasModel (ITimeProvider timeProvider, IPlayerModel playerModel)
     {
         IPauseModel pauseModel = PauseFactory.CreatePauseModel(timeProvider);
-        return new MapUICanvasModel(pauseModel);
+        IScoreCounterModel scoreCounterModel = ScoreFactory.CreateScoreCounterModel(playerModel);
+        return new MapUICanvasModel(pauseModel, scoreCounterModel);
     }
 
     static IMapWorld2DModel CreateMapWorld2DModel (

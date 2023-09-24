@@ -1,14 +1,17 @@
-﻿using Godot;
+﻿using System;
+using Godot;
 
 public class PlayerModel : IPlayerModel
 {
+    public event Action OnPlayerScored;
+    
     public float PlayerSize => playerSettings.PlayerSize;
     public float GravityScale => playerSettings.PlayerGravityScale;
     public float JumpStrength => playerSettings.PlayerJumpStrength;
     
     public void Score ()
     {
-        GD.Print("Player has scored!");
+        OnPlayerScored?.Invoke();
     }
 
     public void Damage ()

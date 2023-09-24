@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=40 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -13,11 +13,13 @@
 [ext_resource type="Texture2D" uid="uid://ckkkbwmeta2mg" path="res://$Game/Art/Game/cloud5.png" id="4_l4e8t"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapWorld2DNode.cs" id="5_4vban"]
 [ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
+[ext_resource type="Script" path="res://$Game/Scripts/Score/Nodes/ScoreCounterNode.cs" id="5_uw3sy"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Pause/Nodes/PauseNode.cs" id="6_0ps5p"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Pause/Nodes/PauseMenuCenterButtons.cs" id="6_5dx4p"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Control/TextScaleUITween.cs" id="7_ywhsn"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
-[ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerControllerNode.cs" id="18_l1c2b"]
+[ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerManagerNode.cs" id="18_l1c2b"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarManagerNode.cs" id="22_dpy58"]
@@ -25,14 +27,29 @@
 [ext_resource type="PackedScene" uid="uid://dka5givt7tlai" path="res://$Game/PackedScenes/Pillars/Pillar.tscn" id="23_by3dm"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
 font_size = 72
 shadow_size = 11
 shadow_color = Color(0.2, 0.760784, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="Resource" id="Resource_tccbi"]
+script = ExtResource("21_n6477")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 1
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = 1
+Duration = 0.5
+Delay = 0.0
+Amplitude = 0.75
+IsRelative = false
+EaseType = 1
+TransitionType = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_spj1t"]
 font = ExtResource("1_kwjuq")
@@ -66,36 +83,34 @@ DisposingMethod = 1
 Direction = 1
 ProcessMode = 0
 TweenTimeScale = 1.0
-LoopAmount = 10
+LoopAmount = 0
 Duration = 0.77
 Delay = 0.0
+Amplitude = 0.0
 IsRelative = false
 EaseType = 1
-TransitionType = 10
+TransitionType = 5
 
 [sub_resource type="Resource" id="Resource_l883g"]
 script = ExtResource("21_n6477")
 InitializeMethod = 0
 DisposingMethod = 1
 Direction = 0
-ProcessMode = 0
+ProcessMode = 1
 TweenTimeScale = 1.0
 LoopAmount = 0
 Duration = 3.0
 Delay = 0.0
+Amplitude = 0.0
 IsRelative = true
 EaseType = 1
-TransitionType = 5
+TransitionType = 10
 
 [sub_resource type="InputEventAction" id="InputEventAction_4x0ob"]
 action = &"main_action"
 
 [node name="MapScope" type="Node" node_paths=PackedStringArray("MapNode")]
 script = ExtResource("1_aly4s")
-mapNodePath = NodePath("MapNode")
-mapUICanvasNodePath = NodePath("MapNode/MapUICanvas")
-mapWorld2DNodePath = NodePath("MapNode/MapWorld2D")
-mapInputDetectionNodePath = NodePath("MapNode/InputDetector")
 MapNode = NodePath("MapNode")
 MapSettingsResource = ExtResource("2_87dp6")
 
@@ -105,9 +120,10 @@ MapUICanvasNode = NodePath("MapUICanvas")
 MapWorld2DNode = NodePath("MapWorld2D")
 MapInputDetectionNode = NodePath("InputDetector")
 
-[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "pauseButton")]
+[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "ScoreCounterNode", "pauseButton")]
 script = ExtResource("3_ddteq")
 PauseNode = NodePath("PauseNode")
+ScoreCounterNode = NodePath("HUD/ScoreCounter")
 pauseButton = NodePath("HUD/PauseButton")
 
 [node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
@@ -117,20 +133,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="MapNode/MapUICanvas/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "777"
-label_settings = SubResource("LabelSettings_fylxt")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="PauseButton" type="Button" parent="MapNode/MapUICanvas/HUD"]
 layout_mode = 1
@@ -174,6 +176,55 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
+
+[node name="ScoreCounter" type="Control" parent="MapNode/MapUICanvas/HUD" node_paths=PackedStringArray("scoreLabel", "scoringAnimation")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_uw3sy")
+scoreLabel = NodePath("ScoreLabel")
+scoringAnimation = NodePath("Animations/ScaleBack")
+
+[node name="ScoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_right = 56.0
+offset_bottom = 102.0
+grow_horizontal = 2
+text = "777"
+label_settings = SubResource("LabelSettings_fylxt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Animations" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScaleBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter/Animations" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_ywhsn")
+TargetScale = 14
+tweeningTransform = NodePath("../../ScoreLabel")
+TweenSettings = SubResource("Resource_tccbi")
+
+[node name="RotateBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter/Animations" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_ywhsn")
+TargetScale = 14
+tweeningTransform = NodePath("../../ScoreLabel")
+TweenSettings = SubResource("Resource_tccbi")
 
 [node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "sceneToUnload")]
 layout_mode = 3
@@ -265,9 +316,9 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerControllerNode", "PillarManagerNode")]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode")]
 script = ExtResource("5_4vban")
-PlayerControllerNode = NodePath("PlayerDuck")
+PlayerManagerNode = NodePath("PlayerDuck")
 PillarManagerNode = NodePath("PillarManagerNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
@@ -419,6 +470,7 @@ pillarNodePack = ExtResource("23_by3dm")
 [node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform")]
 position = Vector2(-10, 334)
 script = ExtResource("18_l1c2b")
+rotateAnimationMultiplier = 1.2
 jumpingAnimation = NodePath("RigidBody/Contents/Animations/ScaleDown")
 rotateAnimation = NodePath("RigidBody/Contents/Animations/Rotate")
 rigidBody2D = NodePath("RigidBody")
@@ -447,10 +499,11 @@ script = ExtResource("20_dt3kt")
 TargetScale = Vector2(1.4, 0.4)
 tweeningTransform = NodePath("../../SpriteAnchor")
 TweenSettings = SubResource("Resource_xkt4k")
+KillLastTween = true
 
 [node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
 script = ExtResource("22_toj4j")
-TargetRotationDegrees = 77.0
+TargetRotationDegrees = 420.0
 tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
 TweenSettings = SubResource("Resource_l883g")
 

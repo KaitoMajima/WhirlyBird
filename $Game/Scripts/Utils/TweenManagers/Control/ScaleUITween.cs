@@ -1,16 +1,16 @@
 ﻿using Godot;
 
-public partial class Scale2DTween : TweenManager
+public partial class ScaleUITween : TweenManager
 {
     [Export] public Vector2 TargetScale { get; set; }
-    [Export] Node2D tweeningTransform;
+    [Export] Control tweeningTransform;
 
     Vector2 CurrentScale
     {
         get => tweeningTransform.Scale;
         set => tweeningTransform.Scale = value;
     }
-    
+
     Vector2 originalScale;
 
     protected override void SetupTween ()
@@ -22,15 +22,15 @@ public partial class Scale2DTween : TweenManager
     {
         if (backwards)
             CurrentScale = TargetScale;
-        
+
         Vector2 tweenScale = backwards ? originalScale : TargetScale;
-        
+
         if (TweenSettings.IsRelative)
             tweenScale += CurrentScale;
-        
+
         Vector2 lastScale = CurrentScale;
-        
-        MainTween.TweenMethod(Callable.From<Vector2>(progress => 
+
+        MainTween.TweenMethod(Callable.From<Vector2>(progress =>
             SetScale(lastScale, tweenScale, progress, TweenSettings.Amplitude)),
             lastScale,
             tweenScale,

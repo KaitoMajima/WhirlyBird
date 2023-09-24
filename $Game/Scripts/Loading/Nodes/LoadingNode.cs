@@ -4,18 +4,11 @@ public partial class LoadingNode : Node
 {
     [Export]
     public LoadingConfigResource LoadingConfigResource { get; private set; }
-    
-    [Export]
-    AnimationPlayer AnimationPlayer { get; set; }
-    
-    [Export]
-    ProgressBar ProgressBar { get; set; }
 
-    [Export] 
-    StringName FadeInAnimation { get; set; }
-    
-    [Export] 
-    StringName FadeOutAnimation { get; set; }
+    [Export] AnimationPlayer animationPlayer;
+    [Export] ProgressBar progressBar;
+    [Export] StringName fadeInAnimation;
+    [Export] StringName fadeOutAnimation;
 
     ILoadingModel model;
     
@@ -38,17 +31,17 @@ public partial class LoadingNode : Node
 
     void SetLoadingProgress (double progress)
     {
-        ProgressBar.Value = progress;
+        progressBar.Value = progress;
     }
     
     void FadeIn ()
     {
-        AnimationPlayer.Play(FadeInAnimation);
+        animationPlayer.Play(fadeInAnimation);
     }
     
     void FadeOut ()
     {
-        AnimationPlayer.Play(FadeOutAnimation);
+        animationPlayer.Play(fadeOutAnimation);
     }
     
     void HandleLoadingStarted ()
@@ -72,7 +65,7 @@ public partial class LoadingNode : Node
 
     void HandleAnimationFinished (StringName animationName)
     {
-        if (animationName == FadeInAnimation)
+        if (animationName == fadeInAnimation)
             model.InitiateLoading();
     }
     
@@ -85,7 +78,7 @@ public partial class LoadingNode : Node
 
     void AddAnimationListeners ()
     {
-        AnimationPlayer.AnimationFinished += HandleAnimationFinished;
+        animationPlayer.AnimationFinished += HandleAnimationFinished;
     }
     
     void RemoveModelListeners ()
@@ -97,7 +90,7 @@ public partial class LoadingNode : Node
     
     void RemoveAnimationListeners ()
     {
-        AnimationPlayer.AnimationFinished -= HandleAnimationFinished;
+        animationPlayer.AnimationFinished -= HandleAnimationFinished;
     }
 
     public new void Dispose ()

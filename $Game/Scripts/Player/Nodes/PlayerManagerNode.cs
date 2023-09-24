@@ -1,10 +1,12 @@
 ﻿using System;
 using Godot;
 
-public partial class PlayerControllerNode : Node2D
+public partial class PlayerManagerNode : Node2D
 {
-    [Export] TweenManager jumpingAnimation;
-    [Export] TweenManager rotateAnimation;
+    [Export] float rotateAnimationMin = 90;
+    [Export] float rotateAnimationMultiplier = 0.77f;
+    [Export] Scale2DTween jumpingAnimation;
+    [Export] Rotate2DTween rotateAnimation;
     [Export] RigidBody2D rigidBody2D;
     [Export] Area2D collisionDetector;
     [Export] Node2D contentsTransform;
@@ -44,9 +46,11 @@ public partial class PlayerControllerNode : Node2D
 
     void ApplyJump ()
     {
+        float originalYVelocity = Mathf.Abs(rigidBody2D.LinearVelocity.Y);
         rigidBody2D.LinearVelocity = Vector2.Zero;
         rigidBody2D.ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
         jumpingAnimation.PlayTween();
+        rotateAnimation.TargetRotationDegrees = Mathf.Max(rotateAnimationMin, originalYVelocity * rotateAnimationMultiplier);
         rotateAnimation.PlayTween();
     }
     

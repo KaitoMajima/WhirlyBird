@@ -2,20 +2,15 @@
 
 public partial class MapScope : Node
 {
-    [Export] NodePath mapNodePath;
-    [Export] NodePath mapUICanvasNodePath;
-    [Export] NodePath mapWorld2DNodePath;
-    [Export] NodePath mapInputDetectionNodePath;
-    
     public IMapModel MapModel { get; private set; }
-    public IMapUICanvasModel MapUICanvasModel => MapModel.MapUICanvasModel;
     public IMapWorld2DModel MapWorld2DModel => MapModel.MapWorld2DModel;
+    public IMapUICanvasModel MapUICanvasModel => MapModel.MapUICanvasModel;
     public IMapInputDetectionModel MapInputDetectionModel => MapModel.MapInputDetectionModel;
     
     [Export]
     public MapNode MapNode { get; private set; }
-    public MapUICanvasNode MapUICanvasNode => MapNode.MapUICanvasNode;
     public MapWorld2DNode MapWorld2DNode => MapNode.MapWorld2DNode;
+    public MapUICanvasNode MapUICanvasNode => MapNode.MapUICanvasNode;
     public MapInputDetectionNode MapInputDetectionNode => MapNode.MapInputDetectionNode;
     
     [Export]
@@ -52,7 +47,8 @@ public partial class MapScope : Node
             MapUICanvasModel.PauseModel, 
             MapWorld2DModel.PlayerModel, 
             MapInputDetectionModel, 
-            MapWorld2DModel.PillarManagerModel
+            MapWorld2DModel.PillarManagerModel,
+            MapUICanvasModel.ScoreCounterModel
         );
     }
     
