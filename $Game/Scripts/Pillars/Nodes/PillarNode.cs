@@ -4,7 +4,11 @@ using Godot;
 public partial class PillarNode : Node2D
 {
     public event Action<PillarNode> OnPillarMarkedForDestruction;
-    
+
+    [Export] Move2DTween upperPillarMoveInAnimation;
+    [Export] Move2DTween upperPillarMoveAwayAnimation;
+    [Export] Move2DTween lowerPillarMoveInAnimation;
+    [Export] Move2DTween lowerPillarMoveAwayAnimation;
     [Export] PillarDamageHitboxNode upperPillarDamageHitbox;
     [Export] PillarDamageHitboxNode lowerPillarDamageHitbox;
     [Export] PillarScoreHitboxNode pillarScoreHitbox;
@@ -32,6 +36,8 @@ public partial class PillarNode : Node2D
         
         ResetPillarHitboxes();
         pillarModel.StartTimedDestruction(pillarSpawnTimer);
+        upperPillarMoveInAnimation.PlayTween();
+        lowerPillarMoveInAnimation.PlayTween();
     }
 
     public void SetPosition (Vector2 position)
@@ -50,12 +56,14 @@ public partial class PillarNode : Node2D
         lowerPillarDamageHitbox.Reset();
         pillarScoreHitbox.Reset();
     }
-    
-    void TriggerScore () 
-        => GD.Print("Pillar has detected a score!");
 
-    void TriggerDamage () 
-        => GD.Print("Pillar has damaged!");
+    void TriggerScore ()
+    {
+        upperPillarMoveAwayAnimation.PlayTween();
+        lowerPillarMoveAwayAnimation.PlayTween();
+    }
+
+    void TriggerDamage () { }
 
     void HandlePillarMarkedForDestruction () 
         => OnPillarMarkedForDestruction?.Invoke(this);

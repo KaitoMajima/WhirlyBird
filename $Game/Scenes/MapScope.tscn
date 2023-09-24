@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=52 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
 [ext_resource type="PackedScene" uid="uid://dka5givt7tlai" path="res://$Game/PackedScenes/Pillars/Pillar.tscn" id="23_by3dm"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
+[ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/ObstacleDamageHitboxNode.cs" id="29_gri08"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
 bg_color = Color(1, 1, 1, 1)
@@ -139,6 +140,14 @@ Amplitude = 0.0
 IsRelative = true
 EaseType = 1
 TransitionType = 10
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o73xt"]
+size = Vector2(967, 20)
+
+[sub_resource type="Curve" id="Curve_pklt6"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_ek7o6"]
+curve = SubResource("Curve_pklt6")
 
 [sub_resource type="InputEventAction" id="InputEventAction_4x0ob"]
 action = &"main_action"
@@ -619,6 +628,31 @@ TweenSettings = SubResource("Resource_l883g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/CollisionDetector"]
 shape = SubResource("CircleShape2D_slndq")
+
+[node name="DeathLines" type="Node2D" parent="MapNode/MapWorld2D"]
+
+[node name="UpperLine" type="Area2D" parent="MapNode/MapWorld2D/DeathLines"]
+script = ExtResource("29_gri08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/DeathLines/UpperLine"]
+position = Vector2(221.5, 73)
+shape = SubResource("RectangleShape2D_o73xt")
+
+[node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/DeathLines/UpperLine/CollisionShape2D"]
+scale = Vector2(3.76172, 20)
+texture = SubResource("CurveTexture_ek7o6")
+
+[node name="LowerLine" type="Area2D" parent="MapNode/MapWorld2D/DeathLines"]
+position = Vector2(0, 530)
+script = ExtResource("29_gri08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/DeathLines/LowerLine"]
+position = Vector2(221.5, 73)
+shape = SubResource("RectangleShape2D_o73xt")
+
+[node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/DeathLines/LowerLine/CollisionShape2D"]
+scale = Vector2(3.76172, 20)
+texture = SubResource("CurveTexture_ek7o6")
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")

@@ -1,23 +1,73 @@
-[gd_scene load_steps=6 format=3 uid="uid://dka5givt7tlai"]
+[gd_scene load_steps=10 format=3 uid="uid://dka5givt7tlai"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarNode.cs" id="1_2rnhs"]
 [ext_resource type="Texture2D" uid="uid://4nnth13ht1vb" path="res://$Game/Art/Game/house_grey_side.png" id="1_qh63o"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarDamageHitboxNode.cs" id="2_ekjhx"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Move2DTween.cs" id="2_qvwtk"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="3_wak3i"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarScoreHitboxNode.cs" id="4_oyjvf"]
+
+[sub_resource type="Resource" id="Resource_br1b4"]
+script = ExtResource("3_wak3i")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 0
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = 0
+Duration = 0.7
+Delay = 0.0
+Amplitude = 0.0
+IsRelative = false
+EaseType = 0
+TransitionType = 7
+
+[sub_resource type="Resource" id="Resource_kxng4"]
+script = ExtResource("3_wak3i")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 0
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = 0
+Duration = 0.7
+Delay = 0.0
+Amplitude = 0.0
+IsRelative = false
+EaseType = 1
+TransitionType = 7
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1p6qa"]
 size = Vector2(70, 207)
 
-[node name="Pillar" type="Node2D" node_paths=PackedStringArray("upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox", "pillarSpawnTimer")]
+[node name="Pillar" type="Node2D" node_paths=PackedStringArray("upperPillarMoveInAnimation", "upperPillarMoveAwayAnimation", "lowerPillarMoveInAnimation", "lowerPillarMoveAwayAnimation", "upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox", "pillarSpawnTimer")]
 script = ExtResource("1_2rnhs")
+upperPillarMoveInAnimation = NodePath("UpperPillar/Animations/UpperMoveIn")
+upperPillarMoveAwayAnimation = NodePath("UpperPillar/Animations/UpperMoveAway")
+lowerPillarMoveInAnimation = NodePath("LowerPillar/Animations/LowerMoveIn")
+lowerPillarMoveAwayAnimation = NodePath("LowerPillar/Animations/LowerMoveAway")
 upperPillarDamageHitbox = NodePath("UpperPillar/UpperBody2D")
 lowerPillarDamageHitbox = NodePath("LowerPillar/LowerBody2D")
 pillarScoreHitbox = NodePath("ScoreTrigger")
 pillarSpawnTimer = NodePath("PillarDestructionTimer")
 
 [node name="UpperPillar" type="Node2D" parent="."]
-position = Vector2(0, -250)
+position = Vector2(0, -750)
 scale = Vector2(1.5, 1.5)
+
+[node name="Animations" type="Node2D" parent="UpperPillar"]
+
+[node name="UpperMoveAway" type="Node2D" parent="UpperPillar/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("2_qvwtk")
+TargetDestination = Vector2(0, -750)
+tweeningTransform = NodePath("../..")
+TweenSettings = SubResource("Resource_br1b4")
+
+[node name="UpperMoveIn" type="Node2D" parent="UpperPillar/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("2_qvwtk")
+TargetDestination = Vector2(0, -250)
+tweeningTransform = NodePath("../..")
+TweenSettings = SubResource("Resource_kxng4")
 
 [node name="UpperBody2D" type="AnimatableBody2D" parent="UpperPillar"]
 sync_to_physics = false
@@ -35,8 +85,22 @@ rotation = -3.14159
 polygon = PackedVector2Array(73, -34, 80, -44, 34, -100, -33, -101, -76, -48, -71, -39, -72, 109, 72, 109)
 
 [node name="LowerPillar" type="Node2D" parent="."]
-position = Vector2(0, 250)
+position = Vector2(0, 750)
 scale = Vector2(1.5, 1.5)
+
+[node name="Animations" type="Node2D" parent="LowerPillar"]
+
+[node name="LowerMoveAway" type="Node2D" parent="LowerPillar/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("2_qvwtk")
+TargetDestination = Vector2(0, 750)
+tweeningTransform = NodePath("../..")
+TweenSettings = SubResource("Resource_br1b4")
+
+[node name="LowerMoveIn" type="Node2D" parent="LowerPillar/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("2_qvwtk")
+TargetDestination = Vector2(0, 250)
+tweeningTransform = NodePath("../..")
+TweenSettings = SubResource("Resource_kxng4")
 
 [node name="LowerBody2D" type="AnimatableBody2D" parent="LowerPillar"]
 sync_to_physics = false

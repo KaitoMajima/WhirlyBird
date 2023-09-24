@@ -61,10 +61,10 @@ public partial class PlayerManagerNode : Node2D
     void ApplyDeathThrow ()
     {
         rigidBody2D.LinearVelocity = Vector2.Zero;
-        float randomXDirection = randomProvider.Range(-1, 1);
-        float randomYDirection = randomProvider.Range(-1, 1);
-        float randomXForce = randomProvider.Range(420, 4200);
-        float randomYForce = randomProvider.Range(420, 4200);
+        float randomXDirection = (float)randomProvider.Range(-1d, 1d);
+        float randomYDirection = (float)randomProvider.Range(-1d, 1d);
+        float randomXForce = randomProvider.Range(777, 7777);
+        float randomYForce = randomProvider.Range(777, 7777);
 
         Vector2 throwVector = new(
             randomXDirection * randomXForce,

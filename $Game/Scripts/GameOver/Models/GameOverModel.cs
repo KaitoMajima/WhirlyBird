@@ -2,6 +2,8 @@
 
 public class GameOverModel : IGameOverModel
 {
+    public event Action OnGameOverTriggered;
+    
     readonly IPlayerModel playerModel;
     
     bool isGameOver;
@@ -10,8 +12,6 @@ public class GameOverModel : IGameOverModel
     {
         this.playerModel = playerModel;
     }
-
-    public event Action OnGameOverTriggered;
 
     public void Intialiize ()
     {
