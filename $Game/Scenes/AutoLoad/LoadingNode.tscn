@@ -69,9 +69,10 @@ bg_color = Color(0.14902, 0.14902, 0.14902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlvkw"]
 bg_color = Color(0.305882, 0.682353, 0.545098, 1)
 
-[node name="LoadingNode" type="Node" node_paths=PackedStringArray("animationPlayer", "progressBar")]
+[node name="LoadingNode" type="Node" node_paths=PackedStringArray("raycastBlocker", "animationPlayer", "progressBar")]
 script = ExtResource("1_ok7od")
 LoadingConfigResource = SubResource("Resource_805ml")
+raycastBlocker = NodePath("LoadingUICanvas/LoadingVisualsContainer")
 animationPlayer = NodePath("LoadingUICanvas/LoadingVisualsContainer/AnimationPlayer")
 progressBar = NodePath("LoadingUICanvas/LoadingVisualsContainer/ProgressBar")
 fadeInAnimation = &"FadeIn"

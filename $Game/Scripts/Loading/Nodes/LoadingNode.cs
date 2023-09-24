@@ -5,6 +5,7 @@ public partial class LoadingNode : Node
     [Export]
     public LoadingConfigResource LoadingConfigResource { get; private set; }
 
+    [Export] Control raycastBlocker;
     [Export] AnimationPlayer animationPlayer;
     [Export] ProgressBar progressBar;
     [Export] StringName fadeInAnimation;
@@ -37,11 +38,13 @@ public partial class LoadingNode : Node
     void FadeIn ()
     {
         animationPlayer.Play(fadeInAnimation);
+        raycastBlocker.MouseFilter = Control.MouseFilterEnum.Stop;
     }
     
     void FadeOut ()
     {
         animationPlayer.Play(fadeOutAnimation);
+        raycastBlocker.MouseFilter = Control.MouseFilterEnum.Ignore;
     }
     
     void HandleLoadingStarted ()
