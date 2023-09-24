@@ -155,7 +155,7 @@ bg_color = Color(0.38, 0.1026, 0.15808, 1)
 blend_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
-radius = 44.0114
+radius = 35.0
 
 [sub_resource type="Resource" id="Resource_xkt4k"]
 script = ExtResource("21_n6477")

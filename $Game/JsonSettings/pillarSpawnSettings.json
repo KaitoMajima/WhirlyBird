@@ -2,32 +2,32 @@
   "pillarDifficulty": [
     {
       "pillarPassRequirement": 0,
-      "pillarSpeed": 330,
+      "pillarSpeed": 264,
       "pillarSpawnInterval": 2
     },
     {
       "pillarPassRequirement": 5,
-      "pillarSpeed": 396,
+      "pillarSpeed": 316.8,
       "pillarSpawnInterval": 1.75
     },
     {
       "pillarPassRequirement": 20,
-      "pillarSpeed": 462,
+      "pillarSpeed": 369.6,
       "pillarSpawnInterval": 1.5
     },
     {
       "pillarPassRequirement": 50,
-      "pillarSpeed": 792,
+      "pillarSpeed": 633.6,
       "pillarSpawnInterval": 1
     },
     {
       "pillarPassRequirement": 113,
-      "pillarSpeed": 858,
+      "pillarSpeed": 686.4,
       "pillarSpawnInterval": 0.95
     },
     {
       "pillarPassRequirement": 130,
-      "pillarSpeed": 1056,
+      "pillarSpeed": 844.8,
       "pillarSpawnInterval": 1.05
     }
   ],
