@@ -10,6 +10,7 @@ public partial class MapWorld2DNode : Node
 
     IPlayerModel playerModel;
     IMapInputDetectionModel mapInputDetectionModel;
+    IPillarSpawnSettings pillarSpawnSettings;
     IPillarManagerModel pillarManagerModel;
 
     public void Setup (

@@ -1,0 +1,43 @@
+{
+  "pillarDifficulty": [
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 0,
+      "pillarSpeed": 330,
+      "pillarSpawnInterval": 2
+    },
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 10,
+      "pillarSpeed": 396,
+      "pillarSpawnInterval": 1.75
+    },
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 25,
+      "pillarSpeed": 462,
+      "pillarSpawnInterval": 1.5
+    },
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 50,
+      "pillarSpeed": 792,
+      "pillarSpawnInterval": 1
+    },
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 113,
+      "pillarSpeed": 858,
+      "pillarSpawnInterval": 0.95
+    },
+    {
+      "pillarId": 0,
+      "pillarScoreRequirement": 130,
+      "pillarSpeed": 1056,
+      "pillarSpawnInterval": 1.05
+    }
+  ],
+  "pillarSecondsUntilDestruction": 5,
+  "pillarSpawnMinYHeight": -125,
+  "pillarSpawnMaxYHeight": 125
+}

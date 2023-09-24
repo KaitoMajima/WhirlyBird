@@ -1,14 +1,13 @@
-﻿using Godot;
-
-public static class MapFactory
+﻿public static class MapFactory
 {
     public static IMapModel CreateMapModel (
         ITimeProvider timeProvider, 
+        IRandomProvider randomProvider,
         MapSettingsResource mapSettingsResource
     )
     {
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider);
-        IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(mapSettingsResource);
+        IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource);
         IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
@@ -20,11 +19,18 @@ public static class MapFactory
         return new MapUICanvasModel(pauseModel);
     }
 
-    static IMapWorld2DModel CreateMapWorld2DModel (MapSettingsResource mapSettingsResource)
+    static IMapWorld2DModel CreateMapWorld2DModel (
+        IRandomProvider randomProvider, 
+        MapSettingsResource mapSettingsResource
+    )
     {
         IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
         IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings);
-        IPillarManagerModel pillarManagerModel = PillarFactory.CreatePillarManagerModel();
+        IPillarSpawnSettings pillarSpawnSettings = PillarFactory.CreatePillarSpawnSettings(mapSettingsResource);
+        IPillarManagerModel pillarManagerModel = PillarFactory.CreatePillarManagerModel(
+            pillarSpawnSettings, 
+            randomProvider
+        );
         
         return new MapWorld2DModel(
             playerModel, 

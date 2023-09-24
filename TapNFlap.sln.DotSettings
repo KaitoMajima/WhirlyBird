@@ -84,6 +84,7 @@ public partial class $RESOURCE$ : Resource
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/CustomProperties/=ValidateFileName/@EntryIndexedValue">True</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Description/@EntryValue">&amp;Record</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Field/=RECORD/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Field/=RECORD/Expression/@EntryValue">getAlphaNumericFileNameWithoutExtension()</s:String>
 	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Field/=RECORD/Order/@EntryValue">0</s:Int64>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Reformat/@EntryValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A951E4CD532FCE4A8A6930DC1EFFF78A/Scope/=E8F0594528C33E45BBFEC6CFE851095D/@KeyIndexDefined">True</s:Boolean>

@@ -11,10 +11,11 @@ public partial class PillarNode : Node2D
     [Export] Timer pillarSpawnTimer;
 
     IPillarModel pillarModel;
+    float moveSpeed;
     
     public override void _PhysicsProcess (double delta)
     {
-        Vector2 speed = new(-500 * (float)delta, 0);
+        Vector2 speed = new(-moveSpeed * (float)delta, 0);
         Position += speed;
     }
 
@@ -36,6 +37,11 @@ public partial class PillarNode : Node2D
     public void SetPosition (Vector2 position)
     {
         Position = position;
+    }
+
+    public void SetSpeed (float speed)
+    {
+        moveSpeed = speed;
     }
     
     void ResetPillarHitboxes ()

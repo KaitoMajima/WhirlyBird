@@ -3,6 +3,7 @@
     public static GameScope Instance { get; private set; }
     
     public ITimeProvider TimeProvider { get; private set; }
+    public IRandomProvider RandomProvider { get; private set; }
     
     public IGameSaveData GameSaveData { get; private set; }
     public IMainGameSavingSystem GameSavingSystem { get; private set; }
@@ -23,6 +24,7 @@
     void SetupProviders ()
     {
         TimeProvider = new TimeProvider();
+        RandomProvider = new RandomProvider();
     }
 
     void SetupNodes ()

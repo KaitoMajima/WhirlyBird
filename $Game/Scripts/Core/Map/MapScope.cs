@@ -41,6 +41,7 @@ public partial class MapScope : Node
     {
         MapModel = MapFactory.CreateMapModel(
             GameScope.TimeProvider, 
+            GameScope.RandomProvider,
             MapSettingsResource
         );
     }

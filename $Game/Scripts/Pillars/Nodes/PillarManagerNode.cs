@@ -31,23 +31,25 @@ public partial class PillarManagerNode : Node
         return pillar;
     }
     
-    void HandlePillarSpawn ()
-    {
-        PillarNode pillar = pillarPool.Fetch() ?? CreatePillar();
-        SetupPillar(pillar);
-    }
-
     void SetupPillar (PillarNode pillar)
     {
         IPillarModel pillarModel = PillarFactory.CreatePillarModel();
+        pillarModel.SetSecondsUntilDestruction(model.PillarSecondsUntilDestruction);
         pillarPool.InsertAsActive(pillar);
-        pillar.SetPosition(pillarSpawnPosition);
+        pillar.SetPosition(pillarSpawnPosition + model.GetNewRandomSpawningPoint());
         pillar.SetActive(true);
+        pillar.SetSpeed(model.PillarSpeed);
         
         pillar.Setup(pillarModel);
         pillar.Initialize();
         
         AddPillarNodeListeners(pillar);
+    }
+    
+    void HandlePillarSpawn ()
+    {
+        PillarNode pillar = pillarPool.Fetch() ?? CreatePillar();
+        SetupPillar(pillar);
     }
 
     void HandlePillarMarkedForDestruction (PillarNode pillar)

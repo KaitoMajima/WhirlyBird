@@ -6,11 +6,18 @@ public class PillarModel : IPillarModel
     public event Action OnPillarMarkedForDestruction;
     
     Timer currentTimer;
-    
+    double destructionSeconds;
+
+    public void SetSecondsUntilDestruction (double destructionSeconds)
+    {
+        this.destructionSeconds = destructionSeconds;
+    }
+
     public void StartTimedDestruction (Timer timer)
     {
         RemoveTimerListeners();
         currentTimer = timer;
+        currentTimer.WaitTime = destructionSeconds;
         currentTimer.Start();
         AddTimerListeners();
     }
