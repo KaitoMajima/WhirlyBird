@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=57 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
 [ext_resource type="PackedScene" uid="uid://dka5givt7tlai" path="res://$Game/PackedScenes/Pillars/Pillar.tscn" id="23_by3dm"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
+[ext_resource type="Texture2D" uid="uid://hahqp6bat03s" path="res://$Game/Art/Game/transparent_gradient.png" id="25_s2aeh"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/ObstacleDamageHitboxNode.cs" id="29_gri08"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
@@ -744,6 +745,14 @@ shape = SubResource("RectangleShape2D_o73xt")
 [node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/DeathLines/LowerLine/CollisionShape2D"]
 scale = Vector2(3.76172, 20)
 texture = SubResource("CurveTexture_ek7o6")
+
+[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D"]
+visible = false
+position = Vector2(276, 368)
+scale = Vector2(4.26562, 2.42969)
+color = Color(0.482353, 0.333333, 0.670588, 1)
+blend_mode = 2
+texture = ExtResource("25_s2aeh")
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")
