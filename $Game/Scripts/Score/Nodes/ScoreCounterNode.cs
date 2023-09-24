@@ -3,7 +3,8 @@
 public partial class ScoreCounterNode : Node
 {
     [Export] Label scoreLabel;
-    [Export] TweenManager scoringAnimation;
+    [Export] TextScaleUITween scoringScaleBackAnimation;
+    [Export] RotateUITween scoringRotateBackAnimation;
     
     IScoreCounterModel model;
     
@@ -26,7 +27,8 @@ public partial class ScoreCounterNode : Node
     void HandleScoreDetected ()
     {
         SetAllScoreText();
-        scoringAnimation.PlayTween();
+        scoringScaleBackAnimation.PlayTween();
+        scoringRotateBackAnimation.PlayTween();
     }
 
     void AddModelListeners ()

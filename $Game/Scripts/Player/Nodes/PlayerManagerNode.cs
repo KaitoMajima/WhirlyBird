@@ -50,7 +50,9 @@ public partial class PlayerManagerNode : Node2D
         rigidBody2D.LinearVelocity = Vector2.Zero;
         rigidBody2D.ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
         jumpingAnimation.PlayTween();
-        rotateAnimation.TargetRotationDegrees = Mathf.Max(rotateAnimationMin, originalYVelocity * rotateAnimationMultiplier);
+        float rotationDegrees = Mathf.Max(rotateAnimationMin, originalYVelocity * rotateAnimationMultiplier);
+        GD.Print(rotationDegrees);
+        rotateAnimation.TargetRotationDegrees = rotationDegrees;
         rotateAnimation.PlayTween();
     }
     
