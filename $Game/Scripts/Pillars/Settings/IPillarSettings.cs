@@ -1,7 +1,6 @@
 ﻿public interface IPillarSettings
 {
-    int PillarId { get; }
-    int PillarScoreRequirement { get; }
+    int PillarPassRequirement { get; }
     float PillarSpeed { get; }
     double PillarSpawnInterval { get; }
 }

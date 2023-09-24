@@ -51,6 +51,14 @@ public partial class PillarManagerNode : Node
         PillarNode pillar = pillarPool.Fetch() ?? CreatePillar();
         SetupPillar(pillar);
     }
+    
+    void HandlePillarDifficultyChanged ()
+    {
+        foreach (PillarNode pillar in pillarPool.ActiveItemsSet)
+            pillar.SetSpeed(model.PillarSpeed);
+        
+        model.StartTimedSpawning(pillarSpawnTimer);
+    }
 
     void HandlePillarMarkedForDestruction (PillarNode pillar)
     {
@@ -62,8 +70,9 @@ public partial class PillarManagerNode : Node
     void AddModelListeners ()
     {
         model.OnPillarSpawn += HandlePillarSpawn;
+        model.OnPillarDifficultyChanged += HandlePillarDifficultyChanged;
     }
-    
+
     void AddPillarNodeListeners (PillarNode pillar)
     {
         pillar.OnPillarMarkedForDestruction += HandlePillarMarkedForDestruction;
@@ -72,6 +81,7 @@ public partial class PillarManagerNode : Node
     void RemoveModelListeners ()
     {
         model.OnPillarSpawn -= HandlePillarSpawn;
+        model.OnPillarDifficultyChanged -= HandlePillarDifficultyChanged;
     }
     
     void RemovePillarNodeListeners (PillarNode pillar)

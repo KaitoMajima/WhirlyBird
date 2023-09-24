@@ -8,6 +8,11 @@
         IRandomProvider randomProvider
     ) => new PillarManagerModel(pillarSpawnSettings, randomProvider);
 
+    public static void SetupPillarManagerModel (
+        IPillarManagerModel pillarManagerModel,
+        IScoreCounterModel scoreCounterModel
+    ) => pillarManagerModel.Setup(scoreCounterModel);
+
     public static IPillarModel CreatePillarModel () 
         => new PillarModel();
 }

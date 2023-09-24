@@ -2,8 +2,7 @@
 
 [JsonObject(MemberSerialization.OptIn)]
 public record PillarSettings (
-    [property: JsonProperty] int PillarId,
-    [property: JsonProperty] int PillarScoreRequirement,
+    [property: JsonProperty] int PillarPassRequirement,
     [property: JsonProperty] float PillarSpeed,
     [property: JsonProperty] double PillarSpawnInterval
 )

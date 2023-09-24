@@ -14,11 +14,11 @@
     
     public void Initialize ()
     {
-        
+        PillarManagerModel.Initialize();
     }
     
     public void Dispose ()
     {
-        
+        PillarManagerModel.Dispose();
     }
 }

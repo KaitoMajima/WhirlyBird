@@ -9,6 +9,8 @@
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource);
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider, mapWorld2DModel.PlayerModel);
         IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
+        
+        SetupMapWorld2DModel(mapWorld2DModel.PillarManagerModel, mapUICanvasModel.ScoreCounterModel);
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
     }
@@ -42,4 +44,12 @@
 
     static IMapInputDetectionModel CreateMapInputDetectionModel (IPauseModel pauseModel) 
         => new MapInputDetectionModel(pauseModel);
+
+    static void SetupMapWorld2DModel (
+        IPillarManagerModel pillarManagerModel, 
+        IScoreCounterModel scoreCounterModel
+    )
+    {
+        PillarFactory.SetupPillarManagerModel(pillarManagerModel, scoreCounterModel);
+    }
 }
