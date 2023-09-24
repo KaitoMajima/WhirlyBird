@@ -41,6 +41,7 @@ TransitionType = 7
 size = Vector2(70, 207)
 
 [node name="Pillar" type="Node2D" node_paths=PackedStringArray("upperPillarMoveInAnimation", "upperPillarMoveAwayAnimation", "lowerPillarMoveInAnimation", "lowerPillarMoveAwayAnimation", "upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox", "pillarSpawnTimer")]
+z_index = 5
 script = ExtResource("1_2rnhs")
 upperPillarMoveInAnimation = NodePath("UpperPillar/Animations/UpperMoveIn")
 upperPillarMoveAwayAnimation = NodePath("UpperPillar/Animations/UpperMoveAway")

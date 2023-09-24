@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=66 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bkdj6hd57587m" path="res://$Game/Art/Game/mountain1.png" id="4_7mfdf"]
 [ext_resource type="Texture2D" uid="uid://ckkkbwmeta2mg" path="res://$Game/Art/Game/cloud5.png" id="4_l4e8t"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapWorld2DNode.cs" id="5_4vban"]
+[ext_resource type="Material" uid="uid://cwrsf0h5r11u7" path="res://$Game/Art/Materials/UnshadedMaterial.tres" id="5_gacay"]
 [ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
 [ext_resource type="Script" path="res://$Game/Scripts/Score/Nodes/ScoreCounterNode.cs" id="5_uw3sy"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
@@ -23,6 +24,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverNode.cs" id="12_xrxng"]
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverCenterButtons.cs" id="13_6lj1e"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/FadeTween.cs" id="13_ljrcd"]
+[ext_resource type="Texture2D" uid="uid://cqxq7yn7fnlr0" path="res://$Game/Art/Game/256x256circle.png" id="17_g42s1"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerManagerNode.cs" id="18_l1c2b"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
@@ -32,6 +34,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
 [ext_resource type="Texture2D" uid="uid://hahqp6bat03s" path="res://$Game/Art/Game/transparent_gradient.png" id="25_s2aeh"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/ObstacleDamageHitboxNode.cs" id="29_gri08"]
+[ext_resource type="Texture2D" uid="uid://dvsii4e7cou2i" path="res://$Game/Art/Game/256x256light.png" id="30_7a1ac"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
 bg_color = Color(1, 1, 1, 1)
@@ -152,11 +155,58 @@ bg_color = Color(0.58, 0.1566, 0.24128, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8iue"]
 bg_color = Color(0.38, 0.1026, 0.15808, 1)
 
+[sub_resource type="Curve" id="Curve_nxsx4"]
+_data = [Vector2(0, 1), 0.0, 0.539573, 0, 0, Vector2(0.993579, 0.0315789), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_neltt"]
+curve = SubResource("Curve_nxsx4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o7lvh"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 113.515, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-777, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.17
+scale_curve = SubResource("CurveTexture_neltt")
+color = Color(0.427451, 0.305882, 0.619608, 0.290196)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hyr1x"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 113.515, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-4200, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_neltt")
+color = Color(0, 0, 0, 1)
+turbulence_enabled = true
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
 blend_mode = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13pwg"]
+blend_mode = 1
+light_mode = 1
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
 radius = 35.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w4u75"]
+particle_flag_disable_z = true
+gravity = Vector3(-5000, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.07
+scale_curve = SubResource("CurveTexture_neltt")
+color = Color(1, 0.568627, 0.780392, 1)
+turbulence_enabled = true
 
 [sub_resource type="Resource" id="Resource_xkt4k"]
 script = ExtResource("21_n6477")
@@ -237,6 +287,7 @@ offset_bottom = 85.0
 grow_horizontal = 0
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/HUD/PauseButton"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -253,6 +304,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
 [node name="Panel2" type="Panel" parent="MapNode/MapUICanvas/HUD/PauseButton"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -305,6 +357,7 @@ tweeningTransform = NodePath("../../ScoreLabel")
 TweenSettings = SubResource("Resource_e1lqo")
 
 [node name="ScoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -331,6 +384,7 @@ centerButtons = NodePath("CenterButtons")
 sceneToUnload = NodePath("../../..")
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -339,6 +393,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="MapNode/MapUICanvas/PauseNode"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -376,6 +431,7 @@ retryButton = NodePath("Retry")
 mainMenuButton = NodePath("MainMenu")
 
 [node name="Resume" type="Button" parent="MapNode/MapUICanvas/PauseNode/CenterButtons"]
+material = ExtResource("5_gacay")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_kwjuq")
 theme_override_font_sizes/font_size = 36
@@ -385,6 +441,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Resume"
 
 [node name="Retry" type="Button" parent="MapNode/MapUICanvas/PauseNode/CenterButtons"]
+material = ExtResource("5_gacay")
 layout_mode = 2
 theme_override_colors/icon_normal_color = Color(0.258824, 0.584314, 0.635294, 1)
 theme_override_colors/icon_pressed_color = Color(0.121569, 0.321569, 0.34902, 1)
@@ -397,6 +454,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Retry"
 
 [node name="MainMenu" type="Button" parent="MapNode/MapUICanvas/PauseNode/CenterButtons"]
+material = ExtResource("5_gacay")
 layout_mode = 2
 theme_override_colors/icon_normal_color = Color(0.258824, 0.584314, 0.635294, 1)
 theme_override_colors/icon_pressed_color = Color(0.121569, 0.321569, 0.34902, 1)
@@ -458,6 +516,7 @@ tweeningTransform = NodePath("../../../CenterButtons")
 TweenSettings = SubResource("Resource_qlham")
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/GameOverNode"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -466,6 +525,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="MapNode/MapUICanvas/GameOverNode"]
+material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -503,6 +563,7 @@ retryButton = NodePath("Resume")
 mainMenuButton = NodePath("MainMenu")
 
 [node name="Resume" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
+material = ExtResource("5_gacay")
 layout_mode = 2
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("1_kwjuq")
@@ -513,6 +574,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
 text = "Retry"
 
 [node name="MainMenu" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
+material = ExtResource("5_gacay")
 layout_mode = 2
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("1_kwjuq")
@@ -532,18 +594,89 @@ PillarManagerNode = NodePath("PillarManagerNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 
+[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
+visible = false
+
+[node name="PurpleLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/PurpleStage"]
+visible = false
+scale = Vector2(1.73, 1)
+color = Color(0.482353, 0.333333, 0.670588, 1)
+blend_mode = 2
+range_layer_max = 1
+
+[node name="WindParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/PurpleStage"]
+z_index = 10
+material = ExtResource("5_gacay")
+position = Vector2(776, 343)
+scale = Vector2(1, 2.73)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_o7lvh")
+texture = ExtResource("17_g42s1")
+lifetime = 5.0
+trail_lifetime = 0.39
+
+[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
+visible = false
+
+[node name="RedLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+scale = Vector2(2.994, 1)
+color = Color(0.556863, 0.117647, 0.180392, 1)
+blend_mode = 2
+range_layer_max = 1
+
+[node name="BlackBlobParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+z_index = 10
+material = ExtResource("5_gacay")
+position = Vector2(776, 343)
+scale = Vector2(1, 2.49)
+amount = 57
+process_material = SubResource("ParticleProcessMaterial_hyr1x")
+texture = ExtResource("17_g42s1")
+lifetime = 3.0
+trail_lifetime = 0.39
+
+[node name="BlackGradientTop" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+modulate = Color(0, 0, 0, 1)
+z_index = 20
+position = Vector2(218, 185)
+scale = Vector2(3.76563, 1)
+texture = ExtResource("25_s2aeh")
+
+[node name="BlackGradientBottom" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+modulate = Color(0, 0, 0, 1)
+z_index = 20
+position = Vector2(218, 483)
+scale = Vector2(3.766, -1)
+texture = ExtResource("25_s2aeh")
+
+[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
+
 [node name="Sky" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 position = Vector2(679, 271)
 scale = Vector2(1.9541, 1.00587)
 texture = ExtResource("3_telee")
 
 [node name="Sun" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-modulate = Color(0.996094, 0.796875, 0, 1)
-self_modulate = Color(0.996094, 0.796875, 0, 1)
+visible = false
 material = SubResource("CanvasItemMaterial_lvqwc")
 position = Vector2(-100.302, -124.271)
-scale = Vector2(0.417673, 0.811415)
-texture = ExtResource("10_ls0su")
+scale = Vector2(0.223889, 0.43495)
+texture = ExtResource("17_g42s1")
+
+[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
+light_mask = 0
+material = SubResource("CanvasItemMaterial_13pwg")
+position = Vector2(-131.518, 95.4398)
+scale = Vector2(0.603699, 1.17281)
+texture = ExtResource("17_g42s1")
+
+[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/Sky/Moon"]
+scale = Vector2(1.28477, 1.28477)
+color = Color(0.278431, 0.32549, 1, 0.588235)
+range_z_min = -1
+range_z_max = 0
+texture = ExtResource("30_7a1ac")
+texture_scale = 1.15
 
 [node name="Cloud" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
 texture_filter = 1
@@ -577,7 +710,7 @@ texture = ExtResource("4_l4e8t")
 
 [node name="Cloud9" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
 texture_filter = 1
-position = Vector2(-122.307, -85.4983)
+position = Vector2(-184.74, -102.399)
 scale = Vector2(0.341879, 0.66417)
 texture = ExtResource("5_hak22")
 
@@ -607,6 +740,7 @@ texture = ExtResource("5_hak22")
 
 [node name="Tree" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
 texture_filter = 1
 position = Vector2(-181, 363)
 scale = Vector2(1.60417, 1.60417)
@@ -614,6 +748,7 @@ texture = ExtResource("3_16834")
 
 [node name="Tree2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
 texture_filter = 1
 position = Vector2(-100, 419)
 scale = Vector2(1.13021, 1.13021)
@@ -621,6 +756,7 @@ texture = ExtResource("3_16834")
 
 [node name="Tree3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
 texture_filter = 1
 position = Vector2(621, 398)
 scale = Vector2(1.48958, 1.48958)
@@ -628,6 +764,7 @@ texture = ExtResource("3_16834")
 
 [node name="Mountain" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.972549, 0.972549, 0.972549, 1)
+z_index = 1
 texture_filter = 1
 position = Vector2(149.515, 437.079)
 scale = Vector2(-0.427745, 0.427745)
@@ -635,13 +772,15 @@ texture = ExtResource("4_7mfdf")
 
 [node name="Mountain2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.972549, 0.972549, 0.972549, 1)
+z_index = 1
 texture_filter = 1
-position = Vector2(307, 354)
+position = Vector2(342, 355)
 scale = Vector2(0.687269, 0.687269)
 texture = ExtResource("4_7mfdf")
 
 [node name="Hills" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
 modulate = Color(0.627451, 0.866667, 0.741176, 1)
+z_index = 2
 position = Vector2(-3, -9)
 
 [node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
@@ -677,6 +816,7 @@ pillarNodePack = ExtResource("23_by3dm")
 [node name="PillarSpawnTimer" type="Timer" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
 [node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform")]
+z_index = 10
 position = Vector2(-10, 334)
 script = ExtResource("18_l1c2b")
 rotateAnimationMultiplier = 1.2
@@ -701,6 +841,54 @@ shape = SubResource("CircleShape2D_slndq")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("10_ls0su")
 
+[node name="EyeLights" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite"]
+visible = false
+
+[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights"]
+position = Vector2(27.5, -5.83331)
+scale = Vector2(0.227865, 0.227865)
+color = Color(0.513726, 1, 0.305882, 1)
+energy = 0.77
+texture = ExtResource("30_7a1ac")
+texture_scale = 1.38
+
+[node name="PointLight2D3" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D"]
+scale = Vector2(0.209059, 0.209059)
+energy = 3.79
+texture = ExtResource("17_g42s1")
+texture_scale = 2.05
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D"]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_w4u75")
+texture = ExtResource("17_g42s1")
+trail_lifetime = 0.39
+
+[node name="PointLight2D2" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights"]
+position = Vector2(-27.5, -5.83331)
+scale = Vector2(0.227865, 0.227865)
+color = Color(0.513726, 1, 0.305882, 1)
+energy = 0.77
+texture = ExtResource("30_7a1ac")
+texture_scale = 1.38
+
+[node name="PointLight2D3" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D2"]
+scale = Vector2(0.209059, 0.209059)
+energy = 3.79
+texture = ExtResource("17_g42s1")
+texture_scale = 2.05
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D2"]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_w4u75")
+texture = ExtResource("17_g42s1")
+
+[node name="PointLight2D3" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights"]
+scale = Vector2(0.227865, 0.227865)
+energy = 0.43
+texture = ExtResource("30_7a1ac")
+texture_scale = 2.58
+
 [node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
 
 [node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
@@ -722,6 +910,7 @@ TweenSettings = SubResource("Resource_l883g")
 shape = SubResource("CircleShape2D_slndq")
 
 [node name="DeathLines" type="Node2D" parent="MapNode/MapWorld2D"]
+z_index = 20
 
 [node name="UpperLine" type="Area2D" parent="MapNode/MapWorld2D/DeathLines"]
 script = ExtResource("29_gri08")
@@ -746,13 +935,7 @@ shape = SubResource("RectangleShape2D_o73xt")
 scale = Vector2(3.76172, 20)
 texture = SubResource("CurveTexture_ek7o6")
 
-[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D"]
-visible = false
-position = Vector2(276, 368)
-scale = Vector2(4.26562, 2.42969)
-color = Color(0.482353, 0.333333, 0.670588, 1)
-blend_mode = 2
-texture = ExtResource("25_s2aeh")
+[node name="StageLights" type="Node2D" parent="MapNode/MapWorld2D"]
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")

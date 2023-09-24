@@ -18,7 +18,7 @@ public class PillarManagerModel : IPillarManagerModel
     IScoreCounterModel scoreCounterModel;
     Timer currentTimer;
     int currentDifficultyIndex;
-    int pillarsPassed;
+    int pillarsPassed = 100;
 
     public PillarManagerModel (
         IPillarSpawnSettings spawnSettings,
