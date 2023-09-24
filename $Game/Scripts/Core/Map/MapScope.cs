@@ -48,7 +48,9 @@ public partial class MapScope : Node
             MapWorld2DModel.PlayerModel, 
             MapInputDetectionModel, 
             MapWorld2DModel.PillarManagerModel,
-            MapUICanvasModel.ScoreCounterModel
+            MapUICanvasModel.ScoreCounterModel,
+            MapUICanvasModel.GameOverModel,
+            GameScope.RandomProvider
         );
     }
     

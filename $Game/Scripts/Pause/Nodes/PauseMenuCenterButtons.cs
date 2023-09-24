@@ -7,31 +7,12 @@ public partial class PauseMenuCenterButtons : Node
     public event Action OnRetryButtonPressed;
     public event Action OnMainMenuButtonPressed;
     
-    #region Node Paths
-    [Export]
-    NodePath ResumeButtonPath { get; set; }
-    
-    [Export]
-    NodePath RetryButtonPath { get; set; }
-    
-    [Export]
-    NodePath MainMenuButtonPath { get; set; }
-    
-    [Export(PropertyHint.File, "*.tscn")]
-    string MainMenuScenePath { get; set; }
-    #endregion
-
-    #region Nodes
-    Button resumeButton;
-    Button retryButton;
-    Button mainMenuButton;
-    #endregion
+    [Export] Button resumeButton;
+    [Export] Button retryButton;
+    [Export] Button mainMenuButton;
 
     public void Initialize ()
     {
-        resumeButton = GetNode<Button>(ResumeButtonPath);
-        retryButton = GetNode<Button>(RetryButtonPath);
-        mainMenuButton = GetNode<Button>(MainMenuButtonPath);
         AddButtonListeners();
     }
 

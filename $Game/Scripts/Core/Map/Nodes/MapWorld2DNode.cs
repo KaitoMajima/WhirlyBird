@@ -11,10 +11,15 @@ public partial class MapWorld2DNode : Node
     public void Setup (
         IPlayerModel playerModel, 
         IMapInputDetectionModel mapInputDetectionModel,
-        IPillarManagerModel pillarManagerModel
+        IPillarManagerModel pillarManagerModel,
+        IRandomProvider randomProvider
     )
     {
-        PlayerManagerNode.Setup(playerModel, mapInputDetectionModel);
+        PlayerManagerNode.Setup(
+            playerModel, 
+            mapInputDetectionModel, 
+            randomProvider
+        );
         PillarManagerNode.Setup(pillarManagerModel);
     }
     

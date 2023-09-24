@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=48 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -14,12 +14,14 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapWorld2DNode.cs" id="5_4vban"]
 [ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="5_hak22"]
 [ext_resource type="Script" path="res://$Game/Scripts/Score/Nodes/ScoreCounterNode.cs" id="5_uw3sy"]
-[ext_resource type="Script" path="res://$Game/Scripts/Core/Pause/Nodes/PauseNode.cs" id="6_0ps5p"]
-[ext_resource type="Script" path="res://$Game/Scripts/Core/Pause/Nodes/PauseMenuCenterButtons.cs" id="6_5dx4p"]
 [ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="6_ygtwg"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Control/TextScaleUITween.cs" id="7_ywhsn"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Control/RotateUITween.cs" id="9_be8kg"]
+[ext_resource type="Script" path="res://$Game/Scripts/Pause/Nodes/PauseNode.cs" id="10_5eliv"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
+[ext_resource type="Script" path="res://$Game/Scripts/Pause/Nodes/PauseMenuCenterButtons.cs" id="11_7vnl0"]
+[ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverNode.cs" id="12_xrxng"]
+[ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverCenterButtons.cs" id="13_6lj1e"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerManagerNode.cs" id="18_l1c2b"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
@@ -152,10 +154,11 @@ MapUICanvasNode = NodePath("MapUICanvas")
 MapWorld2DNode = NodePath("MapWorld2D")
 MapInputDetectionNode = NodePath("InputDetector")
 
-[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "ScoreCounterNode", "pauseButton")]
+[node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "ScoreCounterNode", "GameOverNode", "pauseButton")]
 script = ExtResource("3_ddteq")
 PauseNode = NodePath("PauseNode")
 ScoreCounterNode = NodePath("HUD/ScoreCounter")
+GameOverNode = NodePath("GameOverNode")
 pauseButton = NodePath("HUD/PauseButton")
 
 [node name="HUD" type="Control" parent="MapNode/MapUICanvas"]
@@ -259,16 +262,16 @@ TargetRotationDegrees = 16.0
 tweeningTransform = NodePath("../../ScoreLabel")
 TweenSettings = SubResource("Resource_e1lqo")
 
-[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "sceneToUnload")]
+[node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("centerButtons", "sceneToUnload")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_0ps5p")
-CenterButtons = NodePath("CenterButtons")
-MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+script = ExtResource("10_5eliv")
+mainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+centerButtons = NodePath("CenterButtons")
 sceneToUnload = NodePath("../../..")
 
 [node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode"]
@@ -296,7 +299,7 @@ text = "PAUSED"
 label_settings = SubResource("LabelSettings_spj1t")
 horizontal_alignment = 1
 
-[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/PauseNode"]
+[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/PauseNode" node_paths=PackedStringArray("resumeButton", "retryButton", "mainMenuButton")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -310,11 +313,10 @@ offset_bottom = 165.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
-script = ExtResource("6_5dx4p")
-ResumeButtonPath = NodePath("Resume")
-RetryButtonPath = NodePath("Retry")
-MainMenuButtonPath = NodePath("MainMenu")
-MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+script = ExtResource("11_7vnl0")
+resumeButton = NodePath("Resume")
+retryButton = NodePath("Retry")
+mainMenuButton = NodePath("MainMenu")
 
 [node name="Resume" type="Button" parent="MapNode/MapUICanvas/PauseNode/CenterButtons"]
 layout_mode = 2
@@ -349,19 +351,19 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
 
-[node name="PauseNode2" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("CenterButtons", "sceneToUnload")]
+[node name="GameOverNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("centerButtons", "sceneToUnload")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_0ps5p")
-CenterButtons = NodePath("../PauseNode/CenterButtons")
-MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+script = ExtResource("12_xrxng")
+mainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+centerButtons = NodePath("CenterButtons")
 sceneToUnload = NodePath("../../..")
 
-[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/PauseNode2"]
+[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/GameOverNode"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -369,7 +371,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="MapNode/MapUICanvas/PauseNode2"]
+[node name="Label" type="Label" parent="MapNode/MapUICanvas/GameOverNode"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -386,7 +388,7 @@ text = "GAME OVER"
 label_settings = SubResource("LabelSettings_ducut")
 horizontal_alignment = 1
 
-[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/PauseNode2"]
+[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/GameOverNode" node_paths=PackedStringArray("retryButton", "mainMenuButton")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -400,13 +402,11 @@ offset_bottom = 165.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
-script = ExtResource("6_5dx4p")
-ResumeButtonPath = NodePath("Resume")
-RetryButtonPath = NodePath("")
-MainMenuButtonPath = NodePath("")
-MainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+script = ExtResource("13_6lj1e")
+retryButton = NodePath("Resume")
+mainMenuButton = NodePath("MainMenu")
 
-[node name="Resume" type="Button" parent="MapNode/MapUICanvas/PauseNode2/CenterButtons"]
+[node name="Resume" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_kwjuq")
 theme_override_font_sizes/font_size = 36
@@ -415,7 +415,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_xk2ce")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
 text = "Retry"
 
-[node name="Exit" type="Button" parent="MapNode/MapUICanvas/PauseNode2/CenterButtons"]
+[node name="MainMenu" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_kwjuq")
 theme_override_font_sizes/font_size = 36

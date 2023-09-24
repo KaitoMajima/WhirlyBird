@@ -16,8 +16,9 @@
     static IMapUICanvasModel CreateMapUICanvasModel (ITimeProvider timeProvider, IPlayerModel playerModel)
     {
         IPauseModel pauseModel = PauseFactory.CreatePauseModel(timeProvider);
-        IScoreCounterModel scoreCounterModel = ScoreFactory.CreateScoreCounterModel(playerModel);
-        return new MapUICanvasModel(pauseModel, scoreCounterModel);
+        IGameOverModel gameOverModel = GameOverFactory.CreateGameOverModel(playerModel);
+        IScoreCounterModel scoreCounterModel = ScoreFactory.CreateScoreCounterModel(playerModel, gameOverModel);
+        return new MapUICanvasModel(pauseModel, scoreCounterModel, gameOverModel);
     }
 
     static IMapWorld2DModel CreateMapWorld2DModel (

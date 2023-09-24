@@ -1,13 +1,23 @@
 ﻿using System;
-using Godot;
 
 public class PlayerModel : IPlayerModel
 {
     public event Action OnPlayerScored;
+    public event Action OnPlayerDamaged;
+    public event Action OnPlayerKilled;
     
     public float PlayerSize => playerSettings.PlayerSize;
     public float GravityScale => playerSettings.PlayerGravityScale;
     public float JumpStrength => playerSettings.PlayerJumpStrength;
+    
+    public bool IsPlayerKilled { get; private set; }
+
+    readonly IPlayerSettings playerSettings;
+
+    public PlayerModel (IPlayerSettings playerSettings)
+    {
+        this.playerSettings = playerSettings;
+    }
     
     public void Score ()
     {
@@ -16,13 +26,12 @@ public class PlayerModel : IPlayerModel
 
     public void Damage ()
     {
-        GD.Print("Player has been damaged!");
+        OnPlayerDamaged?.Invoke();
     }
 
-    readonly IPlayerSettings playerSettings;
-
-    public PlayerModel (IPlayerSettings playerSettings)
+    public void Kill ()
     {
-        this.playerSettings = playerSettings;
+        IsPlayerKilled = true;
+        OnPlayerKilled?.Invoke();
     }
 }

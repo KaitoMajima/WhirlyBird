@@ -8,21 +8,30 @@ public partial class MapUICanvasNode : Node
     [Export]
     public ScoreCounterNode ScoreCounterNode { get; private set; }
     
+    [Export]
+    public GameOverNode GameOverNode { get; private set; }
+    
     [Export] Button pauseButton;
 
     IPauseModel pauseModel;
     
-    public void Setup (IPauseModel pauseModel, IScoreCounterModel scoreCounterModel)
+    public void Setup (
+        IPauseModel pauseModel, 
+        IScoreCounterModel scoreCounterModel,
+        IGameOverModel gameOverModel
+    )
     {
         this.pauseModel = pauseModel;
         PauseNode.Setup(pauseModel);
         ScoreCounterNode.Setup(scoreCounterModel);
+        GameOverNode.Setup(gameOverModel);
     }
     
     public void Initialize ()
     {
         PauseNode.Initialize();
         ScoreCounterNode.Initialize();
+        GameOverNode.Initialize();
         
         AddButtonListeners();
     }
@@ -47,6 +56,7 @@ public partial class MapUICanvasNode : Node
         RemoveButtonListeners();
         PauseNode.Dispose();
         ScoreCounterNode.Dispose();
+        GameOverNode.Dispose();
         base.Dispose();
     }
 }

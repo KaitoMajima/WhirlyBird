@@ -6,4 +6,5 @@ public interface IMapInputDetectionModel
     event Action<InputType> OnMainActionTriggered;
 
     void MainActionTrigger (InputType inputType);
+    void LockAllInputs ();
 }

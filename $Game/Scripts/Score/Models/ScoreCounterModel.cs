@@ -8,35 +8,52 @@ public class ScoreCounterModel : IScoreCounterModel
     // public int Highscore => scoreData.Highscore;
     
     readonly IPlayerModel playerModel;
-        
-    public ScoreCounterModel (IPlayerModel playerModel)
+    readonly IGameOverModel gameOverModel;
+
+    bool isScoreCountLocked;
+
+    public ScoreCounterModel (
+        IPlayerModel playerModel, 
+        IGameOverModel gameOverModel
+    )
     {
         this.playerModel = playerModel;
+        this.gameOverModel = gameOverModel;
     }
 
     public void Initialize ()
     {
         AddModelListeners();
     }
-
-    void AddModelListeners ()
+    
+    void HandleGameOverTriggered ()
     {
-        playerModel.OnPlayerScored += HandlePlayerScored;
+        isScoreCountLocked = true;
     }
-        
-    void RemoveModelListeners ()
-    {
-        playerModel.OnPlayerScored -= HandlePlayerScored;
-    }
-
+    
     void HandlePlayerScored ()
     {
+        if (isScoreCountLocked)
+            return;
+        
         // if (scoreData.Highscore < Score)
         //     scoreData.Highscore = Score;
         Score++;
         OnScoreDetected?.Invoke();
     }
 
+    void AddModelListeners ()
+    {
+        playerModel.OnPlayerScored += HandlePlayerScored;
+        gameOverModel.OnGameOverTriggered += HandleGameOverTriggered;
+    }
+
+    void RemoveModelListeners ()
+    {
+        playerModel.OnPlayerScored -= HandlePlayerScored;
+        gameOverModel.OnGameOverTriggered -= HandleGameOverTriggered;
+    }
+    
     public void Dispose ()
     {
         RemoveModelListeners();

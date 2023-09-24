@@ -6,6 +6,7 @@ public class MapInputDetectionModel : IMapInputDetectionModel
     public event Action<InputType> OnMainActionTriggered;
     
     readonly IPauseModel pauseModel;
+    bool areInputsLocked;
 
     public MapInputDetectionModel (IPauseModel pauseModel)
     {
@@ -14,6 +15,9 @@ public class MapInputDetectionModel : IMapInputDetectionModel
     
     public void MainActionTrigger (InputType inputType)
     {
+        if (areInputsLocked)
+            return;
+        
         if (pauseModel.IsPaused)
         {
             if (inputType == InputType.JustPressed)
@@ -22,5 +26,10 @@ public class MapInputDetectionModel : IMapInputDetectionModel
         }
         
         OnMainActionTriggered?.Invoke(inputType);
+    }
+
+    public void LockAllInputs ()
+    {
+        areInputsLocked = true;
     }
 }

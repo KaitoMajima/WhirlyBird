@@ -16,14 +16,21 @@ public partial class MapNode : Node
         IPlayerModel playerModel,
         IMapInputDetectionModel mapInputDetectionModel,
         IPillarManagerModel pillarManagerModel,
-        IScoreCounterModel scoreCounterModel
+        IScoreCounterModel scoreCounterModel,
+        IGameOverModel gameOverModel,
+        IRandomProvider randomProvider
     )
     {
-        MapUICanvasNode.Setup(pauseModel, scoreCounterModel);
+        MapUICanvasNode.Setup(
+            pauseModel, 
+            scoreCounterModel, 
+            gameOverModel
+        );
         MapWorld2DNode.Setup(
             playerModel,
             mapInputDetectionModel, 
-            pillarManagerModel
+            pillarManagerModel,
+            randomProvider
         );
         MapInputDetectionNode.Setup(mapInputDetectionModel);
     }

@@ -14,14 +14,17 @@ public partial class PlayerManagerNode : Node2D
 
     IPlayerModel playerModel;
     IMapInputDetectionModel inputDetectionModel;
+    IRandomProvider randomProvider;
     
     public void Setup (
         IPlayerModel playerModel,
-        IMapInputDetectionModel inputDetectionModel
+        IMapInputDetectionModel inputDetectionModel,
+        IRandomProvider randomProvider
     )
     {
         this.playerModel = playerModel;
         this.inputDetectionModel = inputDetectionModel;
+        this.randomProvider = randomProvider;
     }
 
     public void Initialize ()
@@ -55,6 +58,22 @@ public partial class PlayerManagerNode : Node2D
         rotateAnimation.PlayTween();
     }
     
+    void ApplyDeathThrow ()
+    {
+        rigidBody2D.LinearVelocity = Vector2.Zero;
+        float randomXDirection = randomProvider.Range(-1, 1);
+        float randomYDirection = randomProvider.Range(-1, 1);
+        float randomXForce = randomProvider.Range(420, 4200);
+        float randomYForce = randomProvider.Range(420, 4200);
+
+        Vector2 throwVector = new(
+            randomXDirection * randomXForce,
+            randomYDirection * randomYForce
+        );
+
+        rigidBody2D.ApplyImpulse(throwVector);
+    }
+    
     void ProcessCollisions (Node2D body)
     {
         ICollideable collideable = (ICollideable)body;
@@ -75,6 +94,12 @@ public partial class PlayerManagerNode : Node2D
         }
     }
     
+    void HandlePlayerKilled ()
+    {
+        inputDetectionModel.LockAllInputs();
+        ApplyDeathThrow();
+    }
+
     void HandleMainActionTriggered (InputType type)
     {
         if (type == InputType.JustReleased)
@@ -99,9 +124,10 @@ public partial class PlayerManagerNode : Node2D
     
     void AddModelListeners ()
     {
+        playerModel.OnPlayerKilled += HandlePlayerKilled;
         inputDetectionModel.OnMainActionTriggered += HandleMainActionTriggered;
     }
-    
+
     void AddRigidBodyListeners ()
     {
         collisionDetector.AreaEntered += HandleTriggerEntered;
@@ -110,6 +136,7 @@ public partial class PlayerManagerNode : Node2D
     
     void RemoveModelListeners ()
     {
+        playerModel.OnPlayerKilled -= HandlePlayerKilled;
         inputDetectionModel.OnMainActionTriggered -= HandleMainActionTriggered;
     }
 
