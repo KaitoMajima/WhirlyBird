@@ -40,6 +40,13 @@ public partial class TextScaleUITween : TweenManager
 
     void SetScale (int startValue, int endValue, int progress, float amplitude)
     {
+        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        {
+            CurrentScale = ClampProgressValue(endValue);
+            MainTween.Kill();
+            return;
+        }
+        
         int value = Mathf.RoundToInt(
             TweenExtensions.OvershootTween(
                 startValue, 
@@ -49,6 +56,9 @@ public partial class TextScaleUITween : TweenManager
             )
         );
         
-        CurrentScale = Mathf.Clamp(value, 1, 4096);
+        CurrentScale = ClampProgressValue(value);
     }
+
+    int ClampProgressValue (int value) 
+        => Mathf.Clamp(value, 1, 4096);
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-public partial class GameOverCenterButtons : Node
+public partial class GameOverCenterButtons : Control
 {
     public event Action OnRetryButtonPressed;
     public event Action OnMainMenuButtonPressed;
@@ -12,6 +12,12 @@ public partial class GameOverCenterButtons : Node
     public void Initialize ()
     {
         AddButtonListeners();
+    }
+
+    public void SetMouseFilter (MouseFilterEnum filter)
+    {
+        retryButton.MouseFilter = filter;
+        mainMenuButton.MouseFilter = filter;
     }
 
     void AddButtonListeners ()

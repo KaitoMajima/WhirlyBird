@@ -53,7 +53,7 @@ public abstract partial class TweenManager : Node
         StopTween();
         base.Dispose();
     }
-
+    
     protected abstract void SetupTween ();
     protected abstract void TriggerTween (bool isBackwards);
 }

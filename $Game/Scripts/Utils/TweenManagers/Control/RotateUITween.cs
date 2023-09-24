@@ -30,7 +30,7 @@ public partial class RotateUITween : TweenManager
         float lastRotationDegrees = CurrentRotationDegrees;
         
         MainTween.TweenMethod(Callable.From<int>(progress => 
-                SetRotationDegrees(lastRotationDegrees, tweenRotationDegrees, progress, TweenSettings.Amplitude)),
+            SetRotationDegrees(lastRotationDegrees, tweenRotationDegrees, progress, TweenSettings.Amplitude)),
             lastRotationDegrees, 
             tweenRotationDegrees, 
             TweenSettings.Duration
@@ -39,10 +39,11 @@ public partial class RotateUITween : TweenManager
     
     void SetRotationDegrees (float startValue, float endValue, float progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration)
+        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
         {
             CurrentRotationDegrees = endValue;
             MainTween.Kill();
+            return;
         }
         
         float value = TweenExtensions.OvershootTween(startValue, endValue, progress, amplitude);

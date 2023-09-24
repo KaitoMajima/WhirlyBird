@@ -7,6 +7,8 @@ public partial class GameOverNode : Control
 
     [Export] GameOverCenterButtons centerButtons;
     [Export] Node sceneToUnload;
+    [Export] Timer buttonInputActivationTimer;
+    [Export] TweenManager[] gameOverAnimations;
 
     IGameOverModel model;
 
@@ -18,6 +20,7 @@ public partial class GameOverNode : Control
     public void Initialize ()
     {
         centerButtons.Initialize();
+        centerButtons.SetMouseFilter(MouseFilterEnum.Ignore);
         Visible = false;
         AddModelListeners();
         AddNodeListeners();
@@ -26,6 +29,11 @@ public partial class GameOverNode : Control
     void HandleGameOverTriggered ()
     {
         Visible = true;
+        foreach (TweenManager gameOverAnimation in gameOverAnimations)
+            gameOverAnimation.PlayTween();
+        
+        buttonInputActivationTimer.Start();
+        AddTimerListeners();
     }
     
     void HandleRetryButtonPressed ()
@@ -36,6 +44,11 @@ public partial class GameOverNode : Control
     void HandleMainMenuButtonPressed ()
     {
         LoadingScope.Instance.Load(mainMenuScenePath, sceneToUnload);
+    }
+    
+    void HandleButtonActivationTimeout ()
+    {
+        centerButtons.SetMouseFilter(MouseFilterEnum.Stop);
     }
 
     void AddModelListeners ()
@@ -48,6 +61,11 @@ public partial class GameOverNode : Control
         centerButtons.OnRetryButtonPressed += HandleRetryButtonPressed;
         centerButtons.OnMainMenuButtonPressed += HandleMainMenuButtonPressed;
     }
+
+    void AddTimerListeners ()
+    {
+        buttonInputActivationTimer.Timeout += HandleButtonActivationTimeout;
+    }
     
     void RemoveModelListeners ()
     {
@@ -59,11 +77,17 @@ public partial class GameOverNode : Control
         centerButtons.OnRetryButtonPressed -= HandleRetryButtonPressed;
         centerButtons.OnMainMenuButtonPressed -= HandleMainMenuButtonPressed;
     }
+    
+    void RemoveTimerListeners ()
+    {
+        buttonInputActivationTimer.Timeout -= HandleButtonActivationTimeout;
+    }
 
     public new void Dispose ()
     {
         RemoveModelListeners();
         RemoveNodeListeners();
+        RemoveTimerListeners();
         centerButtons.Dispose();
         base.Dispose();
     }

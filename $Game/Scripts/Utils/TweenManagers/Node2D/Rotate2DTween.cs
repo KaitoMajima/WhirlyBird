@@ -39,10 +39,11 @@ public partial class Rotate2DTween : TweenManager
     
     void SetRotationDegrees (float startValue, float endValue, float progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration)
+        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
         {
             CurrentRotationDegrees = endValue;
             MainTween.Kill();
+            return;
         }
         
         float value = TweenExtensions.OvershootTween(startValue, endValue, progress, amplitude);
