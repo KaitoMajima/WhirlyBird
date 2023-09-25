@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="MusicResource" load_steps=9 format=3 uid="uid://dbmi88r88ojc"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Music/Resources/MusicResource.cs" id="1_8g0of"]
-[ext_resource type="AudioStream" uid="uid://ncif5cevwkbi" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_02.wav" id="1_78ydq"]
+[ext_resource type="AudioStream" uid="uid://chpao30iqv6ik" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_04.ogg" id="1_68063"]
 [ext_resource type="Script" path="res://$Game/Scripts/Music/Resources/MusicClipEntryResource.cs" id="2_lt8n0"]
-[ext_resource type="AudioStream" uid="uid://85b2j0g480wm" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_04.wav" id="3_7qwv5"]
+[ext_resource type="AudioStream" uid="uid://ds271iov8xt3b" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_02.ogg" id="3_jlvys"]
 [ext_resource type="AudioStream" uid="uid://8k1ktnvvcn3f" path="res://$Game/Audio/Music/Camellia/NIGHTMARE † CITY.ogg" id="4_7jo4n"]
 
 [sub_resource type="Resource" id="Resource_6tpj1"]
 script = ExtResource("2_lt8n0")
 MusicClipType = 0
-AudioStream = ExtResource("3_7qwv5")
+AudioStream = ExtResource("1_68063")
 CrossfadeTimeOnPlay = 1.0
 MaxVolume = 0.35
 Offset = 0.0
@@ -17,7 +17,7 @@ Offset = 0.0
 [sub_resource type="Resource" id="Resource_0q644"]
 script = ExtResource("2_lt8n0")
 MusicClipType = 1
-AudioStream = ExtResource("1_78ydq")
+AudioStream = ExtResource("3_jlvys")
 CrossfadeTimeOnPlay = 0.5
 MaxVolume = 0.35
 Offset = 0.0
