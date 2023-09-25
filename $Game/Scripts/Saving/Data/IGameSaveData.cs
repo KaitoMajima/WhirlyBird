@@ -1,4 +1,4 @@
 ﻿public interface IGameSaveData
 {
-    int Highscore { get; }
+    IScoreData ScoreData { get; }
 }

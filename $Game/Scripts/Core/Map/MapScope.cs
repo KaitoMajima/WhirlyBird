@@ -35,6 +35,8 @@ public partial class MapScope : Node
     void SetupModels ()
     {
         MapModel = MapFactory.CreateMapModel(
+            GameScope.GameSaveData,
+            GameScope.GameSavingSystem,
             GameScope.TimeProvider, 
             GameScope.RandomProvider,
             MapSettingsResource

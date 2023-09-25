@@ -4,16 +4,16 @@
 public class GameSaveData : IGameSaveData
 {
     [JsonProperty]
-    public int Highscore { get; }
+    public IScoreData ScoreData { get; }
 
     public GameSaveData ()
     {
-        Highscore = 100;
+        ScoreData = new ScoreData();
     }
     
     [JsonConstructor]
-    public GameSaveData (int highscore)
+    public GameSaveData (ScoreData scoreData)
     {
-        Highscore = highscore;
+        ScoreData = scoreData ?? new ScoreData();
     }
 }

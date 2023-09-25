@@ -5,18 +5,24 @@ public class ScoreCounterModel : IScoreCounterModel
     public event Action OnScoreDetected;
 
     public int Score { get; private set; }
-    // public int Highscore => scoreData.Highscore;
-    
+    public int Highscore => scoreData.Highscore;
+
+    readonly IScoreData scoreData;
+    readonly IMainGameSavingSystem saveSystem;
     readonly IPlayerModel playerModel;
     readonly IGameOverModel gameOverModel;
 
     bool isScoreCountLocked;
 
     public ScoreCounterModel (
+        IScoreData scoreData,
+        IMainGameSavingSystem saveSystem,
         IPlayerModel playerModel, 
         IGameOverModel gameOverModel
     )
     {
+        this.scoreData = scoreData;
+        this.saveSystem = saveSystem;
         this.playerModel = playerModel;
         this.gameOverModel = gameOverModel;
     }
@@ -36,9 +42,10 @@ public class ScoreCounterModel : IScoreCounterModel
         if (isScoreCountLocked)
             return;
         
-        // if (scoreData.Highscore < Score)
-        //     scoreData.Highscore = Score;
         Score++;
+        if (scoreData.Highscore < Score)
+            scoreData.Highscore = Score;
+        saveSystem.Save();
         OnScoreDetected?.Invoke();
     }
 

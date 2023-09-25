@@ -79,6 +79,12 @@ font_size = 72
 shadow_size = 11
 shadow_color = Color(0.2, 0.760784, 1, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_ha3ox"]
+font = ExtResource("1_kwjuq")
+font_size = 72
+shadow_size = 11
+shadow_color = Color(0.2, 0.760784, 1, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_spj1t"]
 font = ExtResource("1_kwjuq")
 font_size = 141
@@ -206,7 +212,7 @@ orbit_velocity_max = 0.0
 scale_min = 0.0
 scale_max = 0.17
 scale_curve = SubResource("CurveTexture_neltt")
-color = Color(0.427451, 0.305882, 0.619608, 0.290196)
+color = Color(0.996078, 0.996078, 0.996078, 0.0627451)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13pwg"]
 blend_mode = 1
@@ -230,17 +236,6 @@ blend_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
 radius = 35.0
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w4u75"]
-particle_flag_disable_z = true
-gravity = Vector3(-5000, 98, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.0
-scale_max = 0.07
-scale_curve = SubResource("CurveTexture_neltt")
-color = Color(0.545098, 0, 0.211765, 1)
-turbulence_enabled = true
 
 [sub_resource type="Resource" id="Resource_xkt4k"]
 script = ExtResource("21_n6477")
@@ -354,7 +349,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="ScoreCounter" type="Control" parent="MapNode/MapUICanvas/HUD" node_paths=PackedStringArray("scoreLabel", "scoringScaleBackAnimation", "scoringRotateBackAnimation")]
+[node name="ScoreCounter" type="Control" parent="MapNode/MapUICanvas/HUD" node_paths=PackedStringArray("scoreLabel", "highscoreLabel", "scoringScaleBackAnimation", "scoringRotateBackAnimation")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -364,6 +359,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5_uw3sy")
 scoreLabel = NodePath("ScoreLabel")
+highscoreLabel = NodePath("HighscoreLabel")
 scoringScaleBackAnimation = NodePath("Animations/ScaleBack")
 scoringRotateBackAnimation = NodePath("Animations/RotateBack")
 
@@ -402,6 +398,25 @@ offset_bottom = 102.0
 grow_horizontal = 2
 text = "777"
 label_settings = SubResource("LabelSettings_fylxt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighscoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+material = ExtResource("5_gacay")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -109.0
+offset_right = 193.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Highscore: 777"
+label_settings = SubResource("LabelSettings_ha3ox")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -941,13 +956,6 @@ energy = 3.79
 texture = ExtResource("17_g42s1")
 texture_scale = 2.05
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D"]
-z_index = 50
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_w4u75")
-texture = ExtResource("17_g42s1")
-trail_lifetime = 0.39
-
 [node name="PointLight2D2" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights"]
 position = Vector2(-27.5, -5.83331)
 scale = Vector2(0.227865, 0.227865)
@@ -961,11 +969,6 @@ scale = Vector2(0.209059, 0.209059)
 energy = 3.79
 texture = ExtResource("17_g42s1")
 texture_scale = 2.05
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights/PointLight2D2"]
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_w4u75")
-texture = ExtResource("17_g42s1")
 
 [node name="PointLight2D3" type="PointLight2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/SpriteAnchor/Sprite/EyeLights"]
 scale = Vector2(0.227865, 0.227865)

@@ -3,6 +3,7 @@
 public partial class ScoreCounterNode : Node
 {
     [Export] Label scoreLabel;
+    [Export] Label highscoreLabel;
     [Export] TextScaleUITween scoringScaleBackAnimation;
     [Export] RotateUITween scoringRotateBackAnimation;
     
@@ -22,6 +23,7 @@ public partial class ScoreCounterNode : Node
     void SetAllScoreText ()
     {
         scoreLabel.Text = model.Score.ToString();
+        highscoreLabel.Text = $"Highscore: {model.Highscore}";
     }
     
     void HandleScoreDetected ()

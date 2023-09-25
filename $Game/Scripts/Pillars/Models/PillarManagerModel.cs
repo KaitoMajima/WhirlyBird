@@ -7,7 +7,7 @@ public class PillarManagerModel : IPillarManagerModel
     public event Action OnPillarPassed;
     public event Action OnPillarDifficultyChanged;
     
-    public int PillarsPassedCount { get; private set; } = 100;
+    public int PillarsPassedCount { get; private set; }
     
     public float PillarSpeed => CurrentDifficulty.PillarSpeed;
     public double PillarSecondsUntilDestruction => spawnSettings.PillarSecondsUntilDestruction;
