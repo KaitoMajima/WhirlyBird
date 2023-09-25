@@ -16,6 +16,15 @@ public partial class PauseMenuCenterButtons : Node
         AddButtonListeners();
     }
 
+    void HandleResumeButtonPressed () 
+        => OnResumeButtonPressed!();
+
+    void HandleRetryButtonPressed () 
+        => OnRetryButtonPressed!();
+
+    void HandleMainMenuButtonPressed () 
+        => OnMainMenuButtonPressed!();
+    
     void AddButtonListeners ()
     {
         resumeButton.Pressed += HandleResumeButtonPressed;
@@ -29,15 +38,6 @@ public partial class PauseMenuCenterButtons : Node
         retryButton.Pressed -= HandleRetryButtonPressed;        
         mainMenuButton.Pressed -= HandleMainMenuButtonPressed;
     }
-
-    void HandleResumeButtonPressed () 
-        => OnResumeButtonPressed!();
-
-    void HandleRetryButtonPressed () 
-        => OnRetryButtonPressed!();
-
-    void HandleMainMenuButtonPressed () 
-        => OnMainMenuButtonPressed!();
 
     public new void Dispose ()
     {

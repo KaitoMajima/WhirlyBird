@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
+[JsonObject(MemberSerialization.OptIn)]
 public record PillarSpawnSettings : IPillarSpawnSettings
 {
     [JsonProperty] 

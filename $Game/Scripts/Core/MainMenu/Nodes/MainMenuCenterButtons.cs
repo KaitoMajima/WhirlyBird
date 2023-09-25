@@ -14,6 +14,16 @@ public partial class MainMenuCenterButtons : Node
         AddButtonListeners();
     }
 
+    void HandlePlayButtonPressed ()
+    {
+        LoadingScope.Instance.Load(playButtonScenePath, sceneToUnload);
+    }
+
+    void HandleExitButtonPressed ()
+    {
+        GetTree().Quit();
+    }
+    
     void AddButtonListeners ()
     {
         playButton.Pressed += HandlePlayButtonPressed;
@@ -24,16 +34,6 @@ public partial class MainMenuCenterButtons : Node
     {
         playButton.Pressed -= HandlePlayButtonPressed;
         exitButton.Pressed -= HandleExitButtonPressed;
-    }
-
-    void HandlePlayButtonPressed ()
-    {
-        LoadingScope.Instance.Load(playButtonScenePath, sceneToUnload);
-    }
-
-    void HandleExitButtonPressed ()
-    {
-        GetTree().Quit();
     }
 
     public new void Dispose ()

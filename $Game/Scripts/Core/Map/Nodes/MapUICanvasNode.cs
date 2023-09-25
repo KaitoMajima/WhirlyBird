@@ -35,7 +35,12 @@ public partial class MapUICanvasNode : Node
         
         AddButtonListeners();
     }
-
+    
+    void HandlePauseButtonPressed ()
+    {
+        pauseModel.SetPause(true);
+    }
+    
     void AddButtonListeners ()
     {
         pauseButton.Pressed += HandlePauseButtonPressed;
@@ -44,11 +49,6 @@ public partial class MapUICanvasNode : Node
     void RemoveButtonListeners ()
     {
         pauseButton.Pressed -= HandlePauseButtonPressed;
-    }
-
-    void HandlePauseButtonPressed ()
-    {
-        pauseModel.SetPause(true);
     }
 
     public new void Dispose ()

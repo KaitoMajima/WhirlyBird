@@ -19,7 +19,13 @@ public partial class GameOverCenterButtons : Control
         retryButton.MouseFilter = filter;
         mainMenuButton.MouseFilter = filter;
     }
+    
+    void HandleRetryButtonPressed () 
+        => OnRetryButtonPressed!();
 
+    void HandleMainMenuButtonPressed () 
+        => OnMainMenuButtonPressed!();
+    
     void AddButtonListeners ()
     {
         retryButton.Pressed += HandleRetryButtonPressed;
@@ -31,12 +37,6 @@ public partial class GameOverCenterButtons : Control
         retryButton.Pressed -= HandleRetryButtonPressed;        
         mainMenuButton.Pressed -= HandleMainMenuButtonPressed;
     }
-
-    void HandleRetryButtonPressed () 
-        => OnRetryButtonPressed!();
-
-    void HandleMainMenuButtonPressed () 
-        => OnMainMenuButtonPressed!();
 
     public new void Dispose ()
     {
