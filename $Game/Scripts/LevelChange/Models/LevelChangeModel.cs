@@ -6,19 +6,21 @@ public class LevelChangeModel : ILevelChangeModel
     public event Action<int> OnLevelChanged;
     
     readonly ILevelChangeSettings settings;
-    
-    IPillarManagerModel pillarManagerModel;
+    readonly IPillarManagerModel pillarManagerModel;
+    readonly IMusicManagerModel musicManagerModel;
 
     ILevelChangeUniqueSettings CurrentLevelChange => settings.LevelChanges[currentLevelChangeIndex];
     int currentLevelChangeIndex;
 
     public LevelChangeModel (
         ILevelChangeSettings settings, 
-        IPillarManagerModel pillarManagerModel
+        IPillarManagerModel pillarManagerModel,
+        IMusicManagerModel musicManagerModel
     )
     {
         this.settings = settings;
         this.pillarManagerModel = pillarManagerModel;
+        this.musicManagerModel = musicManagerModel;
     }
     
     public void Initialize ()
@@ -40,6 +42,10 @@ public class LevelChangeModel : ILevelChangeModel
         
         currentLevelChangeIndex++;
         OnLevelChanged?.Invoke(CurrentLevelChange.Id);
+        
+        //TODO: Refactor this to an external class
+        if (CurrentLevelChange.Id == 1)
+            musicManagerModel.Play(MusicClipType.Level1);
     }
     
     void AddModelListeners ()

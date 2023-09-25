@@ -1,8 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnl10axhk81e4"]
+[gd_scene load_steps=5 format=3 uid="uid://cnl10axhk81e4"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Game/Nodes/GameNode.cs" id="1_fwnr2"]
 [ext_resource type="Resource" uid="uid://cqk51s7xtu5j1" path="res://$Game/Resources/ConfigResource.tres" id="2_8tc02"]
+[ext_resource type="Resource" uid="uid://dbmi88r88ojc" path="res://$Game/Resources/MusicResource.tres" id="3_awh6n"]
+[ext_resource type="Script" path="res://$Game/Scripts/Music/Nodes/MusicManagerNode.cs" id="3_pbfxk"]
 
-[node name="GameNode" type="Node"]
+[node name="GameNode" type="Node" node_paths=PackedStringArray("MusicManagerNode")]
 script = ExtResource("1_fwnr2")
 ConfigResource = ExtResource("2_8tc02")
+MusicResource = ExtResource("3_awh6n")
+MusicManagerNode = NodePath("MusicManagerNode")
+
+[node name="MusicManagerNode" type="Node" parent="." node_paths=PackedStringArray("currentMusicPlayer", "tempMusicPlayer", "crossfadeTimer")]
+script = ExtResource("3_pbfxk")
+currentMusicPlayer = NodePath("CurrentStreamPlayer")
+tempMusicPlayer = NodePath("TempStreamPlayer")
+crossfadeTimer = NodePath("CrossfadeTimer")
+
+[node name="CurrentStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
+
+[node name="TempStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
+
+[node name="CrossfadeTimer" type="Timer" parent="MusicManagerNode"]

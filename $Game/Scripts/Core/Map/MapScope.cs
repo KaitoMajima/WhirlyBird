@@ -39,12 +39,14 @@ public partial class MapScope : Node
             GameScope.GameSavingSystem,
             GameScope.TimeProvider, 
             GameScope.RandomProvider,
+            GameScope.GameModel.MusicManagerModel,
             MapSettingsResource
         );
     }
     
     void SetupNodes ()
     {
+        //TODO: Separate this huge setup constructor
         MapNode.Setup(
             MapUICanvasModel.PauseModel, 
             MapWorld2DModel.PlayerModel, 

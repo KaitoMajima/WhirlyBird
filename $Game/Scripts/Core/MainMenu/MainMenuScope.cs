@@ -2,6 +2,8 @@
 
 public partial class MainMenuScope : Node
 {
+    public IMainMenuModel MainMenuModel { get; private set; }
+    
     [Export]
     public MainMenuNode MainMenuNode { get; private set; }
     
@@ -9,12 +11,24 @@ public partial class MainMenuScope : Node
     
     public override void _Ready ()
     {
+        SetupModels();
+        InitializeModels();
         InitializeNodes();
     }
 
     public override void _ExitTree ()
     {
         DisposeNodes();
+    }
+    
+    void SetupModels ()
+    {
+        MainMenuModel = MainMenuFactory.CreateMainMenuModel(GameScope.GameModel.MusicManagerModel);
+    }
+    
+    void InitializeModels ()
+    {
+        MainMenuModel.Initialize();
     }
     
     void InitializeNodes ()
