@@ -11,6 +11,7 @@ public partial class PlayerManagerNode : Node2D
     [Export] Area2D collisionDetector;
     [Export] Node2D contentsTransform;
     [Export] Node2D rigidBodyShapeTransform;
+    [Export] Node2D eyeLights;
 
     IPlayerModel playerModel;
     IMapInputDetectionModel inputDetectionModel;
@@ -33,6 +34,7 @@ public partial class PlayerManagerNode : Node2D
         SetupPlayerGravityScale();
         AddModelListeners();
         AddRigidBodyListeners();
+        eyeLights.Visible = false;
     }
     
     void SetupPlayerSize ()
@@ -94,10 +96,20 @@ public partial class PlayerManagerNode : Node2D
         }
     }
     
+    void SetTransformState ()
+    {
+        eyeLights.Visible = true;
+    }
+    
     void HandlePlayerKilled ()
     {
         inputDetectionModel.LockAllInputs();
         ApplyDeathThrow();
+    }
+    
+    void HandlePlayerTransformed ()
+    {
+        SetTransformState();
     }
 
     void HandleMainActionTriggered (InputType type)
@@ -125,6 +137,7 @@ public partial class PlayerManagerNode : Node2D
     void AddModelListeners ()
     {
         playerModel.OnPlayerKilled += HandlePlayerKilled;
+        playerModel.OnPlayerTransformed += HandlePlayerTransformed;
         inputDetectionModel.OnMainActionTriggered += HandleMainActionTriggered;
     }
 
@@ -137,6 +150,7 @@ public partial class PlayerManagerNode : Node2D
     void RemoveModelListeners ()
     {
         playerModel.OnPlayerKilled -= HandlePlayerKilled;
+        playerModel.OnPlayerTransformed -= HandlePlayerTransformed;
         inputDetectionModel.OnMainActionTriggered -= HandleMainActionTriggered;
     }
 

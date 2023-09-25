@@ -17,12 +17,14 @@
     
     public void Initialize ()
     {
+        PlayerModel.Initialize();
         PillarManagerModel.Initialize();
         LevelChangeModel.Initialize();
     }
     
     public void Dispose ()
     {
+        PlayerModel.Dispose();
         PillarManagerModel.Dispose();
         LevelChangeModel.Dispose();
     }

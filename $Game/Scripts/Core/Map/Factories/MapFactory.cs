@@ -31,8 +31,6 @@
         MapSettingsResource mapSettingsResource
     )
     {
-        IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
-        IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings);
         IPillarSpawnSettings pillarSpawnSettings = PillarFactory.CreatePillarSpawnSettings(mapSettingsResource);
         IPillarManagerModel pillarManagerModel = PillarFactory.CreatePillarManagerModel(
             pillarSpawnSettings, 
@@ -44,6 +42,8 @@
             levelChangeSettings, 
             pillarManagerModel
         );
+        IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
+        IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings, levelChangeModel);
         
         return new MapWorld2DModel(
             playerModel, 
