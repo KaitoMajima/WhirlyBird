@@ -50,7 +50,8 @@ public partial class MapScope : Node
             MapWorld2DModel.PillarManagerModel,
             MapUICanvasModel.ScoreCounterModel,
             MapUICanvasModel.GameOverModel,
-            GameScope.RandomProvider
+            GameScope.RandomProvider,
+            MapWorld2DModel.LevelChangeModel
         );
     }
     

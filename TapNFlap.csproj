@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="$Game\JsonSettings\levelChangeSettings.json" />
     <Content Include="$Game\JsonSettings\pillarSpawnSettings.json" />
     <Content Include="$Game\JsonSettings\playerSettings.json" />
   </ItemGroup>

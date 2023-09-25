@@ -18,7 +18,8 @@ public partial class MapNode : Node
         IPillarManagerModel pillarManagerModel,
         IScoreCounterModel scoreCounterModel,
         IGameOverModel gameOverModel,
-        IRandomProvider randomProvider
+        IRandomProvider randomProvider,
+        ILevelChangeModel levelChangeModel
     )
     {
         MapUICanvasNode.Setup(
@@ -30,7 +31,8 @@ public partial class MapNode : Node
             playerModel,
             mapInputDetectionModel, 
             pillarManagerModel,
-            randomProvider
+            randomProvider,
+            levelChangeModel
         );
         MapInputDetectionNode.Setup(mapInputDetectionModel);
     }

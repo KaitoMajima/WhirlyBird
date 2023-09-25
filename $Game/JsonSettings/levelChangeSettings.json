@@ -1,0 +1,20 @@
+{
+  "levelChanges": [
+    {
+      "id": 0,
+      "pillarsPassedRequirement": 0
+    },
+    {
+      "id": 1,
+      "pillarsPassedRequirement": 50
+    },
+    {
+      "id": 2,
+      "pillarsPassedRequirement": 113
+    },
+    {
+      "id": 3,
+      "pillarsPassedRequirement": 130
+    }
+  ]
+}

@@ -31,7 +31,7 @@
       "pillarSpawnInterval": 1.05
     }
   ],
-  "pillarSecondsUntilDestruction": 5,
+  "pillarSecondsUntilDestruction": 7,
   "pillarSpawnMinYHeight": -125,
   "pillarSpawnMaxYHeight": 125
 }

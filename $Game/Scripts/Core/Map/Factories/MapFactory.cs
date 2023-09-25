@@ -10,7 +10,10 @@
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(timeProvider, mapWorld2DModel.PlayerModel);
         IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
         
-        SetupMapWorld2DModel(mapWorld2DModel.PillarManagerModel, mapUICanvasModel.ScoreCounterModel);
+        SetupMapWorld2DModel(
+            mapWorld2DModel.PillarManagerModel, 
+            mapUICanvasModel.ScoreCounterModel
+        );
 
         return new MapModel(mapUICanvasModel, mapWorld2DModel, mapInputDetectionModel);
     }
@@ -35,10 +38,17 @@
             pillarSpawnSettings, 
             randomProvider
         );
+        ILevelChangeSettings levelChangeSettings 
+            = LevelChangeFactory.CreateLevelChangeSettings(mapSettingsResource);
+        ILevelChangeModel levelChangeModel = LevelChangeFactory.CreateLevelChangeModel(
+            levelChangeSettings, 
+            pillarManagerModel
+        );
         
         return new MapWorld2DModel(
             playerModel, 
-            pillarManagerModel
+            pillarManagerModel,
+            levelChangeModel
         );
     }
 

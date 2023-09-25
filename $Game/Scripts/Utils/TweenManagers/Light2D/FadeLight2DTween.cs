@@ -1,29 +1,18 @@
 ﻿using Godot;
 
-public partial class FadeTween : TweenManager
+public partial class FadeLight2DTween : TweenManager
 {
     [Export(PropertyHint.Range, "0,1,0.05")]
     public float TargetAlpha { get; set; }
     
-    [Export] CanvasItem tweeningTransform;
+    [Export] Light2D tweeningTransform;
 
     float CurrentAlpha
     {
-        get => tweeningTransform.Modulate.A;
-        set
-        {
-            currentColor = new Color(
-                tweeningTransform.Modulate.R,
-                tweeningTransform.Modulate.G, 
-                tweeningTransform.Modulate.B,
-                value
-            );
-            tweeningTransform.Modulate = currentColor;
-        }
+        get => tweeningTransform.Energy;
+        set => tweeningTransform.Energy = value;
     }
-
-    Color currentColor;
-
+    
     float originalAlpha;
 
     protected override void SetupTween ()
@@ -55,7 +44,7 @@ public partial class FadeTween : TweenManager
     {
         if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
         {
-            CurrentAlpha = endValue;
+            CurrentAlpha = ClampProgressValue(endValue);
             MainTween.Kill();
             return;
         }
@@ -67,6 +56,9 @@ public partial class FadeTween : TweenManager
             amplitude
         );
         
-        CurrentAlpha = value;
+        CurrentAlpha = ClampProgressValue(value);
     }
+
+    float ClampProgressValue (float value) 
+        => Mathf.Clamp(value, 0, 1);
 }

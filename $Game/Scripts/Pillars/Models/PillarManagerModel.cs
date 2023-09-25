@@ -4,7 +4,10 @@ using Godot;
 public class PillarManagerModel : IPillarManagerModel
 {
     public event Action OnPillarSpawn;
+    public event Action OnPillarPassed;
     public event Action OnPillarDifficultyChanged;
+    
+    public int PillarsPassedCount { get; private set; } = 100;
     
     public float PillarSpeed => CurrentDifficulty.PillarSpeed;
     public double PillarSecondsUntilDestruction => spawnSettings.PillarSecondsUntilDestruction;
@@ -18,7 +21,6 @@ public class PillarManagerModel : IPillarManagerModel
     IScoreCounterModel scoreCounterModel;
     Timer currentTimer;
     int currentDifficultyIndex;
-    int pillarsPassed = 100;
 
     public PillarManagerModel (
         IPillarSpawnSettings spawnSettings,
@@ -43,7 +45,6 @@ public class PillarManagerModel : IPillarManagerModel
     {
         IPillarSettings currentDifficulty = spawnSettings.PillarDifficulty[currentDifficultyIndex];
         UpdateTimer(timer, currentDifficulty);
-        GD.Print($"Pillar Speed: {currentDifficulty.PillarSpeed}, Pillar Spawn Interval: {currentDifficulty.PillarSpawnInterval}");
     }
 
     public Vector2 GetNewRandomSpawningPoint ()
@@ -72,7 +73,8 @@ public class PillarManagerModel : IPillarManagerModel
     
     void HandleScoreDetected ()
     {
-        pillarsPassed++;
+        PillarsPassedCount++;
+        OnPillarPassed?.Invoke();
         bool isLastDifficulty = currentDifficultyIndex >= spawnSettings.PillarDifficulty.Count - 1;
         
         if (isLastDifficulty)
@@ -80,7 +82,7 @@ public class PillarManagerModel : IPillarManagerModel
         
         IPillarSettings nextDifficulty = spawnSettings.PillarDifficulty[currentDifficultyIndex + 1];
 
-        if (pillarsPassed < nextDifficulty.PillarPassRequirement) 
+        if (PillarsPassedCount < nextDifficulty.PillarPassRequirement) 
             return;
         
         currentDifficultyIndex++;

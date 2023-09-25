@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=72 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -24,9 +24,13 @@
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverNode.cs" id="12_xrxng"]
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverCenterButtons.cs" id="13_6lj1e"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/FadeTween.cs" id="13_ljrcd"]
+[ext_resource type="Script" path="res://$Game/Scripts/LevelChange/Nodes/LevelChangeNode.cs" id="17_1pr7u"]
 [ext_resource type="Texture2D" uid="uid://cqxq7yn7fnlr0" path="res://$Game/Art/Game/256x256circle.png" id="17_g42s1"]
+[ext_resource type="Script" path="res://$Game/Scripts/LevelChange/Nodes/LevelChangeStageNode.cs" id="18_haigy"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerManagerNode.cs" id="18_l1c2b"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Move2DTween.cs" id="19_y3ufe"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Scale2DTween.cs" id="20_dt3kt"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Light2D/FadeLight2DTween.cs" id="20_lldmp"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="21_n6477"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarManagerNode.cs" id="22_dpy58"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Rotate2DTween.cs" id="22_toj4j"]
@@ -155,6 +159,36 @@ bg_color = Color(0.58, 0.1566, 0.24128, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8iue"]
 bg_color = Color(0.38, 0.1026, 0.15808, 1)
 
+[sub_resource type="Resource" id="Resource_waihx"]
+script = ExtResource("21_n6477")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 1
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = 0
+Duration = 0.77
+Delay = 0.0
+Amplitude = 0.0
+IsRelative = false
+EaseType = 1
+TransitionType = 10
+
+[sub_resource type="Resource" id="Resource_e8kqy"]
+script = ExtResource("21_n6477")
+InitializeMethod = 0
+DisposingMethod = 1
+Direction = 1
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = 0
+Duration = 0.77
+Delay = 0.0
+Amplitude = 0.0
+IsRelative = false
+EaseType = 1
+TransitionType = 7
+
 [sub_resource type="Curve" id="Curve_nxsx4"]
 _data = [Vector2(0, 1), 0.0, 0.539573, 0, 0, Vector2(0.993579, 0.0315789), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -174,6 +208,10 @@ scale_max = 0.17
 scale_curve = SubResource("CurveTexture_neltt")
 color = Color(0.427451, 0.305882, 0.619608, 0.290196)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13pwg"]
+blend_mode = 1
+light_mode = 1
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hyr1x"]
 emission_shape = 3
 emission_box_extents = Vector3(1, 113.515, 1)
@@ -189,10 +227,6 @@ turbulence_enabled = true
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
 blend_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13pwg"]
-blend_mode = 1
-light_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
 radius = 35.0
@@ -587,24 +621,45 @@ text = "Main Menu"
 [node name="ButtonActivationTimer" type="Timer" parent="MapNode/MapUICanvas/GameOverNode"]
 wait_time = 1.25
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode")]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode", "LevelChangeNode")]
 script = ExtResource("5_4vban")
 PlayerManagerNode = NodePath("PlayerDuck")
 PillarManagerNode = NodePath("PillarManagerNode")
+LevelChangeNode = NodePath("Environment/LevelChangeNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
 
-[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
-visible = false
+[node name="LevelChangeNode" type="Node2D" parent="MapNode/MapWorld2D/Environment" node_paths=PackedStringArray("purpleStageNode", "redStageNode", "finalStageNode")]
+script = ExtResource("17_1pr7u")
+purpleStageNode = NodePath("PurpleStage")
+redStageNode = NodePath("RedStage")
+finalStageNode = NodePath("FinalStage")
 
-[node name="PurpleLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/PurpleStage"]
+[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
 visible = false
+script = ExtResource("18_haigy")
+StageAnimations = [NodePath("Animations/MoveMoon"), NodePath("Animations/FadeInLight")]
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
+
+[node name="MoveMoon" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("19_y3ufe")
+TargetDestination = Vector2(422, 673)
+tweeningTransform = NodePath("../../Moon")
+TweenSettings = SubResource("Resource_waihx")
+
+[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("20_lldmp")
+tweeningTransform = NodePath("../../PurpleLight2D")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="PurpleLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
 scale = Vector2(1.73, 1)
 color = Color(0.482353, 0.333333, 0.670588, 1)
 blend_mode = 2
 range_layer_max = 1
 
-[node name="WindParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/PurpleStage"]
+[node name="WindParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
 z_index = 10
 material = ExtResource("5_gacay")
 position = Vector2(776, 343)
@@ -615,16 +670,60 @@ texture = ExtResource("17_g42s1")
 lifetime = 5.0
 trail_lifetime = 0.39
 
-[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
-visible = false
+[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
+light_mask = 0
+z_index = 1
+material = SubResource("CanvasItemMaterial_13pwg")
+position = Vector2(422.001, 367)
+scale = Vector2(1.17969, 1.17969)
+texture = ExtResource("17_g42s1")
 
-[node name="RedLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Moon"]
+scale = Vector2(1.28477, 1.28477)
+color = Color(0.278431, 0.32549, 1, 0.588235)
+range_z_min = -1
+range_z_max = 0
+texture = ExtResource("30_7a1ac")
+texture_scale = 1.15
+
+[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
+visible = false
+script = ExtResource("18_haigy")
+StageAnimations = [NodePath("Animations/FadeInLight")]
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage"]
+
+[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("20_lldmp")
+tweeningTransform = NodePath("../../RedLight2D")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="RedLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage"]
 scale = Vector2(2.994, 1)
 color = Color(0.556863, 0.117647, 0.180392, 1)
 blend_mode = 2
 range_layer_max = 1
 
-[node name="BlackBlobParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
+visible = false
+script = ExtResource("18_haigy")
+StageAnimations = [NodePath("Animations/MoveGradientTop"), NodePath("Animations/MoveGradientBottom")]
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
+
+[node name="MoveGradientTop" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("19_y3ufe")
+TargetDestination = Vector2(218, -115)
+tweeningTransform = NodePath("../../BlackGradientTop")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="MoveGradientBottom" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("19_y3ufe")
+TargetDestination = Vector2(218, 783)
+tweeningTransform = NodePath("../../BlackGradientBottom")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="BlackBlobParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
 z_index = 10
 material = ExtResource("5_gacay")
 position = Vector2(776, 343)
@@ -635,21 +734,19 @@ texture = ExtResource("17_g42s1")
 lifetime = 3.0
 trail_lifetime = 0.39
 
-[node name="BlackGradientTop" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+[node name="BlackGradientTop" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
 modulate = Color(0, 0, 0, 1)
 z_index = 20
 position = Vector2(218, 185)
 scale = Vector2(3.76563, 1)
 texture = ExtResource("25_s2aeh")
 
-[node name="BlackGradientBottom" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/RedStage"]
+[node name="BlackGradientBottom" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
 modulate = Color(0, 0, 0, 1)
 z_index = 20
 position = Vector2(218, 483)
 scale = Vector2(3.766, -1)
 texture = ExtResource("25_s2aeh")
-
-[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
 
 [node name="Sky" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
 position = Vector2(679, 271)
@@ -662,21 +759,6 @@ material = SubResource("CanvasItemMaterial_lvqwc")
 position = Vector2(-100.302, -124.271)
 scale = Vector2(0.223889, 0.43495)
 texture = ExtResource("17_g42s1")
-
-[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-light_mask = 0
-material = SubResource("CanvasItemMaterial_13pwg")
-position = Vector2(-131.518, 95.4398)
-scale = Vector2(0.603699, 1.17281)
-texture = ExtResource("17_g42s1")
-
-[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/Sky/Moon"]
-scale = Vector2(1.28477, 1.28477)
-color = Color(0.278431, 0.32549, 1, 0.588235)
-range_z_min = -1
-range_z_max = 0
-texture = ExtResource("30_7a1ac")
-texture_scale = 1.15
 
 [node name="Cloud" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
 texture_filter = 1
@@ -934,8 +1016,6 @@ shape = SubResource("RectangleShape2D_o73xt")
 [node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/DeathLines/LowerLine/CollisionShape2D"]
 scale = Vector2(3.76172, 20)
 texture = SubResource("CurveTexture_ek7o6")
-
-[node name="StageLights" type="Node2D" parent="MapNode/MapWorld2D"]
 
 [node name="InputDetector" type="Node" parent="MapNode"]
 script = ExtResource("23_xrhcv")

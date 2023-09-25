@@ -4,8 +4,10 @@ using Godot;
 public interface IPillarManagerModel : IDisposable
 {
     event Action OnPillarSpawn;
+    event Action OnPillarPassed;
     event Action OnPillarDifficultyChanged;
     
+    int PillarsPassedCount { get; }
     float PillarSpeed { get; }
     double PillarSecondsUntilDestruction { get; }
 

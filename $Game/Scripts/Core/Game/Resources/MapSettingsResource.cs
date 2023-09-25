@@ -8,4 +8,7 @@ public partial class MapSettingsResource : Resource
     
     [Export(PropertyHint.File, "*.json")]
     public string PillarSpawnSettingsJsonPath { get; set; }
+    
+    [Export(PropertyHint.File, "*.json")]
+    public string LevelChangeSettingsJsonPath { get; set; }
 }
