@@ -6,6 +6,7 @@ public partial class ScoreCounterNode : Node
     [Export] Label highscoreLabel;
     [Export] TextScaleUITween scoringScaleBackAnimation;
     [Export] RotateUITween scoringRotateBackAnimation;
+    [Export] SoundEffectNode scoreSFX;
     
     IScoreCounterModel model;
     
@@ -31,6 +32,7 @@ public partial class ScoreCounterNode : Node
         SetAllScoreText();
         scoringScaleBackAnimation.PlayTween();
         scoringRotateBackAnimation.PlayTween();
+        scoreSFX.Play();
     }
 
     void AddModelListeners ()

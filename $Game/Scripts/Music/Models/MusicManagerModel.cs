@@ -3,7 +3,7 @@ using Godot;
 
 public class MusicManagerModel : IMusicManagerModel
 {
-    const int VOLUME_DB_MIN_THRESHOLD_VALUE = -10;
+    const int VOLUME_DB_MIN_THRESHOLD_VALUE = -33;
     
     public event Action<MusicClipEntryResource> OnMusicPlayTriggered;
     public event Action OnMusicResumeTriggered;
@@ -84,7 +84,7 @@ public class MusicManagerModel : IMusicManagerModel
     void HandleTimerTimeout ()
     {
         MainMusicVolume = CurrentMaxVolume;
-        TempMusicVolume = 0;
+        TempMusicVolume = VOLUME_DB_MIN_THRESHOLD_VALUE;
         currentTimeStep = 0;
         currentTimer.Stop();
         currentClipEntry = null;

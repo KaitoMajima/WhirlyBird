@@ -67,13 +67,16 @@
             pillarManagerModel,
             musicManagerModel
         );
+        IParallaxManagerModel parallaxManagerModel =
+            ParallaxFactory.CreateParallaxManagerModel(pillarManagerModel);
         IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
         IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings, levelChangeModel);
         
         return new MapWorld2DModel(
             playerModel, 
             pillarManagerModel,
-            levelChangeModel
+            levelChangeModel,
+            parallaxManagerModel
         );
     }
 

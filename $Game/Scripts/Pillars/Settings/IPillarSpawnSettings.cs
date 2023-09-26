@@ -6,4 +6,5 @@ public interface IPillarSpawnSettings
     double PillarSecondsUntilDestruction { get; }
     float PillarSpawnMinYHeight { get; }
     float PillarSpawnMaxYHeight { get; }
+    float ParallaxBaseValue { get; }
 }

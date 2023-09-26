@@ -7,6 +7,8 @@ public partial class PlayerManagerNode : Node2D
     [Export] float rotateAnimationMultiplier = 0.77f;
     [Export] Scale2DTween jumpingAnimation;
     [Export] Rotate2DTween rotateAnimation;
+    [Export] SoundEffectNode jumpSFX;
+    [Export] SoundEffectNode bonkSFX;
     [Export] RigidBody2D rigidBody2D;
     [Export] Area2D collisionDetector;
     [Export] Node2D contentsTransform;
@@ -58,6 +60,7 @@ public partial class PlayerManagerNode : Node2D
         float rotationDegrees = Mathf.Max(rotateAnimationMin, originalYVelocity * rotateAnimationMultiplier);
         rotateAnimation.TargetRotationDegrees = rotationDegrees;
         rotateAnimation.PlayTween();
+        jumpSFX.PlaySFX();
     }
     
     void ApplyDeathThrow ()
@@ -105,6 +108,7 @@ public partial class PlayerManagerNode : Node2D
     {
         inputDetectionModel.LockAllInputs();
         ApplyDeathThrow();
+        bonkSFX.PlaySFX();
     }
     
     void HandlePlayerTransformed ()

@@ -11,7 +11,9 @@ public class PillarManagerModel : IPillarManagerModel
     
     public float PillarSpeed => CurrentDifficulty.PillarSpeed;
     public double PillarSecondsUntilDestruction => spawnSettings.PillarSecondsUntilDestruction;
-    
+    public float ParallaxBaseValue => spawnSettings.ParallaxBaseValue;
+    public float ParallaxMultiplier => CurrentDifficulty.ParallaxMultiplier;
+
     IPillarSettings CurrentDifficulty =>
         spawnSettings.PillarDifficulty[currentDifficultyIndex];
     

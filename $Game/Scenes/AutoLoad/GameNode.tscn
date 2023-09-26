@@ -18,6 +18,7 @@ tempMusicPlayer = NodePath("TempStreamPlayer")
 crossfadeTimer = NodePath("CrossfadeTimer")
 
 [node name="MainStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
+volume_db = -33.0
 
 [node name="TempStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
 

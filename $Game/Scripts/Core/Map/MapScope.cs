@@ -55,7 +55,8 @@ public partial class MapScope : Node
             MapUICanvasModel.ScoreCounterModel,
             MapUICanvasModel.GameOverModel,
             GameScope.RandomProvider,
-            MapWorld2DModel.LevelChangeModel
+            MapWorld2DModel.LevelChangeModel,
+            MapWorld2DModel.ParallaxManagerModel
         );
     }
     

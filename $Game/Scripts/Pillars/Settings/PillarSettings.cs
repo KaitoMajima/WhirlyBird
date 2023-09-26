@@ -4,6 +4,6 @@
 public record PillarSettings (
     [property: JsonProperty] int PillarPassRequirement,
     [property: JsonProperty] float PillarSpeed,
-    [property: JsonProperty] double PillarSpawnInterval
-)
-: IPillarSettings;
+    [property: JsonProperty] double PillarSpawnInterval,
+    [property: JsonProperty] float ParallaxMultiplier
+) : IPillarSettings;

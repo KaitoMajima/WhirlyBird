@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=80 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -20,11 +20,13 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Control/RotateUITween.cs" id="9_be8kg"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pause/Nodes/PauseNode.cs" id="10_5eliv"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="10_ls0su"]
+[ext_resource type="AudioStream" uid="uid://cxs7l1tc7citg" path="res://$Game/Audio/score.wav" id="10_wlocr"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pause/Nodes/PauseMenuCenterButtons.cs" id="11_7vnl0"]
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverNode.cs" id="12_xrxng"]
 [ext_resource type="Script" path="res://$Game/Scripts/GameOver/Nodes/GameOverCenterButtons.cs" id="13_6lj1e"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/FadeTween.cs" id="13_ljrcd"]
 [ext_resource type="Script" path="res://$Game/Scripts/LevelChange/Nodes/LevelChangeNode.cs" id="17_1pr7u"]
+[ext_resource type="Script" path="res://$Game/Scripts/Parallax/Nodes/ParallaxManagerNode.cs" id="17_bevro"]
 [ext_resource type="Texture2D" uid="uid://cqxq7yn7fnlr0" path="res://$Game/Art/Game/256x256circle.png" id="17_g42s1"]
 [ext_resource type="Script" path="res://$Game/Scripts/LevelChange/Nodes/LevelChangeStageNode.cs" id="18_haigy"]
 [ext_resource type="Script" path="res://$Game/Scripts/Player/Nodes/PlayerManagerNode.cs" id="18_l1c2b"]
@@ -39,6 +41,10 @@
 [ext_resource type="Texture2D" uid="uid://hahqp6bat03s" path="res://$Game/Art/Game/transparent_gradient.png" id="25_s2aeh"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/ObstacleDamageHitboxNode.cs" id="29_gri08"]
 [ext_resource type="Texture2D" uid="uid://dvsii4e7cou2i" path="res://$Game/Art/Game/256x256light.png" id="30_7a1ac"]
+[ext_resource type="AudioStream" uid="uid://l15sw7dj0krs" path="res://$Game/Audio/wingflap.wav" id="37_esllo"]
+[ext_resource type="Script" path="res://$Game/Scripts/SFX/Nodes/SoundEffectNode.cs" id="38_77uu2"]
+[ext_resource type="Script" path="res://$Game/Scripts/SFX/Resources/SoundEffectResource.cs" id="39_tn8qo"]
+[ext_resource type="AudioStream" uid="uid://b84l33r50n8su" path="res://$Game/Audio/bonk.wav" id="40_df2gu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x6ab0"]
 bg_color = Color(1, 1, 1, 1)
@@ -72,6 +78,12 @@ Amplitude = 0.0
 IsRelative = false
 EaseType = 1
 TransitionType = 10
+
+[sub_resource type="Resource" id="Resource_k0v7i"]
+script = ExtResource("39_tn8qo")
+UsePitchVariation = true
+MinPitchVariation = 0.8
+MaxPitchVariation = 1.2
 
 [sub_resource type="LabelSettings" id="LabelSettings_fylxt"]
 font = ExtResource("1_kwjuq")
@@ -195,44 +207,9 @@ IsRelative = false
 EaseType = 1
 TransitionType = 7
 
-[sub_resource type="Curve" id="Curve_nxsx4"]
-_data = [Vector2(0, 1), 0.0, 0.539573, 0, 0, Vector2(0.993579, 0.0315789), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_neltt"]
-curve = SubResource("Curve_nxsx4")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o7lvh"]
-emission_shape = 3
-emission_box_extents = Vector3(1, 113.515, 1)
-particle_flag_disable_z = true
-gravity = Vector3(-777, 0, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.0
-scale_max = 0.17
-scale_curve = SubResource("CurveTexture_neltt")
-color = Color(0.996078, 0.996078, 0.996078, 0.0627451)
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_13pwg"]
 blend_mode = 1
 light_mode = 1
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hyr1x"]
-emission_shape = 3
-emission_box_extents = Vector3(1, 113.515, 1)
-particle_flag_disable_z = true
-gravity = Vector3(-4200, 0, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-scale_min = 0.0
-scale_max = 0.2
-scale_curve = SubResource("CurveTexture_neltt")
-color = Color(0, 0, 0, 1)
-turbulence_enabled = true
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lvqwc"]
-blend_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_slndq"]
 radius = 35.0
@@ -267,6 +244,50 @@ IsRelative = true
 EaseType = 1
 TransitionType = 10
 
+[sub_resource type="Resource" id="Resource_v6s5p"]
+script = ExtResource("39_tn8qo")
+UsePitchVariation = true
+MinPitchVariation = 0.8
+MaxPitchVariation = 1.2
+
+[sub_resource type="Resource" id="Resource_4kywj"]
+script = ExtResource("39_tn8qo")
+UsePitchVariation = false
+MinPitchVariation = 0.8
+MaxPitchVariation = 1.2
+
+[sub_resource type="Curve" id="Curve_nxsx4"]
+_data = [Vector2(0, 1), 0.0, 0.539573, 0, 0, Vector2(0.993579, 0.0315789), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_neltt"]
+curve = SubResource("Curve_nxsx4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o7lvh"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 113.515, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-777, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.17
+scale_curve = SubResource("CurveTexture_neltt")
+color = Color(0.996078, 0.996078, 0.996078, 0.0627451)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hyr1x"]
+emission_shape = 3
+emission_box_extents = Vector3(1, 113.515, 1)
+particle_flag_disable_z = true
+gravity = Vector3(-4200, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.0
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_neltt")
+color = Color(0, 0, 0, 1)
+turbulence_enabled = true
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o73xt"]
 size = Vector2(967, 20)
 
@@ -292,7 +313,7 @@ MapInputDetectionNode = NodePath("InputDetector")
 [node name="MapUICanvas" type="CanvasLayer" parent="MapNode" node_paths=PackedStringArray("PauseNode", "ScoreCounterNode", "GameOverNode", "pauseButton")]
 script = ExtResource("3_ddteq")
 PauseNode = NodePath("PauseNode")
-ScoreCounterNode = NodePath("HUD/ScoreCounter")
+ScoreCounterNode = NodePath("HUD/ScoreCounterNode")
 GameOverNode = NodePath("GameOverNode")
 pauseButton = NodePath("HUD/PauseButton")
 
@@ -349,7 +370,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_x6ab0")
 
-[node name="ScoreCounter" type="Control" parent="MapNode/MapUICanvas/HUD" node_paths=PackedStringArray("scoreLabel", "highscoreLabel", "scoringScaleBackAnimation", "scoringRotateBackAnimation")]
+[node name="ScoreCounterNode" type="Control" parent="MapNode/MapUICanvas/HUD" node_paths=PackedStringArray("scoreLabel", "highscoreLabel", "scoringScaleBackAnimation", "scoringRotateBackAnimation", "scoreSFX")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -362,13 +383,14 @@ scoreLabel = NodePath("ScoreLabel")
 highscoreLabel = NodePath("HighscoreLabel")
 scoringScaleBackAnimation = NodePath("Animations/ScaleBack")
 scoringRotateBackAnimation = NodePath("Animations/RotateBack")
+scoreSFX = NodePath("Sounds/Score")
 
-[node name="Animations" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+[node name="Animations" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ScaleBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter/Animations" node_paths=PackedStringArray("tweeningTransform")]
+[node name="ScaleBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode/Animations" node_paths=PackedStringArray("tweeningTransform")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -377,7 +399,7 @@ TargetScale = 14
 tweeningTransform = NodePath("../../ScoreLabel")
 TweenSettings = SubResource("Resource_tccbi")
 
-[node name="RotateBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounter/Animations" node_paths=PackedStringArray("tweeningTransform")]
+[node name="RotateBack" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode/Animations" node_paths=PackedStringArray("tweeningTransform")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -386,7 +408,17 @@ TargetRotationDegrees = 16.0
 tweeningTransform = NodePath("../../ScoreLabel")
 TweenSettings = SubResource("Resource_e1lqo")
 
-[node name="ScoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+[node name="Sounds" type="Control" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Score" type="AudioStreamPlayer" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode/Sounds"]
+stream = ExtResource("10_wlocr")
+script = ExtResource("38_77uu2")
+SoundEffectResource = SubResource("Resource_k0v7i")
+
+[node name="ScoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode"]
 material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 5
@@ -401,7 +433,7 @@ label_settings = SubResource("LabelSettings_fylxt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HighscoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounter"]
+[node name="HighscoreLabel" type="Label" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode"]
 material = ExtResource("5_gacay")
 layout_mode = 1
 anchors_preset = 7
@@ -636,56 +668,69 @@ text = "Main Menu"
 [node name="ButtonActivationTimer" type="Timer" parent="MapNode/MapUICanvas/GameOverNode"]
 wait_time = 1.25
 
-[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode", "LevelChangeNode")]
+[node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode", "LevelChangeNode", "LevelChangeEffectsNode", "ParallaxManagerNode")]
 script = ExtResource("5_4vban")
 PlayerManagerNode = NodePath("PlayerDuck")
 PillarManagerNode = NodePath("PillarManagerNode")
-LevelChangeNode = NodePath("Environment/LevelChangeNode")
+LevelChangeNode = NodePath("Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode")
+LevelChangeEffectsNode = NodePath("LevelChangeEffectsNode")
+ParallaxManagerNode = NodePath("Environment/ParallaxManagerNode")
 
 [node name="Environment" type="Node2D" parent="MapNode/MapWorld2D"]
+position = Vector2(353.06, -110.545)
+scale = Vector2(1.385, 1.385)
 
-[node name="LevelChangeNode" type="Node2D" parent="MapNode/MapWorld2D/Environment" node_paths=PackedStringArray("purpleStageNode", "redStageNode", "finalStageNode")]
+[node name="ParallaxManagerNode" type="Node2D" parent="MapNode/MapWorld2D/Environment" node_paths=PackedStringArray("parallaxBackground")]
+script = ExtResource("17_bevro")
+parallaxBackground = NodePath("ParallaxBackground")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode"]
+
+[node name="Background" type="ParallaxLayer" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground"]
+z_index = 2
+position = Vector2(-3, -9)
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1998, 0)
+
+[node name="Sky" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background"]
+position = Vector2(682, 280)
+scale = Vector2(1.9541, 1.00587)
+texture = ExtResource("3_telee")
+
+[node name="LevelChangeNode" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background" node_paths=PackedStringArray("purpleStageNode", "redStageNode", "finalStageNode")]
+position = Vector2(356.06, -101.545)
+scale = Vector2(1.385, 1.385)
 script = ExtResource("17_1pr7u")
 purpleStageNode = NodePath("PurpleStage")
 redStageNode = NodePath("RedStage")
 finalStageNode = NodePath("FinalStage")
 
-[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
+[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
 visible = false
 script = ExtResource("18_haigy")
 StageAnimations = [NodePath("Animations/MoveMoon"), NodePath("Animations/FadeInLight")]
 
-[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage"]
 
-[node name="MoveMoon" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+[node name="MoveMoon" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
 script = ExtResource("19_y3ufe")
 TargetDestination = Vector2(422, 673)
 tweeningTransform = NodePath("../../Moon")
 TweenSettings = SubResource("Resource_waihx")
 
-[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
 script = ExtResource("20_lldmp")
 tweeningTransform = NodePath("../../PurpleLight2D")
 TweenSettings = SubResource("Resource_e8kqy")
 
-[node name="PurpleLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
+[node name="PurpleLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage"]
 scale = Vector2(1.73, 1)
 color = Color(0.482353, 0.333333, 0.670588, 1)
 blend_mode = 2
-range_layer_max = 1
+range_layer_min = -128
+range_layer_max = 128
 
-[node name="WindParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
-z_index = 10
-material = ExtResource("5_gacay")
-position = Vector2(776, 343)
-scale = Vector2(1, 2.73)
-amount = 50
-process_material = SubResource("ParticleProcessMaterial_o7lvh")
-texture = ExtResource("17_g42s1")
-lifetime = 5.0
-trail_lifetime = 0.39
-
-[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage"]
+[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage"]
 light_mask = 0
 z_index = 1
 material = SubResource("CanvasItemMaterial_13pwg")
@@ -693,213 +738,202 @@ position = Vector2(422.001, 367)
 scale = Vector2(1.17969, 1.17969)
 texture = ExtResource("17_g42s1")
 
-[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/PurpleStage/Moon"]
+[node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage/Moon"]
 scale = Vector2(1.28477, 1.28477)
 color = Color(0.278431, 0.32549, 1, 0.588235)
-range_z_min = -1
-range_z_max = 0
+range_z_max = 2
+range_layer_min = -128
+range_layer_max = 128
 texture = ExtResource("30_7a1ac")
 texture_scale = 1.15
 
-[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
+[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
 visible = false
 script = ExtResource("18_haigy")
 StageAnimations = [NodePath("Animations/FadeInLight")]
 
-[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage"]
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/RedStage"]
 
-[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+[node name="FadeInLight" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/RedStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
 script = ExtResource("20_lldmp")
 tweeningTransform = NodePath("../../RedLight2D")
 TweenSettings = SubResource("Resource_e8kqy")
 
-[node name="RedLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/RedStage"]
+[node name="RedLight2D" type="DirectionalLight2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/RedStage"]
 scale = Vector2(2.994, 1)
 color = Color(0.556863, 0.117647, 0.180392, 1)
 blend_mode = 2
-range_layer_max = 1
+range_layer_min = -128
+range_layer_max = 128
 
-[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
+[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode" node_paths=PackedStringArray("StageAnimations")]
 visible = false
 script = ExtResource("18_haigy")
-StageAnimations = [NodePath("Animations/MoveGradientTop"), NodePath("Animations/MoveGradientBottom")]
+StageAnimations = []
 
-[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
-
-[node name="MoveGradientTop" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("19_y3ufe")
-TargetDestination = Vector2(218, -115)
-tweeningTransform = NodePath("../../BlackGradientTop")
-TweenSettings = SubResource("Resource_e8kqy")
-
-[node name="MoveGradientBottom" type="Node2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("19_y3ufe")
-TargetDestination = Vector2(218, 783)
-tweeningTransform = NodePath("../../BlackGradientBottom")
-TweenSettings = SubResource("Resource_e8kqy")
-
-[node name="BlackBlobParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
-z_index = 10
-material = ExtResource("5_gacay")
-position = Vector2(776, 343)
-scale = Vector2(1, 2.49)
-amount = 57
-process_material = SubResource("ParticleProcessMaterial_hyr1x")
-texture = ExtResource("17_g42s1")
-lifetime = 3.0
-trail_lifetime = 0.39
-
-[node name="BlackGradientTop" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
-modulate = Color(0, 0, 0, 1)
-z_index = 20
-position = Vector2(218, 185)
-scale = Vector2(3.76563, 1)
-texture = ExtResource("25_s2aeh")
-
-[node name="BlackGradientBottom" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/LevelChangeNode/FinalStage"]
-modulate = Color(0, 0, 0, 1)
-z_index = 20
-position = Vector2(218, 483)
-scale = Vector2(3.766, -1)
-texture = ExtResource("25_s2aeh")
-
-[node name="Sky" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-position = Vector2(679, 271)
-scale = Vector2(1.9541, 1.00587)
-texture = ExtResource("3_telee")
-
-[node name="Sun" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-visible = false
-material = SubResource("CanvasItemMaterial_lvqwc")
-position = Vector2(-100.302, -124.271)
-scale = Vector2(0.223889, 0.43495)
-texture = ExtResource("17_g42s1")
-
-[node name="Cloud" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-156.082, -193.862)
-scale = Vector2(0.192506, 0.436373)
-texture = ExtResource("3_fj4u8")
-
-[node name="Cloud3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-271.736, -63.6266)
-scale = Vector2(0.120813, 0.27386)
-texture = ExtResource("3_fj4u8")
-
-[node name="Cloud4" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-321.887, 9.94165)
-scale = Vector2(0.120813, 0.27386)
-texture = ExtResource("3_fj4u8")
-
-[node name="Cloud5" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-25.0754, -5.96503)
-scale = Vector2(0.158648, 0.359623)
-texture = ExtResource("3_fj4u8")
-
-[node name="Cloud2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-80.3439, -151.113)
-scale = Vector2(0.232699, 0.527483)
-texture = ExtResource("4_l4e8t")
-
-[node name="Cloud9" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-184.74, -102.399)
-scale = Vector2(0.341879, 0.66417)
-texture = ExtResource("5_hak22")
-
-[node name="Cloud10" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-410.419, -114.329)
-scale = Vector2(0.259939, 0.504984)
-texture = ExtResource("6_ygtwg")
-
-[node name="Cloud11" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-357.197, -159.067)
-scale = Vector2(0.205783, 0.399776)
-texture = ExtResource("4_l4e8t")
-
-[node name="Cloud12" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(18.4228, -70.5858)
-scale = Vector2(0.205783, 0.399776)
-texture = ExtResource("4_l4e8t")
-
-[node name="Cloud13" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Sky"]
-texture_filter = 1
-position = Vector2(-457.716, 33.0744)
-scale = Vector2(0.410466, 0.764114)
-texture = ExtResource("5_hak22")
-
-[node name="Tree" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.52549, 0.803922, 0.717647, 1)
-z_index = 1
-texture_filter = 1
-position = Vector2(-181, 363)
-scale = Vector2(1.60417, 1.60417)
-texture = ExtResource("3_16834")
-
-[node name="Tree2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.52549, 0.803922, 0.717647, 1)
-z_index = 1
-texture_filter = 1
-position = Vector2(-100, 419)
-scale = Vector2(1.13021, 1.13021)
-texture = ExtResource("3_16834")
-
-[node name="Tree3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.52549, 0.803922, 0.717647, 1)
-z_index = 1
-texture_filter = 1
-position = Vector2(621, 398)
-scale = Vector2(1.48958, 1.48958)
-texture = ExtResource("3_16834")
-
-[node name="Mountain" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.972549, 0.972549, 0.972549, 1)
-z_index = 1
-texture_filter = 1
-position = Vector2(149.515, 437.079)
-scale = Vector2(-0.427745, 0.427745)
-texture = ExtResource("4_7mfdf")
-
-[node name="Mountain2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.972549, 0.972549, 0.972549, 1)
-z_index = 1
-texture_filter = 1
-position = Vector2(342, 355)
-scale = Vector2(0.687269, 0.687269)
-texture = ExtResource("4_7mfdf")
-
-[node name="Hills" type="Node2D" parent="MapNode/MapWorld2D/Environment"]
-modulate = Color(0.627451, 0.866667, 0.741176, 1)
+[node name="BackLayer" type="ParallaxLayer" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground"]
 z_index = 2
 position = Vector2(-3, -9)
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(1998, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+[node name="Clouds" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer"]
+position = Vector2(371, 0)
+
+[node name="Cloud" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(641, 85)
+scale = Vector2(0.376176, 0.438935)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(313, 216)
+scale = Vector2(0.236081, 0.275468)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud4" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(218, 290)
+scale = Vector2(0.236081, 0.275468)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud5" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(1014, 274)
+scale = Vector2(0.310014, 0.361734)
+texture = ExtResource("3_fj4u8")
+
+[node name="Cloud2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(852, 128)
+scale = Vector2(0.454717, 0.530579)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud9" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(578, 177)
+scale = Vector2(0.668066, 0.668069)
+texture = ExtResource("5_hak22")
+
+[node name="Cloud10" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-120, 165)
+scale = Vector2(0.507947, 0.507948)
+texture = ExtResource("6_ygtwg")
+
+[node name="Cloud11" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-15.9987, 119.999)
+scale = Vector2(0.402121, 0.402123)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud12" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(1099, 209)
+scale = Vector2(0.402121, 0.402123)
+texture = ExtResource("4_l4e8t")
+
+[node name="Cloud13" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-212.423, 313.269)
+scale = Vector2(0.802092, 0.768599)
+texture = ExtResource("5_hak22")
+
+[node name="FrontLayer" type="ParallaxLayer" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground"]
+z_index = 2
+position = Vector2(-3, -9)
+motion_scale = Vector2(1.5, 1.5)
+motion_mirroring = Vector2(1998, 0)
+
+[node name="Hills" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.627451, 0.866667, 0.741176, 1)
+z_index = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
+z_index = 2
 texture_filter = 1
 position = Vector2(180, 492)
 texture = ExtResource("2_ov2ra")
 
-[node name="Sprite2D2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+[node name="Sprite2D2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
 texture_filter = 1
 position = Vector2(1179, 492)
 texture = ExtResource("2_ov2ra")
 
-[node name="Sprite2D3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/Hills"]
+[node name="Sprite2D3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
 position = Vector2(677.5, 1066.5)
 scale = Vector2(1.95605, 1.00293)
 texture = ExtResource("3_telee")
 
-[node name="Camera2D" type="Camera2D" parent="MapNode/MapWorld2D"]
-position = Vector2(216, 338)
-zoom = Vector2(1.35, 1.35)
+[node name="Tree" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-155, 378)
+scale = Vector2(1.60417, 1.60417)
+texture = ExtResource("3_16834")
+
+[node name="Tree2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-40.4999, 442.219)
+scale = Vector2(1.13021, 1.13021)
+texture = ExtResource("3_16834")
+
+[node name="Tree5" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(874, 379)
+scale = Vector2(1.93229, 1.93229)
+texture = ExtResource("3_16834")
+
+[node name="Tree6" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(783, 394)
+scale = Vector2(1.16146, 1.16146)
+texture = ExtResource("3_16834")
+
+[node name="Tree7" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.52549, 0.803922, 0.717647, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(986, 434)
+scale = Vector2(1.28906, 1.28906)
+texture = ExtResource("3_16834")
+
+[node name="Mountain" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(152.515, 446.079)
+rotation = 3.14159
+scale = Vector2(0.427745, -0.427745)
+texture = ExtResource("4_7mfdf")
+
+[node name="Mountain2" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(345, 364)
+scale = Vector2(0.687269, 0.687269)
+texture = ExtResource("4_7mfdf")
+
+[node name="Mountain3" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.972549, 0.972549, 0.972549, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(1421, 390)
+scale = Vector2(0.95804, 0.95804)
+texture = ExtResource("4_7mfdf")
 
 [node name="PillarManagerNode" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("pillarSpawnTimer", "pillarSpawnParent")]
+position = Vector2(353.06, -110.545)
+scale = Vector2(1.385, 1.385)
 script = ExtResource("22_dpy58")
 pillarSpawnPosition = Vector2(786, 332)
 pillarSpawnTimer = NodePath("PillarSpawnTimer")
@@ -912,13 +946,16 @@ pillarNodePack = ExtResource("23_by3dm")
 
 [node name="PillarSpawnTimer" type="Timer" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
-[node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform", "eyeLights")]
+[node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "jumpSFX", "bonkSFX", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform", "eyeLights")]
 z_index = 10
-position = Vector2(-10, 334)
+position = Vector2(330, 347.59)
+scale = Vector2(1.1, 1.1)
 script = ExtResource("18_l1c2b")
 rotateAnimationMultiplier = 1.2
 jumpingAnimation = NodePath("RigidBody/Contents/Animations/ScaleDown")
 rotateAnimation = NodePath("RigidBody/Contents/Animations/Rotate")
+jumpSFX = NodePath("RigidBody/Contents/Sounds/Jump")
+bonkSFX = NodePath("RigidBody/Contents/Sounds/Bonk")
 rigidBody2D = NodePath("RigidBody")
 collisionDetector = NodePath("RigidBody/Contents/CollisionDetector")
 contentsTransform = NodePath("RigidBody/Contents")
@@ -932,6 +969,35 @@ gravity_scale = 0.7
 shape = SubResource("CircleShape2D_slndq")
 
 [node name="Contents" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody"]
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
+
+[node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("20_dt3kt")
+TargetScale = Vector2(1.4, 0.4)
+tweeningTransform = NodePath("../../SpriteAnchor")
+TweenSettings = SubResource("Resource_xkt4k")
+KillLastTween = true
+
+[node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("22_toj4j")
+TargetRotationDegrees = 420.0
+tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
+TweenSettings = SubResource("Resource_l883g")
+
+[node name="Sounds" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
+
+[node name="Jump" type="AudioStreamPlayer" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Sounds"]
+stream = ExtResource("37_esllo")
+volume_db = 2.0
+script = ExtResource("38_77uu2")
+SoundEffectResource = SubResource("Resource_v6s5p")
+
+[node name="Bonk" type="AudioStreamPlayer" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Sounds"]
+stream = ExtResource("40_df2gu")
+volume_db = 10.0
+script = ExtResource("38_77uu2")
+SoundEffectResource = SubResource("Resource_4kywj")
 
 [node name="SpriteAnchor" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
 
@@ -976,30 +1042,95 @@ energy = 0.81
 texture = ExtResource("30_7a1ac")
 texture_scale = 2.28
 
-[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
-
-[node name="ScaleDown" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("20_dt3kt")
-TargetScale = Vector2(1.4, 0.4)
-tweeningTransform = NodePath("../../SpriteAnchor")
-TweenSettings = SubResource("Resource_xkt4k")
-KillLastTween = true
-
-[node name="Rotate" type="Node2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Animations" node_paths=PackedStringArray("tweeningTransform")]
-script = ExtResource("22_toj4j")
-TargetRotationDegrees = 420.0
-tweeningTransform = NodePath("../../SpriteAnchor/Sprite")
-TweenSettings = SubResource("Resource_l883g")
-
 [node name="CollisionDetector" type="Area2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/CollisionDetector"]
 shape = SubResource("CircleShape2D_slndq")
 
+[node name="LevelChangeEffectsNode" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("purpleStageNode", "redStageNode", "finalStageNode")]
+z_index = 20
+position = Vector2(0, -251.185)
+scale = Vector2(1.91822, 1.91822)
+script = ExtResource("17_1pr7u")
+purpleStageNode = NodePath("PurpleStage")
+redStageNode = NodePath("RedStage")
+finalStageNode = NodePath("FinalStage")
+
+[node name="PurpleStage" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode" node_paths=PackedStringArray("StageAnimations")]
+visible = false
+script = ExtResource("18_haigy")
+StageAnimations = []
+
+[node name="WindParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/PurpleStage"]
+z_index = 10
+material = ExtResource("5_gacay")
+position = Vector2(752.779, 343)
+scale = Vector2(1, 2.73)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_o7lvh")
+texture = ExtResource("17_g42s1")
+lifetime = 5.0
+trail_lifetime = 0.39
+
+[node name="RedStage" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode" node_paths=PackedStringArray("StageAnimations")]
+visible = false
+script = ExtResource("18_haigy")
+StageAnimations = []
+
+[node name="FinalStage" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode" node_paths=PackedStringArray("StageAnimations")]
+visible = false
+script = ExtResource("18_haigy")
+StageAnimations = [NodePath("Animations/MoveGradientTop"), NodePath("Animations/MoveGradientBottom")]
+
+[node name="Animations" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage"]
+position = Vector2(184.056, 73.3178)
+scale = Vector2(0.722022, 0.722022)
+
+[node name="MoveGradientTop" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("19_y3ufe")
+TargetDestination = Vector2(218, -115)
+tweeningTransform = NodePath("../../BlackGradientTop")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="MoveGradientBottom" type="Node2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage/Animations" node_paths=PackedStringArray("tweeningTransform")]
+script = ExtResource("19_y3ufe")
+TargetDestination = Vector2(218, 783)
+tweeningTransform = NodePath("../../BlackGradientBottom")
+TweenSettings = SubResource("Resource_e8kqy")
+
+[node name="BlackBlobParticles" type="GPUParticles2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage"]
+visibility_layer = 3
+z_index = 10
+material = ExtResource("5_gacay")
+position = Vector2(752.779, 322.791)
+scale = Vector2(1, 2.49)
+amount = 57
+process_material = SubResource("ParticleProcessMaterial_hyr1x")
+texture = ExtResource("17_g42s1")
+lifetime = 3.0
+trail_lifetime = 0.39
+
+[node name="BlackGradientTop" type="Sprite2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage"]
+modulate = Color(0, 0, 0, 1)
+z_index = 20
+position = Vector2(341.456, 206.892)
+scale = Vector2(2.71887, 0.722022)
+texture = ExtResource("25_s2aeh")
+
+[node name="BlackGradientBottom" type="Sprite2D" parent="MapNode/MapWorld2D/LevelChangeEffectsNode/FinalStage"]
+modulate = Color(0, 0, 0, 1)
+z_index = 20
+position = Vector2(341.456, 422.054)
+scale = Vector2(2.71913, -0.722022)
+texture = ExtResource("25_s2aeh")
+
 [node name="DeathLines" type="Node2D" parent="MapNode/MapWorld2D"]
 z_index = 20
+position = Vector2(353.06, -110.545)
+scale = Vector2(1.385, 1.385)
 
 [node name="UpperLine" type="Area2D" parent="MapNode/MapWorld2D/DeathLines"]
+position = Vector2(0, 5.44765)
 script = ExtResource("29_gri08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapNode/MapWorld2D/DeathLines/UpperLine"]

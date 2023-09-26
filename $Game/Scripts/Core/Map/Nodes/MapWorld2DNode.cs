@@ -11,12 +11,19 @@ public partial class MapWorld2DNode : Node
     [Export]
     public LevelChangeNode LevelChangeNode { get; private set; }
     
+    [Export]
+    public LevelChangeNode LevelChangeEffectsNode { get; private set; }
+    
+    [Export]
+    public ParallaxManagerNode ParallaxManagerNode { get; private set; }
+
     public void Setup (
         IPlayerModel playerModel, 
         IMapInputDetectionModel mapInputDetectionModel,
         IPillarManagerModel pillarManagerModel,
         IRandomProvider randomProvider,
-        ILevelChangeModel levelChangeModel
+        ILevelChangeModel levelChangeModel,
+        IParallaxManagerModel parallaxManagerModel
     )
     {
         PlayerManagerNode.Setup(
@@ -26,6 +33,8 @@ public partial class MapWorld2DNode : Node
         );
         PillarManagerNode.Setup(pillarManagerModel);
         LevelChangeNode.Setup(levelChangeModel);
+        LevelChangeEffectsNode.Setup(levelChangeModel);
+        ParallaxManagerNode.Setup(parallaxManagerModel);
     }
     
     public void Initialize ()
@@ -33,6 +42,7 @@ public partial class MapWorld2DNode : Node
         PlayerManagerNode.Initialize();
         PillarManagerNode.Initialize();
         LevelChangeNode.Initialize();
+        LevelChangeEffectsNode.Initialize();
     }
 
     public new void Dispose ()
@@ -40,5 +50,7 @@ public partial class MapWorld2DNode : Node
         PlayerManagerNode.Dispose();
         PillarManagerNode.Dispose();
         LevelChangeNode.Dispose();
+        LevelChangeEffectsNode.Dispose();
+        ParallaxManagerNode.Dispose();
     }
 }

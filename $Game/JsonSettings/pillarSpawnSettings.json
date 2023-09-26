@@ -3,35 +3,42 @@
     {
       "pillarPassRequirement": 0,
       "pillarSpeed": 264,
-      "pillarSpawnInterval": 2
+      "pillarSpawnInterval": 2,
+      "parallaxMultiplier": 1
     },
     {
       "pillarPassRequirement": 5,
       "pillarSpeed": 316.8,
-      "pillarSpawnInterval": 1.75
+      "pillarSpawnInterval": 1.75,
+      "parallaxMultiplier": 1.2
     },
     {
       "pillarPassRequirement": 20,
       "pillarSpeed": 369.6,
-      "pillarSpawnInterval": 1.5
+      "pillarSpawnInterval": 1.5,
+      "parallaxMultiplier": 1.4
     },
     {
       "pillarPassRequirement": 50,
       "pillarSpeed": 633.6,
-      "pillarSpawnInterval": 1
+      "pillarSpawnInterval": 1,
+      "parallaxMultiplier": 4
     },
     {
       "pillarPassRequirement": 113,
       "pillarSpeed": 686.4,
-      "pillarSpawnInterval": 0.95
+      "pillarSpawnInterval": 0.95,
+      "parallaxMultiplier": 7
     },
     {
       "pillarPassRequirement": 130,
       "pillarSpeed": 844.8,
-      "pillarSpawnInterval": 1.05
+      "pillarSpawnInterval": 1.05,
+      "parallaxMultiplier": 11
     }
   ],
   "pillarSecondsUntilDestruction": 7,
   "pillarSpawnMinYHeight": -125,
-  "pillarSpawnMaxYHeight": 125
+  "pillarSpawnMaxYHeight": 125,
+  "parallaxBaseValue": 50
 }

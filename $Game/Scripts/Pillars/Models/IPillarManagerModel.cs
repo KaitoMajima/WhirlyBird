@@ -10,6 +10,8 @@ public interface IPillarManagerModel : IDisposable
     int PillarsPassedCount { get; }
     float PillarSpeed { get; }
     double PillarSecondsUntilDestruction { get; }
+    float ParallaxBaseValue { get; }
+    float ParallaxMultiplier { get; }
 
     Vector2 GetNewRandomSpawningPoint ();
 

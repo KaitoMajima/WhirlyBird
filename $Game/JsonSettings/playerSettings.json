@@ -1,5 +1,5 @@
 {
-  "playerSize": 0.87,
-  "playerGravityScale": 0.95,
-  "playerJumpStrength": 413
+  "playerSize": 1.14,
+  "playerGravityScale": 1.1,
+  "playerJumpStrength": 500
 }
