@@ -11,7 +11,7 @@ public interface IMusicManagerModel : IDisposable
     event Action OnMusicCrossfadeStep;
     event Action OnMusicCrossfadeEnd;
     
-    float CurrentMusicVolume { get; }
+    float MainMusicVolume { get; }
     float TempMusicVolume { get; }
 
     void Setup (MusicResource musicResource);
@@ -22,9 +22,8 @@ public interface IMusicManagerModel : IDisposable
 
     void Crossfade (
         Timer timer,
-        float crossfadeTime,
-        float clipMaxVolume,
-        float currentMusicVolume
+        MusicClipEntryResource clipEntry,
+        float pastVolume
     );
 
     void ProcessFading (double delta);

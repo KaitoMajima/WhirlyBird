@@ -2,7 +2,7 @@
 
 public partial class MusicManagerNode : Node
 {
-    [Export] AudioStreamPlayer currentMusicPlayer;
+    [Export] AudioStreamPlayer mainMusicPlayer;
     [Export] AudioStreamPlayer tempMusicPlayer;
     [Export] Timer crossfadeTimer;
 
@@ -29,36 +29,35 @@ public partial class MusicManagerNode : Node
         currentClipEntry = clipEntry;
         model.Crossfade(
             crossfadeTimer,
-            currentClipEntry.CrossfadeTimeOnPlay,
-            currentClipEntry.MaxVolume,
-            currentMusicPlayer.VolumeDb
+            currentClipEntry,
+            mainMusicPlayer.VolumeDb
         );
     }
 
     void HandleMusicResumeTriggered ()
     {
-        currentMusicPlayer.Play();
+        mainMusicPlayer.Play();
         tempMusicPlayer.Play();
     }
 
     void HandleMusicPauseTriggered ()
     {
-        currentMusicPlayer.Stop();
+        mainMusicPlayer.Stop();
         tempMusicPlayer.Stop();
     }
 
     void HandleMusicCrossfadeBegin ()
     {
-        tempMusicPlayer.Stream = currentMusicPlayer.Stream;
-        tempMusicPlayer.Play(currentMusicPlayer.GetPlaybackPosition());
+        tempMusicPlayer.Stream = mainMusicPlayer.Stream;
+        tempMusicPlayer.Play(mainMusicPlayer.GetPlaybackPosition());
         
-        currentMusicPlayer.Stream = currentClipEntry.AudioStream;
-        currentMusicPlayer.Play(currentClipEntry.Offset);
+        mainMusicPlayer.Stream = currentClipEntry.AudioStream;
+        mainMusicPlayer.Play(currentClipEntry.Offset);
     }
 
     void HandleMusicCrossfadeStep ()
     {
-        currentMusicPlayer.VolumeDb = model.CurrentMusicVolume;
+        mainMusicPlayer.VolumeDb = model.MainMusicVolume;
         tempMusicPlayer.VolumeDb = model.TempMusicVolume;
     }
 

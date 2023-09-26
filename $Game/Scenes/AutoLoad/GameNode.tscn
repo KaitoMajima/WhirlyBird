@@ -11,13 +11,13 @@ ConfigResource = ExtResource("2_8tc02")
 MusicResource = ExtResource("3_awh6n")
 MusicManagerNode = NodePath("MusicManagerNode")
 
-[node name="MusicManagerNode" type="Node" parent="." node_paths=PackedStringArray("currentMusicPlayer", "tempMusicPlayer", "crossfadeTimer")]
+[node name="MusicManagerNode" type="Node" parent="." node_paths=PackedStringArray("mainMusicPlayer", "tempMusicPlayer", "crossfadeTimer")]
 script = ExtResource("3_pbfxk")
-currentMusicPlayer = NodePath("CurrentStreamPlayer")
+mainMusicPlayer = NodePath("MainStreamPlayer")
 tempMusicPlayer = NodePath("TempStreamPlayer")
 crossfadeTimer = NodePath("CrossfadeTimer")
 
-[node name="CurrentStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
+[node name="MainStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
 
 [node name="TempStreamPlayer" type="AudioStreamPlayer" parent="MusicManagerNode"]
 

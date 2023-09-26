@@ -3,6 +3,8 @@ using Godot;
 
 public class MusicManagerModel : IMusicManagerModel
 {
+    const int VOLUME_DB_MIN_THRESHOLD_VALUE = -10;
+    
     public event Action<MusicClipEntryResource> OnMusicPlayTriggered;
     public event Action OnMusicResumeTriggered;
     public event Action OnMusicPauseTriggered;
@@ -11,16 +13,18 @@ public class MusicManagerModel : IMusicManagerModel
     public event Action OnMusicCrossfadeStep;
     public event Action OnMusicCrossfadeEnd;
     
-    public float CurrentMusicVolume { get; private set; }
+    public float MainMusicVolume { get; private set; }
     public float TempMusicVolume { get; private set; }
+
+    float CurrentMaxVolume => currentClipEntry.MaxVolume;
+    float CurrentCrossFadeTime => currentClipEntry.CrossfadeTimeOnPlay;
     
     MusicResource musicResource;
     Timer currentTimer;
-    bool isFading;
+    MusicClipEntryResource currentClipEntry;
+    float pastMusicVolume;
     double currentTimeStep;
-    double currentClipCrossfadeTime;
-    float currentClipMaxVolume;
-    float currentClipMusicVolume;
+    bool isFading;
 
     public void Setup (MusicResource musicResource)
     {
@@ -45,16 +49,14 @@ public class MusicManagerModel : IMusicManagerModel
 
     public void Crossfade (
         Timer timer, 
-        float crossfadeTime, 
-        float clipMaxVolume,
-        float currentMusicVolume
+        MusicClipEntryResource clipEntry,
+        float pastVolume
     )
     {
         isFading = true;
-        currentClipCrossfadeTime = crossfadeTime;
-        currentClipMaxVolume = clipMaxVolume;
-        currentClipMusicVolume = currentMusicVolume;
-        UpdateTimer(timer, crossfadeTime);
+        currentClipEntry = clipEntry;
+        pastMusicVolume = pastVolume;
+        UpdateTimer(timer);
         
         OnMusicCrossfadeBegin?.Invoke();
     }
@@ -64,26 +66,28 @@ public class MusicManagerModel : IMusicManagerModel
         if (!isFading)
             return;
         
+        MainMusicVolume = (float)Mathf.Lerp(VOLUME_DB_MIN_THRESHOLD_VALUE, CurrentMaxVolume, currentTimeStep / CurrentCrossFadeTime);
+        TempMusicVolume = (float)Mathf.Lerp(pastMusicVolume, VOLUME_DB_MIN_THRESHOLD_VALUE, currentTimeStep / CurrentCrossFadeTime);
         currentTimeStep += delta;
-        
-        CurrentMusicVolume = (float)Mathf.Lerp(0, currentClipMaxVolume, currentClipCrossfadeTime / currentTimeStep);
-        TempMusicVolume = (float)Mathf.Lerp(currentClipMusicVolume, 0, currentTimeStep / currentClipCrossfadeTime);
         OnMusicCrossfadeStep?.Invoke();
     }
     
-    void UpdateTimer (Timer timer, float crossfadeTime)
+    void UpdateTimer (Timer timer)
     {
         RemoveTimerListeners();
         currentTimer = timer;
-        currentTimer.WaitTime = crossfadeTime;
+        currentTimer.WaitTime = CurrentCrossFadeTime;
         currentTimer.Start();
         AddTimerListeners();
     }
     
     void HandleTimerTimeout ()
     {
-        CurrentMusicVolume = currentClipMaxVolume;
+        MainMusicVolume = CurrentMaxVolume;
         TempMusicVolume = 0;
+        currentTimeStep = 0;
+        currentTimer.Stop();
+        currentClipEntry = null;
         OnMusicCrossfadeStep?.Invoke();
 
         isFading = false;
