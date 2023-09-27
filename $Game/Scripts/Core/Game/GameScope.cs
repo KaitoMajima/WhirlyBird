@@ -48,7 +48,7 @@
     void SetupNodes ()
     {
         GameNode = GameFactory.CreateGameNode(this);
-        GameNode.Setup(GameModel.MusicManagerModel);
+        GameFactory.SetupGameNode(GameNode, GameModel);
         GameFactory.SetupGameModel(GameModel, GameStateProvider, MusicResource);
     }
     

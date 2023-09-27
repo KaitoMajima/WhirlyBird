@@ -17,11 +17,5 @@
     <Folder Include="$Game\Resources\" />
     <Folder Include="$Tests\WhirlyBird.Tests\obj\Debug\net6.0\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="$Game\JsonSettings\levelChangeSettings.json" />
-    <Content Include="$Game\JsonSettings\mainMenuSettings.json" />
-    <Content Include="$Game\JsonSettings\pillarSpawnSettings.json" />
-    <Content Include="$Game\JsonSettings\playerSettings.json" />
-  </ItemGroup>
+  
 </Project>

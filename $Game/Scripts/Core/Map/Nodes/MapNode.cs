@@ -10,33 +10,12 @@ public partial class MapNode : Node
     
     [Export]
     public MapInputDetectionNode MapInputDetectionNode { get; private set; }
+
+    IMapModel mapModel;
     
-    public void Setup (
-        IPauseModel pauseModel,
-        IPlayerModel playerModel,
-        IMapInputDetectionModel mapInputDetectionModel,
-        IPillarManagerModel pillarManagerModel,
-        IScoreCounterModel scoreCounterModel,
-        IGameOverModel gameOverModel,
-        IRandomProvider randomProvider,
-        ILevelChangeModel levelChangeModel,
-        IParallaxManagerModel parallaxManagerModel
-    )
+    public void Setup (IMapModel mapModel)
     {
-        MapUICanvasNode.Setup(
-            pauseModel, 
-            scoreCounterModel, 
-            gameOverModel
-        );
-        MapWorld2DNode.Setup(
-            playerModel,
-            mapInputDetectionModel, 
-            pillarManagerModel,
-            randomProvider,
-            levelChangeModel,
-            parallaxManagerModel
-        );
-        MapInputDetectionNode.Setup(mapInputDetectionModel);
+        this.mapModel = mapModel;
     }
     
     public void Initialize ()

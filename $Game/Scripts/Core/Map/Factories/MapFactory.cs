@@ -32,6 +32,29 @@
             musicManagerModel
         );
     }
+    
+    public static void SetupMapNode (
+        MapNode mapNode, 
+        IMapModel mapModel,
+        IRandomProvider randomProvider
+    )
+    {
+        SetupMapInputDetectionNode(
+            mapNode.MapInputDetectionNode, 
+            mapModel.MapInputDetectionModel
+        );
+        SetupMapWorld2DNode(
+            mapNode.MapWorld2DNode, 
+            mapModel.MapWorld2DModel, 
+            mapModel.MapInputDetectionModel, 
+            randomProvider
+        );
+        SetupMapUICanvasNode(
+            mapNode.MapUICanvasNode, 
+            mapModel.MapUICanvasModel
+        );
+        mapNode.Setup(mapModel);
+    }
 
     static IMapUICanvasModel CreateMapUICanvasModel (
         IGameSaveData saveData, 
@@ -92,5 +115,42 @@
     )
     {
         PillarFactory.SetupPillarManagerModel(pillarManagerModel, scoreCounterModel);
+    }
+
+    static void SetupMapWorld2DNode (
+        MapWorld2DNode mapWorld2DNode,
+        IMapWorld2DModel mapWorld2DModel, 
+        IMapInputDetectionModel mapInputDetectionModel,
+        IRandomProvider randomProvider
+    )
+    {
+        mapWorld2DNode.Setup(
+            mapWorld2DModel.PlayerModel, 
+            mapInputDetectionModel, 
+            mapWorld2DModel.PillarManagerModel, 
+            randomProvider, 
+            mapWorld2DModel.LevelChangeModel, 
+            mapWorld2DModel.ParallaxManagerModel
+        );
+    }
+    
+    static void SetupMapUICanvasNode (
+        MapUICanvasNode mapUICanvasNode,
+        IMapUICanvasModel mapUICanvasModel
+    )
+    {
+        mapUICanvasNode.Setup(
+            mapUICanvasModel.PauseModel,
+            mapUICanvasModel.ScoreCounterModel,
+            mapUICanvasModel.GameOverModel
+        );
+    }
+    
+    static void SetupMapInputDetectionNode (
+        MapInputDetectionNode mapInputDetectionNode,
+        IMapInputDetectionModel mapInputDetectionModel
+    )
+    {
+        mapInputDetectionNode.Setup(mapInputDetectionModel);
     }
 }

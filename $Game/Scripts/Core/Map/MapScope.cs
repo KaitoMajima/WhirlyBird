@@ -47,17 +47,10 @@ public partial class MapScope : Node
     
     void SetupNodes ()
     {
-        //TODO: Separate this huge setup constructor
-        MapNode.Setup(
-            MapUICanvasModel.PauseModel, 
-            MapWorld2DModel.PlayerModel, 
-            MapInputDetectionModel, 
-            MapWorld2DModel.PillarManagerModel,
-            MapUICanvasModel.ScoreCounterModel,
-            MapUICanvasModel.GameOverModel,
-            GameScope.RandomProvider,
-            MapWorld2DModel.LevelChangeModel,
-            MapWorld2DModel.ParallaxManagerModel
+        MapFactory.SetupMapNode(
+            MapNode, 
+            MapModel, 
+            GameScope.RandomProvider
         );
     }
     

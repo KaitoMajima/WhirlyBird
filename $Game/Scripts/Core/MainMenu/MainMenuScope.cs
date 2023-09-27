@@ -35,7 +35,7 @@ public partial class MainMenuScope : Node
     
     void SetupNodes ()
     {
-        MainMenuNode.Setup(MainMenuModel.ParallaxManagerModel);
+        MainMenuFactory.SetupMainMenuNode(MainMenuNode, MainMenuModel);
     }
     
     void InitializeModels ()

@@ -17,6 +17,11 @@ public static class GameFactory
         return gameNode;
     }
 
+    public static void SetupGameNode (
+        GameNode gameNode, 
+        IGameModel gameModel
+    ) => gameNode.Setup(gameModel.MusicManagerModel);
+
     public static void SetupGameModel (
         IGameModel gameModel, 
         IGameStateProvider gameStateProvider, 
