@@ -11,8 +11,6 @@ public class PlayerModel : IPlayerModel
     public float GravityScale => playerSettings.PlayerGravityScale;
     public float JumpStrength => playerSettings.PlayerJumpStrength;
 
-    public bool IsPlayerKilled { get; private set; }
-
     readonly IPlayerSettings playerSettings;
     readonly ILevelChangeModel levelChangeModel;
 
@@ -39,7 +37,6 @@ public class PlayerModel : IPlayerModel
 
     public void Kill ()
     {
-        IsPlayerKilled = true;
         OnPlayerKilled?.Invoke();
     }
     

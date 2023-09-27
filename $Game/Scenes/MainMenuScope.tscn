@@ -86,8 +86,9 @@ offset_right = 287.5
 offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "TAP N'FLAP"
+text = "WHIRLY BIRD"
 label_settings = SubResource("LabelSettings_ex2v7")
+horizontal_alignment = 1
 
 [node name="CenterButtons" type="VBoxContainer" parent="MainMenuNode/MainMenuUICanvas/Center" node_paths=PackedStringArray("playButton", "exitButton", "sceneToUnload")]
 layout_mode = 1

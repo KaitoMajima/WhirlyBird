@@ -5,10 +5,11 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
         <EnableDynamicLoading>true</EnableDynamicLoading>
+        <RootNamespace>WhirlyBird.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TapNFlap.csproj" />
+      <ProjectReference Include="..\..\WhirlyBird.csproj" />
     </ItemGroup>
 
 </Project>

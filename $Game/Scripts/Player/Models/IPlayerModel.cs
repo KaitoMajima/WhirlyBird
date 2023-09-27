@@ -10,7 +10,6 @@ public interface IPlayerModel : IDisposable
     float PlayerSize { get; }
     float GravityScale { get; }
     float JumpStrength { get; }
-    bool IsPlayerKilled { get; }
 
     void Initialize ();
     void Score ();

@@ -1,8 +1,8 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapNFlap", "TapNFlap.csproj", "{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhirlyBird", "WhirlyBird.csproj", "{B53E97B2-0EE2-4B3A-A29F-AE063C13FC96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TapNFlap.Tests", "TapNFlap.Tests\TapNFlap.Tests.csproj", "{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhirlyBird.Tests", "$Tests\WhirlyBird.Tests\WhirlyBird.Tests.csproj", "{295100CB-3F5E-419C-9704-BEAB1BCF1D1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

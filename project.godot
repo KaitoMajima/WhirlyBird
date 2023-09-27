@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="TapNFlap"
+config/name="WhirlyBird"
 run/main_scene="res://$Game/Scenes/MainMenuScope.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://$Game/Art/Game/duck.png"
 
 [autoload]
 
@@ -28,7 +28,7 @@ window/stretch/mode="canvas_items"
 
 [dotnet]
 
-project/assembly_name="TapNFlap"
+project/assembly_name="WhirlyBird"
 
 [input]
 
