@@ -36,14 +36,14 @@ public partial class MusicManagerNode : Node
 
     void HandleMusicResumeTriggered ()
     {
-        MainMusicPlayer.Play();
-        TempMusicPlayer.Play();
+        MainMusicPlayer.StreamPaused = false;
+        TempMusicPlayer.StreamPaused = false;
     }
 
     void HandleMusicPauseTriggered ()
     {
-        MainMusicPlayer.Stop();
-        TempMusicPlayer.Stop();
+        MainMusicPlayer.StreamPaused = true;
+        TempMusicPlayer.StreamPaused = true;
     }
 
     void HandleMusicCrossfadeBegin ()
