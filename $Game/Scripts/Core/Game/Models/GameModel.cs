@@ -9,7 +9,7 @@
 
     public void Initialize ()
     {
-        
+        MusicManagerModel.Initialize();
     }
 
     public void Dispose ()

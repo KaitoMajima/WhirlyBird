@@ -5,10 +5,12 @@ public class PauseModel : IPauseModel
     public event Action OnPauseTriggered;
     public bool IsPaused { get; private set; }
 
+    readonly IGameStateProvider gameStateProvider;
     readonly ITimeProvider timeProvider;
 
-    public PauseModel (ITimeProvider timeProvider)
+    public PauseModel (IGameStateProvider gameStateProvider, ITimeProvider timeProvider)
     {
+        this.gameStateProvider = gameStateProvider;
         this.timeProvider = timeProvider;
     }
         
@@ -16,6 +18,7 @@ public class PauseModel : IPauseModel
     {
         IsPaused = pauseState;
         SetTimeScale();
+        gameStateProvider.CallGamePause(pauseState);
         OnPauseTriggered?.Invoke();
     }
 

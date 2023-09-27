@@ -3,6 +3,9 @@
     public static IMusicManagerModel CreateMusicManagerModel () 
         => new MusicManagerModel();
 
-    public static void SetupMusicManagerModel (IMusicManagerModel musicManagerModel, MusicResource musicResource)
-        => musicManagerModel.Setup(musicResource);
+    public static void SetupMusicManagerModel (
+        IMusicManagerModel musicManagerModel, 
+        IGameStateProvider gameStateProvider,
+        MusicResource musicResource
+    ) => musicManagerModel.Setup(gameStateProvider, musicResource);
 }

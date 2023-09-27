@@ -40,7 +40,8 @@ public partial class MapScope : Node
             GameScope.TimeProvider, 
             GameScope.RandomProvider,
             GameScope.GameModel.MusicManagerModel,
-            MapSettingsResource
+            MapSettingsResource,
+            GameScope.GameStateProvider
         );
     }
     

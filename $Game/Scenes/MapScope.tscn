@@ -164,7 +164,7 @@ TransitionType = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_ducut"]
 font = ExtResource("1_kwjuq")
-font_size = 141
+font_size = 222
 shadow_size = 21
 shadow_color = Color(0.909804, 0.243137, 0.380392, 1)
 shadow_offset = Vector2(4.635, 3.585)

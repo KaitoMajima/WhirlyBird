@@ -6,7 +6,8 @@
         ITimeProvider timeProvider, 
         IRandomProvider randomProvider,
         IMusicManagerModel musicManagerModel,
-        MapSettingsResource mapSettingsResource
+        MapSettingsResource mapSettingsResource,
+        IGameStateProvider gameStateProvider
     )
     {
         IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource, musicManagerModel);
@@ -14,7 +15,8 @@
             saveData, 
             saveSystem, 
             timeProvider, 
-            mapWorld2DModel.PlayerModel
+            mapWorld2DModel.PlayerModel,
+            gameStateProvider
         );
         IMapInputDetectionModel mapInputDetectionModel = CreateMapInputDetectionModel(mapUICanvasModel.PauseModel);
         
@@ -35,10 +37,11 @@
         IGameSaveData saveData, 
         IMainGameSavingSystem saveSystem, 
         ITimeProvider timeProvider, 
-        IPlayerModel playerModel
+        IPlayerModel playerModel,
+        IGameStateProvider gameStateProvider
     )
     {
-        IPauseModel pauseModel = PauseFactory.CreatePauseModel(timeProvider);
+        IPauseModel pauseModel = PauseFactory.CreatePauseModel(gameStateProvider, timeProvider);
         IGameOverModel gameOverModel = GameOverFactory.CreateGameOverModel(playerModel);
         IScoreCounterModel scoreCounterModel = ScoreFactory.CreateScoreCounterModel(
             saveData.ScoreData, 

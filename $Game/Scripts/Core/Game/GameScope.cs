@@ -4,6 +4,7 @@
     
     public ITimeProvider TimeProvider { get; private set; }
     public IRandomProvider RandomProvider { get; private set; }
+    public IGameStateProvider GameStateProvider { get; private set; }
     
     public IGameSaveData GameSaveData { get; private set; }
     public IMainGameSavingSystem GameSavingSystem { get; private set; }
@@ -36,6 +37,7 @@
     {
         TimeProvider = new TimeProvider();
         RandomProvider = new RandomProvider();
+        GameStateProvider = new GameStateProvider();
     }
     
     void SetupModels ()
@@ -47,7 +49,7 @@
     {
         GameNode = GameFactory.CreateGameNode(this);
         GameNode.Setup(GameModel.MusicManagerModel);
-        GameFactory.SetupGameModel(GameModel, MusicResource);
+        GameFactory.SetupGameModel(GameModel, GameStateProvider, MusicResource);
     }
     
     void SetupSave ()

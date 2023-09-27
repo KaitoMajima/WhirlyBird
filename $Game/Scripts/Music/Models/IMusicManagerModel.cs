@@ -14,7 +14,12 @@ public interface IMusicManagerModel : IDisposable
     float MainMusicVolume { get; }
     float TempMusicVolume { get; }
 
-    void Setup (MusicResource musicResource);
+    void Setup (
+        IGameStateProvider gameStateProvider, 
+        MusicResource musicResource
+    );
+
+    void Initialize ();
     
     void Play (MusicClipType clipType);
     void Resume ();

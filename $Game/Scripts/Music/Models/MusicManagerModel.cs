@@ -18,7 +18,8 @@ public class MusicManagerModel : IMusicManagerModel
 
     float CurrentMaxVolume => currentClipEntry.MaxVolume;
     float CurrentCrossFadeTime => currentClipEntry.CrossfadeTimeOnPlay;
-    
+
+    IGameStateProvider gameStateProvider;
     MusicResource musicResource;
     Timer currentTimer;
     MusicClipEntryResource currentClipEntry;
@@ -26,9 +27,18 @@ public class MusicManagerModel : IMusicManagerModel
     double currentTimeStep;
     bool isFading;
 
-    public void Setup (MusicResource musicResource)
+    public void Setup (
+        IGameStateProvider gameStateProvider, 
+        MusicResource musicResource
+    )
     {
+        this.gameStateProvider = gameStateProvider;
         this.musicResource = musicResource;
+    }
+
+    public void Initialize ()
+    {
+        AddGameStateListeners();
     }
 
     public void Play (MusicClipType clipType)
@@ -81,6 +91,14 @@ public class MusicManagerModel : IMusicManagerModel
         AddTimerListeners();
     }
     
+    void HandleGamePauseTriggered ()
+    {
+        if (gameStateProvider.IsGamePaused)
+            OnMusicPauseTriggered?.Invoke();
+        else
+            OnMusicResumeTriggered?.Invoke();
+    }
+    
     void HandleTimerTimeout ()
     {
         MainMusicVolume = CurrentMaxVolume;
@@ -94,9 +112,19 @@ public class MusicManagerModel : IMusicManagerModel
         OnMusicCrossfadeEnd?.Invoke();
     }
     
+    void AddGameStateListeners ()
+    {
+        gameStateProvider.OnGamePauseTriggered += HandleGamePauseTriggered;
+    }
+
     void AddTimerListeners ()
     {
         currentTimer.Timeout += HandleTimerTimeout;
+    }
+    
+    void RemoveGameStateListeners ()
+    {
+        gameStateProvider.OnGamePauseTriggered -= HandleGamePauseTriggered;
     }
     
     void RemoveTimerListeners ()
@@ -107,6 +135,7 @@ public class MusicManagerModel : IMusicManagerModel
 
     public void Dispose ()
     {
+        RemoveGameStateListeners();
         RemoveTimerListeners();
     }
 }

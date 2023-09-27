@@ -22,9 +22,7 @@ public class LevelChangeModel : ILevelChangeModel
         this.pillarManagerModel = pillarManagerModel;
         this.musicManagerModel = musicManagerModel;
     }
-
     
-
     public void Initialize ()
     {
         AddModelListeners();

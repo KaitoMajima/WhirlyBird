@@ -1,5 +1,5 @@
 ﻿public static class PauseFactory
 {
-    public static IPauseModel CreatePauseModel (ITimeProvider timeProvider) 
-        => new PauseModel(timeProvider);
+    public static IPauseModel CreatePauseModel (IGameStateProvider gameStateProvider, ITimeProvider timeProvider) 
+        => new PauseModel(gameStateProvider, timeProvider);
 }
