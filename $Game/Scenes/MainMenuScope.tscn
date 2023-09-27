@@ -1,13 +1,37 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmem84jcf7pk5"]
+[gd_scene load_steps=25 format=3 uid="uid://bmem84jcf7pk5"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/MainMenuScope.cs" id="1_j84gn"]
+[ext_resource type="Resource" uid="uid://bb80so5j83tpj" path="res://$Game/Resources/MainMenuSettingsResource.tres" id="2_e2h07"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuNode.cs" id="2_l1f2b"]
 [ext_resource type="Texture2D" uid="uid://bjvqce13novht" path="res://$Game/Art/Game/duck.png" id="3_2u0oq"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Control/RotateUITween.cs" id="4_l56w7"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="4_mqqj0"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="5_ia1w5"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Nodes/MainMenuCenterButtons.cs" id="5_lfsk0"]
+[ext_resource type="Script" path="res://$Game/Scripts/Parallax/Nodes/ParallaxManagerNode.cs" id="6_omyyl"]
+[ext_resource type="Texture2D" uid="uid://0y2suthnvtan" path="res://$Game/Art/Game/sky.png" id="7_sym0t"]
+[ext_resource type="Texture2D" uid="uid://cfyblv3wsnbmd" path="res://$Game/Art/Game/cloud2.png" id="8_e5of5"]
+[ext_resource type="Texture2D" uid="uid://ckkkbwmeta2mg" path="res://$Game/Art/Game/cloud5.png" id="9_82g6p"]
+[ext_resource type="Texture2D" uid="uid://djthlj6r07m75" path="res://$Game/Art/Game/cloud9.png" id="10_iy3hi"]
+[ext_resource type="Texture2D" uid="uid://do2l8lomh1pp6" path="res://$Game/Art/Game/cloud6.png" id="11_jo351"]
+[ext_resource type="Texture2D" uid="uid://da8fjqg52nqgi" path="res://$Game/Art/Game/hills1.png" id="12_44xx3"]
+[ext_resource type="Texture2D" uid="uid://dufsddfapqsq4" path="res://$Game/Art/Game/tree03.png" id="13_creap"]
+[ext_resource type="Texture2D" uid="uid://bkdj6hd57587m" path="res://$Game/Art/Game/mountain1.png" id="14_x13n8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5op8"]
-bg_color = Color(0.494118, 0.592157, 0.839216, 1)
+[sub_resource type="Resource" id="Resource_1icmk"]
+script = ExtResource("5_ia1w5")
+InitializeMethod = 1
+DisposingMethod = 1
+Direction = 0
+ProcessMode = 1
+TweenTimeScale = 1.0
+LoopAmount = -1
+Duration = 5.0
+Delay = 0.0
+Amplitude = 0.0
+IsRelative = false
+EaseType = 1
+TransitionType = 0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pqknj"]
 texture = ExtResource("3_2u0oq")
@@ -34,10 +58,12 @@ bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 [node name="MainMenuScope" type="Node" node_paths=PackedStringArray("MainMenuNode")]
 script = ExtResource("1_j84gn")
 MainMenuNode = NodePath("MainMenuNode")
+MainMenuSettingsResource = ExtResource("2_e2h07")
 
-[node name="MainMenuNode" type="Node" parent="." node_paths=PackedStringArray("mainMenuCenterButtons")]
+[node name="MainMenuNode" type="Node" parent="." node_paths=PackedStringArray("MainMenuCenterButtons", "ParallaxManagerNode")]
 script = ExtResource("2_l1f2b")
-mainMenuCenterButtons = NodePath("MainMenuUICanvas/Center/CenterButtons")
+MainMenuCenterButtons = NodePath("MainMenuUICanvas/Center/CenterButtons")
+ParallaxManagerNode = NodePath("MainMenuWorld2D/ParallaxManagerNode")
 
 [node name="MainMenuUICanvas" type="CanvasLayer" parent="MainMenuNode"]
 
@@ -49,14 +75,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BG" type="Panel" parent="MainMenuNode/MainMenuUICanvas/Center"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i5op8")
+[node name="Animations" type="Control" parent="MainMenuNode/MainMenuUICanvas/Center"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rotate" type="Control" parent="MainMenuNode/MainMenuUICanvas/Center/Animations" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_l56w7")
+TargetRotationDegrees = 360.0
+tweeningTransform = NodePath("../../Bird")
+TweenSettings = SubResource("Resource_1icmk")
 
 [node name="Bird" type="Panel" parent="MainMenuNode/MainMenuUICanvas/Center"]
 layout_mode = 1
@@ -71,6 +102,7 @@ offset_right = 98.0
 offset_bottom = -54.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(98, 98)
 theme_override_styles/panel = SubResource("StyleBoxTexture_pqknj")
 
 [node name="Label" type="Label" parent="MainMenuNode/MainMenuUICanvas/Center"]
@@ -130,3 +162,182 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4sbi1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_1wrbw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_a7kny")
 text = "Exit"
+
+[node name="MainMenuWorld2D" type="Node2D" parent="MainMenuNode"]
+
+[node name="ParallaxManagerNode" type="Node2D" parent="MainMenuNode/MainMenuWorld2D" node_paths=PackedStringArray("parallaxBackground")]
+script = ExtResource("6_omyyl")
+parallaxBackground = NodePath("ParallaxBackground")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode"]
+
+[node name="Background" type="ParallaxLayer" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground"]
+z_index = 2
+position = Vector2(-3, -9)
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1998, 0)
+
+[node name="Sky" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/Background"]
+position = Vector2(682, 280)
+scale = Vector2(1.9541, 1.00587)
+texture = ExtResource("7_sym0t")
+
+[node name="BackLayer" type="ParallaxLayer" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground"]
+z_index = 2
+position = Vector2(-3, -9)
+motion_scale = Vector2(0.25, 0.25)
+motion_mirroring = Vector2(1998, 0)
+
+[node name="Clouds" type="Node2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer"]
+position = Vector2(371, 0)
+
+[node name="Cloud" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(641, 85)
+scale = Vector2(0.376176, 0.438935)
+texture = ExtResource("8_e5of5")
+
+[node name="Cloud3" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(313, 216)
+scale = Vector2(0.236081, 0.275468)
+texture = ExtResource("8_e5of5")
+
+[node name="Cloud4" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(218, 290)
+scale = Vector2(0.236081, 0.275468)
+texture = ExtResource("8_e5of5")
+
+[node name="Cloud5" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(1014, 274)
+scale = Vector2(0.310014, 0.361734)
+texture = ExtResource("8_e5of5")
+
+[node name="Cloud2" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(852, 128)
+scale = Vector2(0.454717, 0.530579)
+texture = ExtResource("9_82g6p")
+
+[node name="Cloud9" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(578, 177)
+scale = Vector2(0.668066, 0.668069)
+texture = ExtResource("10_iy3hi")
+
+[node name="Cloud10" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-120, 165)
+scale = Vector2(0.507947, 0.507948)
+texture = ExtResource("11_jo351")
+
+[node name="Cloud11" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-15.9987, 119.999)
+scale = Vector2(0.402121, 0.402123)
+texture = ExtResource("9_82g6p")
+
+[node name="Cloud12" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(1099, 209)
+scale = Vector2(0.402121, 0.402123)
+texture = ExtResource("9_82g6p")
+
+[node name="Cloud13" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/BackLayer/Clouds"]
+texture_filter = 1
+position = Vector2(-212.423, 313.269)
+scale = Vector2(0.802092, 0.768599)
+texture = ExtResource("10_iy3hi")
+
+[node name="FrontLayer" type="ParallaxLayer" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground"]
+z_index = 2
+position = Vector2(-3, -9)
+motion_scale = Vector2(1.5, 0)
+motion_mirroring = Vector2(1998, 0)
+
+[node name="Hills" type="Node2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
+z_index = 2
+texture_filter = 1
+position = Vector2(180, 492)
+texture = ExtResource("12_44xx3")
+
+[node name="Sprite2D2" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
+texture_filter = 1
+position = Vector2(1179, 492)
+texture = ExtResource("12_44xx3")
+
+[node name="Sprite2D3" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer/Hills"]
+position = Vector2(677.5, 1066.5)
+scale = Vector2(1.95605, 1.00293)
+texture = ExtResource("7_sym0t")
+
+[node name="Tree" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-155, 378)
+scale = Vector2(1.60417, 1.60417)
+texture = ExtResource("13_creap")
+
+[node name="Tree2" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(-40.4999, 442.219)
+scale = Vector2(1.13021, 1.13021)
+texture = ExtResource("13_creap")
+
+[node name="Tree5" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(874, 379)
+scale = Vector2(1.93229, 1.93229)
+texture = ExtResource("13_creap")
+
+[node name="Tree6" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(783, 394)
+scale = Vector2(1.16146, 1.16146)
+texture = ExtResource("13_creap")
+
+[node name="Tree7" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.832031, 0.925781, 0.964844, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(986, 434)
+scale = Vector2(1.28906, 1.28906)
+texture = ExtResource("13_creap")
+
+[node name="Mountain" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.937255, 0.972549, 0.988235, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(152.515, 446.079)
+rotation = 3.14159
+scale = Vector2(0.427745, -0.427745)
+texture = ExtResource("14_x13n8")
+
+[node name="Mountain2" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.937255, 0.972549, 0.988235, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(345, 364)
+scale = Vector2(0.687269, 0.687269)
+texture = ExtResource("14_x13n8")
+
+[node name="Mountain3" type="Sprite2D" parent="MainMenuNode/MainMenuWorld2D/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
+modulate = Color(0.937255, 0.972549, 0.988235, 1)
+z_index = 1
+texture_filter = 1
+position = Vector2(1421, 390)
+scale = Vector2(0.95804, 0.95804)
+texture = ExtResource("14_x13n8")

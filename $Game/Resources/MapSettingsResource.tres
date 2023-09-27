@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_sae3r")
-PlayerSettingsJsonPath = "res://$Game/JsonSettings/playerSettings.json"
-PillarSpawnSettingsJsonPath = "res://$Game/JsonSettings/pillarSpawnSettings.json"
-LevelChangeSettingsJsonPath = "res://$Game/JsonSettings/levelChangeSettings.json"
+PlayerSettingsJsonPath = "res://$Game/JsonSettings/Map/playerSettings.json"
+PillarSpawnSettingsJsonPath = "res://$Game/JsonSettings/Map/pillarSpawnSettings.json"
+LevelChangeSettingsJsonPath = "res://$Game/JsonSettings/Map/levelChangeSettings.json"

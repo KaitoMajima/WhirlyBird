@@ -1,10 +1,10 @@
-﻿public class ParallaxManagerModel : IParallaxManagerModel
+﻿public class MapParallaxManagerModel : IParallaxManagerModel
 {
     public float ParallaxOffset { get; private set; }
         
     readonly IPillarManagerModel pillarManagerModel;
 
-    public ParallaxManagerModel (IPillarManagerModel pillarManagerModel)
+    public MapParallaxManagerModel (IPillarManagerModel pillarManagerModel)
     {
         this.pillarManagerModel = pillarManagerModel;
     }

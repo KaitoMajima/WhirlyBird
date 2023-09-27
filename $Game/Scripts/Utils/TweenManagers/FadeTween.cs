@@ -53,7 +53,7 @@ public partial class FadeTween : TweenManager
 
     void SetAlpha (float startValue, float endValue, float progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        if (!ShouldTweenRun())
         {
             CurrentAlpha = endValue;
             MainTween.Kill();

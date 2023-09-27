@@ -7,11 +7,15 @@ public partial class MainMenuScope : Node
     [Export]
     public MainMenuNode MainMenuNode { get; private set; }
     
+    [Export]
+    public MainMenuSettingsResource MainMenuSettingsResource { get; private set; }
+    
     GameScope GameScope => GameScope.Instance;
     
     public override void _Ready ()
     {
         SetupModels();
+        SetupNodes();
         InitializeModels();
         InitializeNodes();
     }
@@ -23,7 +27,15 @@ public partial class MainMenuScope : Node
     
     void SetupModels ()
     {
-        MainMenuModel = MainMenuFactory.CreateMainMenuModel(GameScope.GameModel.MusicManagerModel);
+        MainMenuModel = MainMenuFactory.CreateMainMenuModel(
+            MainMenuSettingsResource, 
+            GameScope.GameModel.MusicManagerModel
+        );
+    }
+    
+    void SetupNodes ()
+    {
+        MainMenuNode.Setup(MainMenuModel.ParallaxManagerModel);
     }
     
     void InitializeModels ()

@@ -40,7 +40,7 @@ public partial class Scale2DTween : TweenManager
     
     void SetScale (Vector2 startValue, Vector2 endValue, Vector2 progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        if (!ShouldTweenRun())
         {
             CurrentScale = endValue;
             MainTween.Kill();

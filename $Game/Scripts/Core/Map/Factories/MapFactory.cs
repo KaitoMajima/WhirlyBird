@@ -71,7 +71,7 @@
             musicManagerModel
         );
         IParallaxManagerModel parallaxManagerModel =
-            ParallaxFactory.CreateParallaxManagerModel(pillarManagerModel);
+            ParallaxFactory.CreateMapParallaxManagerModel(pillarManagerModel);
         IPlayerSettings playerSettings = PlayerFactory.CreatePlayerSettings(mapSettingsResource);
         IPlayerModel playerModel = PlayerFactory.CreatePlayerModel(playerSettings, levelChangeModel);
         

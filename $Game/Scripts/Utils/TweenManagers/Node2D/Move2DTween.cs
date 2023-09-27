@@ -39,7 +39,7 @@ public partial class Move2DTween : TweenManager
     
     void SetPosition (Vector2 startValue, Vector2 endValue, Vector2 progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        if (!ShouldTweenRun())
         {
             CurrentPosition = endValue;
             MainTween.Kill();

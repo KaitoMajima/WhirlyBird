@@ -42,7 +42,7 @@ public partial class FadeLight2DTween : TweenManager
 
     void SetAlpha (float startValue, float endValue, float progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        if (!ShouldTweenRun())
         {
             CurrentAlpha = ClampProgressValue(endValue);
             MainTween.Kill();

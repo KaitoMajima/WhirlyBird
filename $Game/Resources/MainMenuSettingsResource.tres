@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MainMenuSettingsResource" load_steps=2 format=3 uid="uid://bb80so5j83tpj"]
+
+[ext_resource type="Script" path="res://$Game/Scripts/Core/MainMenu/Resources/MainMenuSettingsResource.cs" id="1_j5mmv"]
+
+[resource]
+script = ExtResource("1_j5mmv")
+MainMenuSettingsJsonPath = "res://$Game/JsonSettings/MainMenu/mainMenuSettings.json"

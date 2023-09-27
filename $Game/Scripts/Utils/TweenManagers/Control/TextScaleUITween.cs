@@ -40,7 +40,7 @@ public partial class TextScaleUITween : TweenManager
 
     void SetScale (int startValue, int endValue, int progress, float amplitude)
     {
-        if (MainTween.GetTotalElapsedTime() >= TweenSettings.Duration + TweenSettings.Delay)
+        if (!ShouldTweenRun())
         {
             CurrentScale = ClampProgressValue(endValue);
             MainTween.Kill();

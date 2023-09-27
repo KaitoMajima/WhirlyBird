@@ -53,6 +53,15 @@ public abstract partial class TweenManager : Node
         StopTween();
         base.Dispose();
     }
+
+    protected virtual bool ShouldTweenRun ()
+    {
+        if (TweenSettings.LoopAmount == -1)
+            return true;
+        
+        return MainTween.GetTotalElapsedTime() <
+               + TweenSettings.Delay + TweenSettings.Duration * (TweenSettings.LoopAmount + 1);
+    }
     
     protected abstract void SetupTween ();
     protected abstract void TriggerTween (bool isBackwards);
