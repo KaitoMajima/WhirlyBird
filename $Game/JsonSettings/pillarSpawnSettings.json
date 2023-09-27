@@ -40,5 +40,6 @@
   "pillarSecondsUntilDestruction": 7,
   "pillarSpawnMinYHeight": -125,
   "pillarSpawnMaxYHeight": 125,
-  "parallaxBaseValue": 50
+  "parallaxBaseValue": 50,
+  "initialPillarsPassed": 0
 }

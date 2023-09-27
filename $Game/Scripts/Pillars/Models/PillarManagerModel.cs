@@ -40,6 +40,7 @@ public class PillarManagerModel : IPillarManagerModel
 
     public void Initialize ()
     {
+        PillarsPassedCount = spawnSettings.InitialPillarsPassed;
         AddScoreListeners();
     }
     

@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=81 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -39,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://dka5givt7tlai" path="res://$Game/PackedScenes/Pillars/Pillar.tscn" id="23_by3dm"]
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/Nodes/MapInputDetectionNode.cs" id="23_xrhcv"]
 [ext_resource type="Texture2D" uid="uid://hahqp6bat03s" path="res://$Game/Art/Game/transparent_gradient.png" id="25_s2aeh"]
+[ext_resource type="Script" path="res://$Game/Scripts/Music/Nodes/MusicBeatSyncNode.cs" id="27_udtmy"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/ObstacleDamageHitboxNode.cs" id="29_gri08"]
 [ext_resource type="Texture2D" uid="uid://dvsii4e7cou2i" path="res://$Game/Art/Game/256x256light.png" id="30_7a1ac"]
 [ext_resource type="AudioStream" uid="uid://l15sw7dj0krs" path="res://$Game/Audio/wingflap.wav" id="37_esllo"]
@@ -415,6 +416,7 @@ offset_bottom = 40.0
 
 [node name="Score" type="AudioStreamPlayer" parent="MapNode/MapUICanvas/HUD/ScoreCounterNode/Sounds"]
 stream = ExtResource("10_wlocr")
+volume_db = -5.0
 script = ExtResource("38_77uu2")
 SoundEffectResource = SubResource("Resource_k0v7i")
 
@@ -730,13 +732,16 @@ blend_mode = 2
 range_layer_min = -128
 range_layer_max = 128
 
-[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage"]
+[node name="Moon" type="Sprite2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage" node_paths=PackedStringArray("targetTransform")]
 light_mask = 0
 z_index = 1
 material = SubResource("CanvasItemMaterial_13pwg")
 position = Vector2(422.001, 367)
 scale = Vector2(1.17969, 1.17969)
 texture = ExtResource("17_g42s1")
+script = ExtResource("27_udtmy")
+targetTransform = NodePath(".")
+scaleMultiplier = 20.0
 
 [node name="PointLight2D" type="PointLight2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/Background/LevelChangeNode/PurpleStage/Moon"]
 scale = Vector2(1.28477, 1.28477)
@@ -843,7 +848,7 @@ texture = ExtResource("5_hak22")
 [node name="FrontLayer" type="ParallaxLayer" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground"]
 z_index = 2
 position = Vector2(-3, -9)
-motion_scale = Vector2(1.5, 1.5)
+motion_scale = Vector2(1.5, 0)
 motion_mirroring = Vector2(1998, 0)
 
 [node name="Hills" type="Node2D" parent="MapNode/MapWorld2D/Environment/ParallaxManagerNode/ParallaxBackground/FrontLayer"]
@@ -995,7 +1000,7 @@ SoundEffectResource = SubResource("Resource_v6s5p")
 
 [node name="Bonk" type="AudioStreamPlayer" parent="MapNode/MapWorld2D/PlayerDuck/RigidBody/Contents/Sounds"]
 stream = ExtResource("40_df2gu")
-volume_db = 10.0
+volume_db = 2.0
 script = ExtResource("38_77uu2")
 SoundEffectResource = SubResource("Resource_4kywj")
 

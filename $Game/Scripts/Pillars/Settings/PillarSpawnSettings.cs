@@ -18,6 +18,9 @@ public record PillarSpawnSettings : IPillarSpawnSettings
 
     [JsonProperty]
     public float ParallaxBaseValue { get; }
+    
+    [JsonProperty]
+    public int InitialPillarsPassed { get; }
 
     [JsonConstructor]
     public PillarSpawnSettings (
@@ -25,7 +28,8 @@ public record PillarSpawnSettings : IPillarSpawnSettings
         double pillarSecondsUntilDestruction,
         float pillarSpawnMinYHeight,
         float pillarSpawnMaxYHeight,
-        float parallaxBaseValue
+        float parallaxBaseValue,
+        int initialPillarsPassed
     )
     {
         PillarDifficulty = pillarDifficulty;
@@ -33,5 +37,6 @@ public record PillarSpawnSettings : IPillarSpawnSettings
         PillarSpawnMinYHeight = pillarSpawnMinYHeight;
         PillarSpawnMaxYHeight = pillarSpawnMaxYHeight;
         ParallaxBaseValue = parallaxBaseValue;
+        InitialPillarsPassed = initialPillarsPassed;
     }
 }
