@@ -7,11 +7,14 @@ public partial class MusicBeatSyncNode : Node2D
     
     [Export] Node2D targetTransform;
     [Export] float scaleMultiplier = 1;
+    [Export] float lerpSpeed = 0.1f;
     [Export] string audioBusName = "Master";
     [Export] int spectrumEffectIndex;
     
     AudioEffectSpectrumAnalyzerInstance spectrumInstance;
     AudioStreamPlayer audioStreamPlayer;
+    
+    Vector2 currentScale = new(1, 1);
     
     public override void _Ready ()
     {
@@ -33,6 +36,8 @@ public partial class MusicBeatSyncNode : Node2D
             
         float averageMagnitude = (magnitudes.X + magnitudes.Y) / 2.0f;
         
-        targetTransform.Scale = new Vector2(1 + averageMagnitude * scaleMultiplier, 1 + averageMagnitude * scaleMultiplier);
+        Vector2 targetScale = new(1 + averageMagnitude * scaleMultiplier, 1 + averageMagnitude * scaleMultiplier);
+        currentScale = currentScale.Lerp(targetScale, lerpSpeed * (float)delta);
+        targetTransform.Scale = currentScale;
     }
 }
