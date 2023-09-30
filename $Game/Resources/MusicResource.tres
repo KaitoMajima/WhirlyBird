@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="MusicResource" load_steps=9 format=3 uid="uid://dbmi88r88ojc"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Music/Resources/MusicResource.cs" id="1_8g0of"]
-[ext_resource type="AudioStream" uid="uid://chpao30iqv6ik" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_04.ogg" id="1_68063"]
+[ext_resource type="AudioStream" uid="uid://b4xtubcbc5t5l" path="res://$Game/Audio/Music/ELVGames/OST 4 - Dazzling Bubbles (Loopable).ogg" id="1_n1ykw"]
 [ext_resource type="Script" path="res://$Game/Scripts/Music/Resources/MusicClipEntryResource.cs" id="2_lt8n0"]
-[ext_resource type="AudioStream" uid="uid://ds271iov8xt3b" path="res://$Game/Audio/Music/CasualGameBGM05/BGM_02.ogg" id="3_jlvys"]
+[ext_resource type="AudioStream" uid="uid://bmcq6plf2mohc" path="res://$Game/Audio/Music/ELVGames/OST 2 - Butterfly Hunt (Loopable).ogg" id="3_3wmwo"]
 [ext_resource type="AudioStream" uid="uid://8k1ktnvvcn3f" path="res://$Game/Audio/Music/Camellia/NIGHTMARE † CITY.ogg" id="4_7jo4n"]
 
 [sub_resource type="Resource" id="Resource_6tpj1"]
 script = ExtResource("2_lt8n0")
 MusicClipType = 0
-AudioStream = ExtResource("1_68063")
+AudioStream = ExtResource("1_n1ykw")
 CrossfadeTimeOnPlay = 1.0
 MaxVolume = -20.0
 Offset = 0.0
@@ -17,7 +17,7 @@ Offset = 0.0
 [sub_resource type="Resource" id="Resource_0q644"]
 script = ExtResource("2_lt8n0")
 MusicClipType = 1
-AudioStream = ExtResource("3_jlvys")
+AudioStream = ExtResource("3_3wmwo")
 CrossfadeTimeOnPlay = 0.5
 MaxVolume = -20.0
 Offset = 0.0

@@ -99,25 +99,6 @@ font_size = 72
 shadow_size = 11
 shadow_color = Color(0.2, 0.760784, 1, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_spj1t"]
-font = ExtResource("1_kwjuq")
-font_size = 141
-shadow_size = 21
-shadow_color = Color(0.258824, 0.588235, 0.639216, 1)
-shadow_offset = Vector2(4.635, 3.585)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v3ai"]
-bg_color = Color(0.258824, 0.584314, 0.635294, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ghkt"]
-bg_color = Color(0.227451, 0.529412, 0.576471, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt6vc"]
-bg_color = Color(0.121569, 0.321569, 0.34902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7wog"]
-bg_color = Color(0.258824, 0.584314, 0.635294, 1)
-
 [sub_resource type="Resource" id="Resource_jaj3c"]
 script = ExtResource("21_n6477")
 InitializeMethod = 0
@@ -178,6 +159,25 @@ bg_color = Color(0.58, 0.1566, 0.24128, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8iue"]
 bg_color = Color(0.38, 0.1026, 0.15808, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_spj1t"]
+font = ExtResource("1_kwjuq")
+font_size = 141
+shadow_size = 21
+shadow_color = Color(0.258824, 0.588235, 0.639216, 1)
+shadow_offset = Vector2(4.635, 3.585)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v3ai"]
+bg_color = Color(0.258824, 0.584314, 0.635294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ghkt"]
+bg_color = Color(0.227451, 0.529412, 0.576471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt6vc"]
+bg_color = Color(0.121569, 0.321569, 0.34902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7wog"]
+bg_color = Color(0.258824, 0.584314, 0.635294, 1)
 
 [sub_resource type="Resource" id="Resource_waihx"]
 script = ExtResource("21_n6477")
@@ -467,6 +467,129 @@ label_settings = SubResource("LabelSettings_ha3ox")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GameOverNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("centerButtons", "sceneToUnload", "buttonInputActivationTimer", "gameOverAnimations")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_xrxng")
+mainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
+centerButtons = NodePath("CenterButtons")
+sceneToUnload = NodePath("../../..")
+buttonInputActivationTimer = NodePath("ButtonActivationTimer")
+gameOverAnimations = [NodePath("Animations/Control/TextScale"), NodePath("Animations/Control/ScreenFade"), NodePath("Animations/Control/ButtonsFade")]
+
+[node name="Animations" type="Control" parent="MapNode/MapUICanvas/GameOverNode"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextScale" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_ywhsn")
+TargetScale = 56
+tweeningTransform = NodePath("../../../Label")
+TweenSettings = SubResource("Resource_jaj3c")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScreenFade" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_ljrcd")
+tweeningTransform = NodePath("../../../Panel")
+TweenSettings = SubResource("Resource_7jlvb")
+
+[node name="ButtonsFade" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_ljrcd")
+tweeningTransform = NodePath("../../../CenterButtons")
+TweenSettings = SubResource("Resource_qlham")
+
+[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/GameOverNode"]
+material = ExtResource("5_gacay")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MapNode/MapUICanvas/GameOverNode"]
+material = ExtResource("5_gacay")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -176.0
+offset_right = 299.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(299, 97)
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_ducut")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/GameOverNode" node_paths=PackedStringArray("retryButton", "mainMenuButton")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 45.0
+offset_right = 128.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+script = ExtResource("13_6lj1e")
+retryButton = NodePath("Resume")
+mainMenuButton = NodePath("MainMenu")
+
+[node name="Resume" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
+material = ExtResource("5_gacay")
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("1_kwjuq")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_7lobl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xk2ce")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
+text = "Retry"
+
+[node name="MainMenu" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
+material = ExtResource("5_gacay")
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("1_kwjuq")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_7lobl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xk2ce")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
+text = "Main Menu"
+
+[node name="ButtonActivationTimer" type="Timer" parent="MapNode/MapUICanvas/GameOverNode"]
+wait_time = 1.25
+
 [node name="PauseNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("centerButtons", "sceneToUnload")]
 layout_mode = 3
 anchors_preset = 15
@@ -561,127 +684,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_a7wog")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2ghkt")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yt6vc")
 text = "Main Menu"
-
-[node name="GameOverNode" type="Control" parent="MapNode/MapUICanvas" node_paths=PackedStringArray("centerButtons", "sceneToUnload", "buttonInputActivationTimer", "gameOverAnimations")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("12_xrxng")
-mainMenuScenePath = "res://$Game/Scenes/MainMenuScope.tscn"
-centerButtons = NodePath("CenterButtons")
-sceneToUnload = NodePath("../../..")
-buttonInputActivationTimer = NodePath("ButtonActivationTimer")
-gameOverAnimations = [NodePath("Animations/Control/TextScale"), NodePath("Animations/Control/ScreenFade"), NodePath("Animations/Control/ButtonsFade")]
-
-[node name="Animations" type="Control" parent="MapNode/MapUICanvas/GameOverNode"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Control" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TextScale" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("7_ywhsn")
-TargetScale = 56
-tweeningTransform = NodePath("../../../Label")
-TweenSettings = SubResource("Resource_jaj3c")
-
-[node name="ScreenFade" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("13_ljrcd")
-tweeningTransform = NodePath("../../../Panel")
-TweenSettings = SubResource("Resource_7jlvb")
-
-[node name="ButtonsFade" type="Control" parent="MapNode/MapUICanvas/GameOverNode/Animations/Control" node_paths=PackedStringArray("tweeningTransform")]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("13_ljrcd")
-tweeningTransform = NodePath("../../../CenterButtons")
-TweenSettings = SubResource("Resource_qlham")
-
-[node name="Panel" type="Panel" parent="MapNode/MapUICanvas/GameOverNode"]
-material = ExtResource("5_gacay")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MapNode/MapUICanvas/GameOverNode"]
-material = ExtResource("5_gacay")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -299.0
-offset_top = -176.0
-offset_right = 299.0
-offset_bottom = 18.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(299, 97)
-text = "GAME OVER"
-label_settings = SubResource("LabelSettings_ducut")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CenterButtons" type="VBoxContainer" parent="MapNode/MapUICanvas/GameOverNode" node_paths=PackedStringArray("retryButton", "mainMenuButton")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = 45.0
-offset_right = 128.0
-offset_bottom = 165.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-script = ExtResource("13_6lj1e")
-retryButton = NodePath("Resume")
-mainMenuButton = NodePath("MainMenu")
-
-[node name="Resume" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
-material = ExtResource("5_gacay")
-layout_mode = 2
-mouse_filter = 1
-theme_override_fonts/font = ExtResource("1_kwjuq")
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_7lobl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xk2ce")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
-text = "Retry"
-
-[node name="MainMenu" type="Button" parent="MapNode/MapUICanvas/GameOverNode/CenterButtons"]
-material = ExtResource("5_gacay")
-layout_mode = 2
-mouse_filter = 1
-theme_override_fonts/font = ExtResource("1_kwjuq")
-theme_override_font_sizes/font_size = 36
-theme_override_styles/normal = SubResource("StyleBoxFlat_7lobl")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xk2ce")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_g8iue")
-text = "Main Menu"
-
-[node name="ButtonActivationTimer" type="Timer" parent="MapNode/MapUICanvas/GameOverNode"]
-wait_time = 1.25
 
 [node name="MapWorld2D" type="Node2D" parent="MapNode" node_paths=PackedStringArray("PlayerManagerNode", "PillarManagerNode", "LevelChangeNode", "LevelChangeEffectsNode", "ParallaxManagerNode")]
 script = ExtResource("5_4vban")

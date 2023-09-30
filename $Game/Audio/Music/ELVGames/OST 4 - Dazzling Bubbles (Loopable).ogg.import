@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b4xtubcbc5t5l"
+path="res://.godot/imported/OST 4 - Dazzling Bubbles (Loopable).ogg-14a16752a68d323a197ca5aebf0a30d6.oggvorbisstr"
+
+[deps]
+
+source_file="res://$Game/Audio/Music/ELVGames/OST 4 - Dazzling Bubbles (Loopable).ogg"
+dest_files=["res://.godot/imported/OST 4 - Dazzling Bubbles (Loopable).ogg-14a16752a68d323a197ca5aebf0a30d6.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

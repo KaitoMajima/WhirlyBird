@@ -218,11 +218,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Animations" type="Control" parent="MainMenuNode/MainMenuUICanvas/CreditsScreen/Center"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="Background" type="Panel" parent="MainMenuNode/MainMenuUICanvas/CreditsScreen/Center"]
 layout_mode = 1
 anchors_preset = 8
@@ -250,11 +245,11 @@ text = "Programming & Game Design:
 KaitoMajima
 
 Art:
-Game Assets All-in-1 from Kenney
+Game Assets All-in-1 by Kenney
 
 Audio:
-Casual Game BGM #5 from B.G.M
-NIGHTMARE † CITY from Camellia"
+Cute RPG Music Pack 4 and 5 by ELV Games
+NIGHTMARE † CITY by Camellia"
 label_settings = SubResource("LabelSettings_k6tnv")
 horizontal_alignment = 1
 vertical_alignment = 1
