@@ -22,9 +22,10 @@ public partial class MainMenuScope : Node
 
     public override void _ExitTree ()
     {
+        DisposeModels();
         DisposeNodes();
     }
-    
+
     void SetupModels ()
     {
         MainMenuModel = MainMenuFactory.CreateMainMenuModel(
@@ -46,6 +47,11 @@ public partial class MainMenuScope : Node
     void InitializeNodes ()
     {
         MainMenuNode.Initialize();
+    }
+    
+    void DisposeModels ()
+    {
+        MainMenuModel.Dispose();
     }
     
     void DisposeNodes ()

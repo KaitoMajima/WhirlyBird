@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class MapWorld2DNode : Node
+public partial class MapWorld2DNode : Node2D
 {
     [Export]
     public PlayerManagerNode PlayerManagerNode { get; private set; }

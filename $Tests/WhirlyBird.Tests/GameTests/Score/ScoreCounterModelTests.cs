@@ -23,12 +23,12 @@ public class ScoreCounterModelTests
             PlayerModel = Substitute.For<IPlayerModel>();
             GameOverModel = Substitute.For<IGameOverModel>();
             
-            Model = CreateModel();
+            CreateModel();
         }
 
-        protected ScoreCounterModel CreateModel ()
+        protected void CreateModel ()
         {
-            return new ScoreCounterModel(
+            Model = new ScoreCounterModel(
                 ScoreData, 
                 GameSavingSystem,
                 PlayerModel,

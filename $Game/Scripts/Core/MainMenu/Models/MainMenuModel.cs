@@ -1,18 +1,31 @@
 ﻿public class MainMenuModel : IMainMenuModel
 {
-    public IParallaxManagerModel ParallaxManagerModel { get; }
-    
+    public IMainMenuWorld2DModel MainMenuWorld2DModel { get; }
+    public IMainMenuUICanvasModel MainMenuUICanvasModel { get; }
+
     readonly IMusicManagerSystem musicManagerSystem;
 
-    public MainMenuModel (IParallaxManagerModel parallaxManagerModel, IMusicManagerSystem musicManagerSystem)
+    public MainMenuModel (
+        IMainMenuWorld2DModel mainMenuWorld2DModel, 
+        IMainMenuUICanvasModel mainMenuUICanvasModel, 
+        IMusicManagerSystem musicManagerSystem
+    )
     {
-        ParallaxManagerModel = parallaxManagerModel;
+        MainMenuWorld2DModel = mainMenuWorld2DModel;
+        MainMenuUICanvasModel = mainMenuUICanvasModel;
         this.musicManagerSystem = musicManagerSystem;
     }
     
     public void Initialize ()
     {
-        ParallaxManagerModel.Initialize();
+        MainMenuWorld2DModel.Initialize();
+        MainMenuUICanvasModel.Initialize();
         musicManagerSystem.Play(MusicClipType.MainMenu);
+    }
+
+    public void Dispose ()
+    {
+        MainMenuWorld2DModel.Dispose();
+        MainMenuUICanvasModel.Dispose();
     }
 }

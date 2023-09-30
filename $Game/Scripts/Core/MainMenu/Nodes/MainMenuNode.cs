@@ -3,25 +3,28 @@
 public partial class MainMenuNode : Node
 {
     [Export] 
-    public MainMenuCenterButtons MainMenuCenterButtons { get; private set; }
+    public MainMenuUICanvasNode MainMenuUICanvasNode { get; private set; }
+    
+    [Export]
+    public MainMenuWorld2DNode MainMenuWorld2DNode { get; private set; }
 
-    [Export] 
-    public ParallaxManagerNode ParallaxManagerNode { get; private set; }
+    IMainMenuModel mainMenuModel;
 
-    public void Setup (IParallaxManagerModel parallaxManagerModel)
+    public void Setup (IMainMenuModel mainMenuModel)
     {
-        ParallaxManagerNode.Setup(parallaxManagerModel);
+        this.mainMenuModel = mainMenuModel;
     }
     
     public void Initialize ()
     {
-        MainMenuCenterButtons.Initialize();
+        MainMenuUICanvasNode.Initialize();
+        MainMenuWorld2DNode.Initialize();
     }
 
     public new void Dispose ()
     {
-        MainMenuCenterButtons.Dispose();
-        ParallaxManagerNode.Dispose();
+        MainMenuUICanvasNode.Dispose();
+        MainMenuWorld2DNode.Dispose();
         base.Dispose();
     }
 }

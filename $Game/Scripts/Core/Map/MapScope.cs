@@ -3,15 +3,9 @@
 public partial class MapScope : Node
 {
     public IMapModel MapModel { get; private set; }
-    public IMapWorld2DModel MapWorld2DModel => MapModel.MapWorld2DModel;
-    public IMapUICanvasModel MapUICanvasModel => MapModel.MapUICanvasModel;
-    public IMapInputDetectionModel MapInputDetectionModel => MapModel.MapInputDetectionModel;
     
     [Export]
     public MapNode MapNode { get; private set; }
-    public MapWorld2DNode MapWorld2DNode => MapNode.MapWorld2DNode;
-    public MapUICanvasNode MapUICanvasNode => MapNode.MapUICanvasNode;
-    public MapInputDetectionNode MapInputDetectionNode => MapNode.MapInputDetectionNode;
     
     [Export]
     public MapSettingsResource MapSettingsResource { get; private set; }

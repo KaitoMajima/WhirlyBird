@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-public partial class MapUICanvasNode : Node
+public partial class MapUICanvasNode : CanvasLayer
 {
     [Export]
     public PauseNode PauseNode { get; private set; }
