@@ -167,6 +167,7 @@ public partial class PlayerManagerNode : Node2D
     public new void Dispose ()
     {
         RemoveModelListeners();
+        RemoveRigidBodyListeners();
         base.Dispose();
     }
 }

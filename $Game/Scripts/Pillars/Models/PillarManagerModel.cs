@@ -104,7 +104,8 @@ public class PillarManagerModel : IPillarManagerModel
     
     void RemoveTimerListeners ()
     {
-        timer.Timeout -= HandleTimerTimeout;
+        if (!timer.IsStopped())
+            timer.Timeout -= HandleTimerTimeout;
     }
     
     public void Dispose ()

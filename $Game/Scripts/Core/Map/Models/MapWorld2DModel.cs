@@ -36,6 +36,6 @@
         PillarManagerModel.Dispose();
         LevelChangeModel.Dispose();
         ParallaxManagerModel.Dispose();
-        LevelChangeModel.Dispose();
+        LevelChangeMusicModel.Dispose();
     }
 }

@@ -80,7 +80,7 @@ public partial class GameOverNode : Control
     
     void RemoveTimerListeners ()
     {
-        if (buttonInputActivationTimer != null)
+        if (!buttonInputActivationTimer.IsStopped())
             buttonInputActivationTimer.Timeout -= HandleButtonActivationTimeout;
     }
 

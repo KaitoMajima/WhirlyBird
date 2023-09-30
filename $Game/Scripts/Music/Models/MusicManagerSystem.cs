@@ -131,7 +131,8 @@ public class MusicManagerSystem : IMusicManagerSystem
     
     void RemoveTimerListeners ()
     {
-        currentTimer.Timeout -= HandleTimerTimeout;
+        if (!currentTimer.IsStopped())
+            currentTimer.Timeout -= HandleTimerTimeout;
     }
 
     public void Dispose ()
