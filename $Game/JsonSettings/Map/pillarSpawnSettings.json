@@ -13,10 +13,16 @@
       "parallaxMultiplier": 1.2
     },
     {
-      "pillarPassRequirement": 20,
+      "pillarPassRequirement": 15,
       "pillarSpeed": 369.6,
       "pillarSpawnInterval": 1.5,
       "parallaxMultiplier": 1.4
+    },
+    {
+      "pillarPassRequirement": 30,
+      "pillarSpeed": 420,
+      "pillarSpawnInterval": 1.3,
+      "parallaxMultiplier": 1.7
     },
     {
       "pillarPassRequirement": 50,
