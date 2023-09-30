@@ -3,7 +3,7 @@
     public static IMusicManagerSystem CreateMusicManagerSystem () 
         => new MusicManagerSystem();
 
-    public static void SetupMusicManagerModel (
+    public static void SetupMusicManagerSystem (
         IMusicManagerSystem musicManagerSystem, 
         IGameStateProvider gameStateProvider,
         MusicResource musicResource

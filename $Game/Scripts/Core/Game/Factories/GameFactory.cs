@@ -23,7 +23,7 @@ public static class GameFactory
         MusicResource musicResource
     )
     {
-        MusicFactory.SetupMusicManagerModel(
+        MusicFactory.SetupMusicManagerSystem(
             gameModel.MusicManagerSystem, 
             gameStateProvider, 
             musicResource
