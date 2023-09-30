@@ -1,5 +1,4 @@
 ﻿using System;
-using Godot;
 
 public class PillarManagerModel : IPillarManagerModel
 {
@@ -21,7 +20,7 @@ public class PillarManagerModel : IPillarManagerModel
     readonly IRandomProvider randomProvider;
 
     IScoreCounterModel scoreCounterModel;
-    Timer currentTimer;
+    ITimer timer;
     int currentDifficultyIndex;
 
     public PillarManagerModel (
@@ -38,35 +37,31 @@ public class PillarManagerModel : IPillarManagerModel
         this.scoreCounterModel = scoreCounterModel;
     }
 
+    public void SetTimer (ITimer timer)
+    {
+        this.timer = timer;
+        AddTimerListeners();
+    }
+
     public void Initialize ()
     {
         PillarsPassedCount = spawnSettings.InitialPillarsPassed;
         AddScoreListeners();
     }
-    
-    public void StartTimedSpawning (Timer timer)
+
+    public void StartSpawning ()
     {
-        IPillarSettings currentDifficulty = spawnSettings.PillarDifficulty[currentDifficultyIndex];
-        UpdateTimer(timer, currentDifficulty);
+        timer.Stop();
+        timer.WaitTime = CurrentDifficulty.PillarSpawnInterval;
+        timer.Start();
     }
 
-    public Vector2 GetNewRandomSpawningPoint ()
+    public float GetNewRandomSpawningPoint ()
     {
-        float range = (float)randomProvider.Range(
+        return (float)randomProvider.Range(
             spawnSettings.PillarSpawnMinYHeight,
             spawnSettings.PillarSpawnMaxYHeight
         );
-        Vector2 point = new(0, range);
-        return point;
-    }
-    
-    void UpdateTimer (Timer timer, IPillarSettings currentDifficulty)
-    {
-        RemoveTimerListeners();
-        currentTimer = timer;
-        currentTimer.WaitTime = currentDifficulty.PillarSpawnInterval;
-        currentTimer.Start();
-        AddTimerListeners();
     }
 
     void HandleTimerTimeout ()
@@ -99,7 +94,7 @@ public class PillarManagerModel : IPillarManagerModel
     
     void AddTimerListeners ()
     {
-        currentTimer.Timeout += HandleTimerTimeout;
+        timer.Timeout += HandleTimerTimeout;
     }
     
     void RemoveScoreListeners ()
@@ -109,8 +104,7 @@ public class PillarManagerModel : IPillarManagerModel
     
     void RemoveTimerListeners ()
     {
-        if (currentTimer != null)
-            currentTimer.Timeout -= HandleTimerTimeout;
+        timer.Timeout -= HandleTimerTimeout;
     }
     
     public void Dispose ()

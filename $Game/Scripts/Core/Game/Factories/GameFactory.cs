@@ -5,8 +5,8 @@ public static class GameFactory
 {
     public static IGameModel CreateGameModel ()
     {
-        IMusicManagerModel musicManagerModel = MusicFactory.CreateMusicManagerModel();
-        return new GameModel(musicManagerModel);
+        IMusicManagerSystem musicManagerSystem = MusicFactory.CreateMusicManagerSystem();
+        return new GameModel(musicManagerSystem);
     }
     
     public static GameNode CreateGameNode (Node callerNode)
@@ -24,7 +24,7 @@ public static class GameFactory
     )
     {
         MusicFactory.SetupMusicManagerModel(
-            gameModel.MusicManagerModel, 
+            gameModel.MusicManagerSystem, 
             gameStateProvider, 
             musicResource
         );
@@ -33,5 +33,5 @@ public static class GameFactory
     public static void SetupGameNode (
         GameNode gameNode, 
         IGameModel gameModel
-    ) => gameNode.Setup(gameModel.MusicManagerModel);
+    ) => gameNode.Setup(gameModel.MusicManagerSystem);
 }

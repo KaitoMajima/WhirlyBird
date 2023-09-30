@@ -11,9 +11,9 @@ public partial class GameNode : Node
     [Export]
     public MusicManagerNode MusicManagerNode { get; private set; }
 
-    public void Setup (IMusicManagerModel musicManagerModel)
+    public void Setup (IMusicManagerSystem musicManagerSystem)
     {
-        MusicManagerNode.Setup(musicManagerModel);
+        MusicManagerNode.Setup(musicManagerSystem);
     }
     
     public void Initialize ()

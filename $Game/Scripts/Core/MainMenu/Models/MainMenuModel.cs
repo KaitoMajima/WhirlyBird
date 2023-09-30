@@ -2,17 +2,17 @@
 {
     public IParallaxManagerModel ParallaxManagerModel { get; }
     
-    readonly IMusicManagerModel musicManagerModel;
+    readonly IMusicManagerSystem musicManagerSystem;
 
-    public MainMenuModel (IParallaxManagerModel parallaxManagerModel, IMusicManagerModel musicManagerModel)
+    public MainMenuModel (IParallaxManagerModel parallaxManagerModel, IMusicManagerSystem musicManagerSystem)
     {
         ParallaxManagerModel = parallaxManagerModel;
-        this.musicManagerModel = musicManagerModel;
+        this.musicManagerSystem = musicManagerSystem;
     }
     
     public void Initialize ()
     {
         ParallaxManagerModel.Initialize();
-        musicManagerModel.Play(MusicClipType.MainMenu);
+        musicManagerSystem.Play(MusicClipType.MainMenu);
     }
 }

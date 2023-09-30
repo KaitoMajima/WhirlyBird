@@ -5,12 +5,12 @@
         IMainGameSavingSystem saveSystem,
         ITimeProvider timeProvider, 
         IRandomProvider randomProvider,
-        IMusicManagerModel musicManagerModel,
+        IMusicManagerSystem musicManagerSystem,
         MapSettingsResource mapSettingsResource,
         IGameStateProvider gameStateProvider
     )
     {
-        IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource, musicManagerModel);
+        IMapWorld2DModel mapWorld2DModel = CreateMapWorld2DModel(randomProvider, mapSettingsResource, musicManagerSystem);
         IMapUICanvasModel mapUICanvasModel = CreateMapUICanvasModel(
             saveData, 
             saveSystem, 
@@ -29,7 +29,7 @@
             mapUICanvasModel, 
             mapWorld2DModel, 
             mapInputDetectionModel, 
-            musicManagerModel
+            musicManagerSystem
         );
     }
     
@@ -78,7 +78,7 @@
     static IMapWorld2DModel CreateMapWorld2DModel (
         IRandomProvider randomProvider, 
         MapSettingsResource mapSettingsResource,
-        IMusicManagerModel musicManagerModel
+        IMusicManagerSystem musicManagerSystem
     )
     {
         IPillarSpawnSettings pillarSpawnSettings = PillarFactory.CreatePillarSpawnSettings(mapSettingsResource);
@@ -91,7 +91,7 @@
         ILevelChangeModel levelChangeModel = LevelChangeFactory.CreateLevelChangeModel(
             levelChangeSettings, 
             pillarManagerModel,
-            musicManagerModel
+            musicManagerSystem
         );
         IParallaxManagerModel parallaxManagerModel =
             ParallaxFactory.CreateMapParallaxManagerModel(pillarManagerModel);

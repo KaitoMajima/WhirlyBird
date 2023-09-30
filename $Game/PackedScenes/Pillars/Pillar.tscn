@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dka5givt7tlai"]
+[gd_scene load_steps=11 format=3 uid="uid://dka5givt7tlai"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarNode.cs" id="1_2rnhs"]
 [ext_resource type="Texture2D" uid="uid://4nnth13ht1vb" path="res://$Game/Art/Game/house_grey_side.png" id="1_qh63o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/Node2D/Move2DTween.cs" id="2_qvwtk"]
 [ext_resource type="Script" path="res://$Game/Scripts/Utils/TweenManagers/TweenSettingsResource.cs" id="3_wak3i"]
 [ext_resource type="Script" path="res://$Game/Scripts/Pillars/Nodes/PillarScoreHitboxNode.cs" id="4_oyjvf"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/Providers/TestableTimer.cs" id="7_43de0"]
 
 [sub_resource type="Resource" id="Resource_br1b4"]
 script = ExtResource("3_wak3i")
@@ -40,9 +41,10 @@ TransitionType = 7
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1p6qa"]
 size = Vector2(70, 207)
 
-[node name="Pillar" type="Node2D" node_paths=PackedStringArray("upperPillarMoveInAnimation", "upperPillarMoveAwayAnimation", "lowerPillarMoveInAnimation", "lowerPillarMoveAwayAnimation", "upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox", "pillarSpawnTimer")]
+[node name="Pillar" type="Node2D" node_paths=PackedStringArray("PillarDestructionTimer", "upperPillarMoveInAnimation", "upperPillarMoveAwayAnimation", "lowerPillarMoveInAnimation", "lowerPillarMoveAwayAnimation", "upperPillarDamageHitbox", "lowerPillarDamageHitbox", "pillarScoreHitbox")]
 z_index = 5
 script = ExtResource("1_2rnhs")
+PillarDestructionTimer = NodePath("PillarDestructionTimer")
 upperPillarMoveInAnimation = NodePath("UpperPillar/Animations/UpperMoveIn")
 upperPillarMoveAwayAnimation = NodePath("UpperPillar/Animations/UpperMoveAway")
 lowerPillarMoveInAnimation = NodePath("LowerPillar/Animations/LowerMoveIn")
@@ -50,7 +52,6 @@ lowerPillarMoveAwayAnimation = NodePath("LowerPillar/Animations/LowerMoveAway")
 upperPillarDamageHitbox = NodePath("UpperPillar/UpperBody2D")
 lowerPillarDamageHitbox = NodePath("LowerPillar/LowerBody2D")
 pillarScoreHitbox = NodePath("ScoreTrigger")
-pillarSpawnTimer = NodePath("PillarDestructionTimer")
 
 [node name="UpperPillar" type="Node2D" parent="."]
 position = Vector2(0, -750)
@@ -127,3 +128,4 @@ shape = SubResource("RectangleShape2D_1p6qa")
 
 [node name="PillarDestructionTimer" type="Timer" parent="."]
 wait_time = 3.0
+script = ExtResource("7_43de0")

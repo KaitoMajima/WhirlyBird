@@ -11,17 +11,17 @@ public partial class LoadingNode : Node
     [Export] StringName fadeInAnimation;
     [Export] StringName fadeOutAnimation;
 
-    ILoadingModel model;
+    ILoadingSystem system;
     
     public override void _Process (double delta)
     {
-        if (model.IsLoading)
-            model.ProcessLoading();
+        if (system.IsLoading)
+            system.ProcessLoading();
     }
 
-    public void Setup (ILoadingModel model)
+    public void Setup (ILoadingSystem system)
     {
-        this.model = model;
+        this.system = system;
     }
 
     public void Initialize ()
@@ -69,14 +69,14 @@ public partial class LoadingNode : Node
     void HandleAnimationFinished (StringName animationName)
     {
         if (animationName == fadeInAnimation)
-            model.InitiateLoading();
+            system.InitiateLoading();
     }
     
     void AddModelListeners ()
     {
-        model.OnLoadingStarted += HandleLoadingStarted;
-        model.OnLoadingProgress += HandleLoadingProgress;
-        model.OnLoadingFinished += HandleLoadingFinished;
+        system.OnLoadingStarted += HandleLoadingStarted;
+        system.OnLoadingProgress += HandleLoadingProgress;
+        system.OnLoadingFinished += HandleLoadingFinished;
     }
 
     void AddAnimationListeners ()
@@ -86,9 +86,9 @@ public partial class LoadingNode : Node
     
     void RemoveModelListeners ()
     {
-        model.OnLoadingStarted -= HandleLoadingStarted;
-        model.OnLoadingProgress -= HandleLoadingProgress;
-        model.OnLoadingFinished -= HandleLoadingFinished;
+        system.OnLoadingStarted -= HandleLoadingStarted;
+        system.OnLoadingProgress -= HandleLoadingProgress;
+        system.OnLoadingFinished -= HandleLoadingFinished;
     }
     
     void RemoveAnimationListeners ()

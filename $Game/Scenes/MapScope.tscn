@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://ftlyy01osjm"]
+[gd_scene load_steps=83 format=3 uid="uid://ftlyy01osjm"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Map/MapScope.cs" id="1_aly4s"]
 [ext_resource type="FontFile" uid="uid://b17k1c2puud20" path="res://$Game/Fonts/PatrickHandSC-Regular.ttf" id="1_kwjuq"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://dvsii4e7cou2i" path="res://$Game/Art/Game/256x256light.png" id="30_7a1ac"]
 [ext_resource type="AudioStream" uid="uid://l15sw7dj0krs" path="res://$Game/Audio/wingflap.wav" id="37_esllo"]
 [ext_resource type="Script" path="res://$Game/Scripts/SFX/Nodes/SoundEffectNode.cs" id="38_77uu2"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/Providers/TestableTimer.cs" id="38_ci6n0"]
 [ext_resource type="Script" path="res://$Game/Scripts/SFX/Resources/SoundEffectResource.cs" id="39_tn8qo"]
 [ext_resource type="AudioStream" uid="uid://b84l33r50n8su" path="res://$Game/Audio/bonk.wav" id="40_df2gu"]
 
@@ -978,6 +979,7 @@ pillarNodePack = ExtResource("23_by3dm")
 [node name="PillarSpawnPoint" type="Node2D" parent="MapNode/MapWorld2D/PillarManagerNode"]
 
 [node name="PillarSpawnTimer" type="Timer" parent="MapNode/MapWorld2D/PillarManagerNode"]
+script = ExtResource("38_ci6n0")
 
 [node name="PlayerDuck" type="Node2D" parent="MapNode/MapWorld2D" node_paths=PackedStringArray("jumpingAnimation", "rotateAnimation", "jumpSFX", "bonkSFX", "rigidBody2D", "collisionDetector", "contentsTransform", "rigidBodyShapeTransform", "eyeLights")]
 z_index = 10

@@ -7,7 +7,7 @@ public class LevelChangeModel : ILevelChangeModel
     
     readonly ILevelChangeSettings settings;
     readonly IPillarManagerModel pillarManagerModel;
-    readonly IMusicManagerModel musicManagerModel;
+    readonly IMusicManagerSystem musicManagerSystem;
 
     ILevelChangeUniqueSettings CurrentLevelChange => settings.LevelChanges[currentLevelChangeIndex];
     int currentLevelChangeIndex;
@@ -15,12 +15,12 @@ public class LevelChangeModel : ILevelChangeModel
     public LevelChangeModel (
         ILevelChangeSettings settings, 
         IPillarManagerModel pillarManagerModel,
-        IMusicManagerModel musicManagerModel
+        IMusicManagerSystem musicManagerSystem
     )
     {
         this.settings = settings;
         this.pillarManagerModel = pillarManagerModel;
-        this.musicManagerModel = musicManagerModel;
+        this.musicManagerSystem = musicManagerSystem;
     }
     
     public void Initialize ()
@@ -45,7 +45,7 @@ public class LevelChangeModel : ILevelChangeModel
         
         //TODO: Refactor this to an external class
         if (CurrentLevelChange.Id == 1)
-            musicManagerModel.Play(MusicClipType.Level1);
+            musicManagerSystem.Play(MusicClipType.Level1);
     }
     
     void AddModelListeners ()

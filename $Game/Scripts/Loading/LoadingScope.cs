@@ -13,7 +13,7 @@ public partial class LoadingScope : SingletonNode
     #endregion
 
     #region Models
-    public ILoadingModel LoadingModel { get; private set; }
+    public ILoadingSystem LoadingSystem { get; private set; }
     #endregion
 
     bool isLoading;
@@ -38,22 +38,22 @@ public partial class LoadingScope : SingletonNode
 
     public void Load (string scenePath, Node unloadNode = null)
     {
-        LoadingModel.StartLoad(scenePath, unloadNode);
+        LoadingSystem.StartLoad(scenePath, unloadNode);
     }
 
     void SetupModels ()
     {
-        LoadingModel = LoadingFactory.CreateLoadingModel();
+        LoadingSystem = LoadingFactory.CreateLoadingSystem();
     }
     
     void SetupNodes ()
     {
-        LoadingNode = LoadingFactory.CreateLoadingNode(this, LoadingModel);
+        LoadingNode = LoadingFactory.CreateLoadingNode(this, LoadingSystem);
     }
     
     void InitializeModels ()
     {
-        LoadingModel.Setup(LoadingConfigResource);
+        LoadingSystem.Setup(LoadingConfigResource);
     }
     
     void InitializeNodes ()
@@ -63,7 +63,7 @@ public partial class LoadingScope : SingletonNode
     
     void DisposeModels ()
     {
-        LoadingModel.Dispose();
+        LoadingSystem.Dispose();
     }
 
     void DisposeNodes ()

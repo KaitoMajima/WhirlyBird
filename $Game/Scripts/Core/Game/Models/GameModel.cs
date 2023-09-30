@@ -1,19 +1,19 @@
 ﻿public class GameModel : IGameModel
 {
-    public IMusicManagerModel MusicManagerModel { get; }
+    public IMusicManagerSystem MusicManagerSystem { get; }
 
-    public GameModel (IMusicManagerModel musicManagerModel)
+    public GameModel (IMusicManagerSystem musicManagerSystem)
     {
-        MusicManagerModel = musicManagerModel;
+        MusicManagerSystem = musicManagerSystem;
     }
 
     public void Initialize ()
     {
-        MusicManagerModel.Initialize();
+        MusicManagerSystem.Initialize();
     }
 
     public void Dispose ()
     {
-        MusicManagerModel.Dispose();
+        MusicManagerSystem.Dispose();
     }
 }

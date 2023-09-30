@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnl10axhk81e4"]
+[gd_scene load_steps=6 format=3 uid="uid://cnl10axhk81e4"]
 
 [ext_resource type="Script" path="res://$Game/Scripts/Core/Game/Nodes/GameNode.cs" id="1_fwnr2"]
 [ext_resource type="Resource" uid="uid://cqk51s7xtu5j1" path="res://$Game/Resources/ConfigResource.tres" id="2_8tc02"]
 [ext_resource type="Resource" uid="uid://dbmi88r88ojc" path="res://$Game/Resources/MusicResource.tres" id="3_awh6n"]
 [ext_resource type="Script" path="res://$Game/Scripts/Music/Nodes/MusicManagerNode.cs" id="3_pbfxk"]
+[ext_resource type="Script" path="res://$Game/Scripts/Utils/Providers/TestableTimer.cs" id="5_omjag"]
 
 [node name="GameNode" type="Node" node_paths=PackedStringArray("MusicManagerNode")]
 script = ExtResource("1_fwnr2")
@@ -26,3 +27,4 @@ volume_db = -33.0
 bus = &"Music"
 
 [node name="CrossfadeTimer" type="Timer" parent="MusicManagerNode"]
+script = ExtResource("5_omjag")

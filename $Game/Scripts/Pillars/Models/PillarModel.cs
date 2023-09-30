@@ -1,25 +1,27 @@
 ﻿using System;
-using Godot;
 
 public class PillarModel : IPillarModel
 {
     public event Action OnPillarMarkedForDestruction;
     
-    Timer currentTimer;
+    ITimer timer;
     double destructionSeconds;
-
-    public void SetSecondsUntilDestruction (double destructionSeconds)
+    
+    public void Setup (double secondsUntilDestruction)
     {
-        this.destructionSeconds = destructionSeconds;
+        destructionSeconds = secondsUntilDestruction;
     }
 
-    public void StartTimedDestruction (Timer timer)
+    public void SetTimer (ITimer timer)
     {
-        RemoveTimerListeners();
-        currentTimer = timer;
-        currentTimer.WaitTime = destructionSeconds;
-        currentTimer.Start();
+        this.timer = timer;
+    }
+
+    public void Initialize ()
+    {
         AddTimerListeners();
+        timer.WaitTime = destructionSeconds;
+        timer.Start();
     }
     
     void HandleTimerTimeout ()
@@ -29,12 +31,16 @@ public class PillarModel : IPillarModel
 
     void AddTimerListeners ()
     {
-        currentTimer.Timeout += HandleTimerTimeout;
+        timer.Timeout += HandleTimerTimeout;
     }
     
     void RemoveTimerListeners ()
     {
-        if (currentTimer != null)
-            currentTimer.Timeout -= HandleTimerTimeout;
+        timer.Timeout -= HandleTimerTimeout;
+    }
+
+    public void Dispose ()
+    {
+        RemoveTimerListeners();
     }
 }

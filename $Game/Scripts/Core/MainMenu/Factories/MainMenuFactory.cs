@@ -2,12 +2,12 @@
 {
     public static IMainMenuModel CreateMainMenuModel (
         MainMenuSettingsResource mainMenuSettingsResource, 
-        IMusicManagerModel musicManagerModel
+        IMusicManagerSystem musicManagerSystem
     )
     {
         IMainMenuSettings mainMenuSettings = CreateMainMenuSettings(mainMenuSettingsResource);
         IParallaxManagerModel parallaxManagerModel = ParallaxFactory.CreateMainMenuParallaxManagerModel(mainMenuSettings);
-        return new MainMenuModel(parallaxManagerModel, musicManagerModel);
+        return new MainMenuModel(parallaxManagerModel, musicManagerSystem);
     }
 
     public static void SetupMainMenuNode (

@@ -1,10 +1,12 @@
 ﻿using System;
 using Godot;
 
-public interface IPillarModel
+public interface IPillarModel : IDisposable
 {
     event Action OnPillarMarkedForDestruction;
 
-    void SetSecondsUntilDestruction (double destructionSeconds);
-    void StartTimedDestruction (Timer timer);
+    void Setup (double secondsUntilDestruction);
+    void SetTimer (ITimer timer);
+
+    void Initialize ();
 }

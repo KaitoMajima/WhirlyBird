@@ -53,6 +53,7 @@ public partial class PlayerManagerNode : Node2D
 
     void ApplyJump ()
     {
+        //TODO: Move velocity logic and rotation to Model
         float originalYVelocity = Mathf.Abs(rigidBody2D.LinearVelocity.Y);
         rigidBody2D.LinearVelocity = Vector2.Zero;
         rigidBody2D.ApplyImpulse(Vector2.Up * playerModel.JumpStrength);
@@ -63,8 +64,9 @@ public partial class PlayerManagerNode : Node2D
         jumpSFX.PlaySFX();
     }
     
-    void ApplyDeathThrow ()
+    void ApplyDeathForce ()
     {
+        //TODO: Move death force logic to Model
         rigidBody2D.LinearVelocity = Vector2.Zero;
         float randomXDirection = (float)randomProvider.Range(-1d, 1d);
         float randomYDirection = (float)randomProvider.Range(-1d, 1d);
@@ -107,7 +109,7 @@ public partial class PlayerManagerNode : Node2D
     void HandlePlayerKilled ()
     {
         inputDetectionModel.LockAllInputs();
-        ApplyDeathThrow();
+        ApplyDeathForce();
         bonkSFX.PlaySFX();
     }
     

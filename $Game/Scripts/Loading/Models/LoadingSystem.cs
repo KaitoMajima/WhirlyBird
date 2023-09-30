@@ -2,7 +2,7 @@
 using Godot;
 using Array = Godot.Collections.Array;
 
-public class LoadingModel : ILoadingModel
+public class LoadingSystem : ILoadingSystem
 {
     public event Action OnLoadingStarted;
     public event Action OnLoadingInitiated;

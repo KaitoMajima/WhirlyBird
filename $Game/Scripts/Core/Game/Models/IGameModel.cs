@@ -2,7 +2,7 @@
 
 public interface IGameModel : IDisposable
 {
-    IMusicManagerModel MusicManagerModel { get; }
+    IMusicManagerSystem MusicManagerSystem { get; }
 
     void Initialize ();
 }

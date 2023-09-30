@@ -4,19 +4,20 @@ public partial class MusicManagerNode : Node
 {
     [Export] public AudioStreamPlayer MainMusicPlayer { get; private set; }
     [Export] public AudioStreamPlayer TempMusicPlayer { get; private set; }
-    [Export] Timer crossfadeTimer;
+    [Export] TestableTimer crossfadeTimer;
 
-    IMusicManagerModel model;
+    IMusicManagerSystem system;
     MusicClipEntryResource currentClipEntry;
 
     public override void _Process (double delta)
     {
-        model.ProcessFading(delta);
+        system.ProcessFading(delta);
     }
 
-    public void Setup (IMusicManagerModel model)
+    public void Setup (IMusicManagerSystem system)
     {
-        this.model = model;
+        this.system = system;
+        system.SetTimer(crossfadeTimer);
     }
 
     public void Initialize ()
@@ -27,8 +28,7 @@ public partial class MusicManagerNode : Node
     void HandleMusicPlayTriggered (MusicClipEntryResource clipEntry)
     {
         currentClipEntry = clipEntry;
-        model.Crossfade(
-            crossfadeTimer,
+        system.Crossfade(
             currentClipEntry,
             MainMusicPlayer.VolumeDb
         );
@@ -57,8 +57,8 @@ public partial class MusicManagerNode : Node
 
     void HandleMusicCrossfadeStep ()
     {
-        MainMusicPlayer.VolumeDb = model.MainMusicVolume;
-        TempMusicPlayer.VolumeDb = model.TempMusicVolume;
+        MainMusicPlayer.VolumeDb = system.MainMusicVolume;
+        TempMusicPlayer.VolumeDb = system.TempMusicVolume;
     }
 
     void HandleMusicCrossfadeEnd ()
@@ -68,22 +68,22 @@ public partial class MusicManagerNode : Node
     
     void AddModelListeners ()
     {
-        model.OnMusicPlayTriggered += HandleMusicPlayTriggered;
-        model.OnMusicResumeTriggered += HandleMusicResumeTriggered;
-        model.OnMusicPauseTriggered += HandleMusicPauseTriggered;
-        model.OnMusicCrossfadeBegin += HandleMusicCrossfadeBegin;
-        model.OnMusicCrossfadeStep += HandleMusicCrossfadeStep;
-        model.OnMusicCrossfadeEnd += HandleMusicCrossfadeEnd;
+        system.OnMusicPlayTriggered += HandleMusicPlayTriggered;
+        system.OnMusicResumeTriggered += HandleMusicResumeTriggered;
+        system.OnMusicPauseTriggered += HandleMusicPauseTriggered;
+        system.OnMusicCrossfadeBegin += HandleMusicCrossfadeBegin;
+        system.OnMusicCrossfadeStep += HandleMusicCrossfadeStep;
+        system.OnMusicCrossfadeEnd += HandleMusicCrossfadeEnd;
     }
 
     void RemoveModelListeners ()
     {
-        model.OnMusicPlayTriggered -= HandleMusicPlayTriggered;
-        model.OnMusicResumeTriggered -= HandleMusicResumeTriggered;
-        model.OnMusicPauseTriggered -= HandleMusicPauseTriggered;
-        model.OnMusicCrossfadeBegin -= HandleMusicCrossfadeBegin;
-        model.OnMusicCrossfadeStep -= HandleMusicCrossfadeStep;
-        model.OnMusicCrossfadeEnd -= HandleMusicCrossfadeEnd;
+        system.OnMusicPlayTriggered -= HandleMusicPlayTriggered;
+        system.OnMusicResumeTriggered -= HandleMusicResumeTriggered;
+        system.OnMusicPauseTriggered -= HandleMusicPauseTriggered;
+        system.OnMusicCrossfadeBegin -= HandleMusicCrossfadeBegin;
+        system.OnMusicCrossfadeStep -= HandleMusicCrossfadeStep;
+        system.OnMusicCrossfadeEnd -= HandleMusicCrossfadeEnd;
     }
 
     public new void Dispose ()

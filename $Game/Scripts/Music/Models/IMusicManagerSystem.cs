@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-public interface IMusicManagerModel : IDisposable
+public interface IMusicManagerSystem : IDisposable
 {
     event Action<MusicClipEntryResource> OnMusicPlayTriggered;
     event Action OnMusicResumeTriggered;
@@ -19,6 +19,8 @@ public interface IMusicManagerModel : IDisposable
         MusicResource musicResource
     );
 
+    void SetTimer (ITimer timer);
+
     void Initialize ();
     
     void Play (MusicClipType clipType);
@@ -26,7 +28,6 @@ public interface IMusicManagerModel : IDisposable
     void Pause ();
 
     void Crossfade (
-        Timer timer,
         MusicClipEntryResource clipEntry,
         float pastVolume
     );

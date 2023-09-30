@@ -1,5 +1,4 @@
 ﻿using System;
-using Godot;
 
 public interface IPillarManagerModel : IDisposable
 {
@@ -13,9 +12,11 @@ public interface IPillarManagerModel : IDisposable
     float ParallaxBaseValue { get; }
     float ParallaxMultiplier { get; }
 
-    Vector2 GetNewRandomSpawningPoint ();
+    float GetNewRandomSpawningPoint ();
 
     void Setup (IScoreCounterModel scoreCounterModel);
+    void SetTimer (ITimer timer);
     void Initialize ();
-    void StartTimedSpawning (Timer timer);
+
+    void StartSpawning ();
 }

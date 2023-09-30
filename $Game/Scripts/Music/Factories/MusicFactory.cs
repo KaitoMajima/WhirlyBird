@@ -1,11 +1,11 @@
 ﻿public static class MusicFactory
 {
-    public static IMusicManagerModel CreateMusicManagerModel () 
-        => new MusicManagerModel();
+    public static IMusicManagerSystem CreateMusicManagerSystem () 
+        => new MusicManagerSystem();
 
     public static void SetupMusicManagerModel (
-        IMusicManagerModel musicManagerModel, 
+        IMusicManagerSystem musicManagerSystem, 
         IGameStateProvider gameStateProvider,
         MusicResource musicResource
-    ) => musicManagerModel.Setup(gameStateProvider, musicResource);
+    ) => musicManagerSystem.Setup(gameStateProvider, musicResource);
 }

@@ -15,7 +15,20 @@
 
   <ItemGroup>
     <Folder Include="$Game\Resources\" />
+    <Folder Include="$Tests\WhirlyBird.Tests\GameTests\GameOver\" />
+    <Folder Include="$Tests\WhirlyBird.Tests\GameTests\LevelChange\" />
+    <Folder Include="$Tests\WhirlyBird.Tests\GameTests\Pause\" />
     <Folder Include="$Tests\WhirlyBird.Tests\obj\Debug\net6.0\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="$Tests\Pillars\**" />
+    <Compile Remove="$Tests\WhirlyBird.Tests\Score\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="$Tests\Pillars\**" />
+    <EmbeddedResource Remove="$Tests\WhirlyBird.Tests\Score\**" />
   </ItemGroup>
   
 </Project>

@@ -4,7 +4,7 @@ using Godot;
 public partial class PillarManagerNode : Node
 {
     [Export] Vector2 pillarSpawnPosition;
-    [Export] Timer pillarSpawnTimer;
+    [Export] TestableTimer pillarSpawnTimer;
     [Export] Node pillarSpawnParent;
     [Export] PackedScene pillarNodePack;
 
@@ -20,7 +20,8 @@ public partial class PillarManagerNode : Node
     public void Initialize ()
     {
         AddModelListeners();
-        model.StartTimedSpawning(pillarSpawnTimer);
+        model.SetTimer(pillarSpawnTimer);
+        model.StartSpawning();
     }
     
     PillarNode CreatePillar ()
@@ -34,14 +35,20 @@ public partial class PillarManagerNode : Node
     void SetupPillar (PillarNode pillar)
     {
         IPillarModel pillarModel = PillarFactory.CreatePillarModel();
-        pillarModel.SetSecondsUntilDestruction(model.PillarSecondsUntilDestruction);
-        pillarPool.InsertAsActive(pillar);
-        pillar.SetPosition(pillarSpawnPosition + model.GetNewRandomSpawningPoint());
+        pillarModel.Setup(model.PillarSecondsUntilDestruction);
+        pillarModel.SetTimer(pillar.PillarDestructionTimer);
+        pillarModel.Initialize();
+        
+        Vector2 newSpawnPosition = new(
+            pillarSpawnPosition.X, 
+            pillarSpawnPosition.Y + model.GetNewRandomSpawningPoint()
+        );
+        pillar.SetPosition(newSpawnPosition);
         pillar.SetActive(true);
         pillar.SetSpeed(model.PillarSpeed);
-        
         pillar.Setup(pillarModel);
         pillar.Initialize();
+        pillarPool.InsertAsActive(pillar);
         
         AddPillarNodeListeners(pillar);
     }
@@ -57,7 +64,7 @@ public partial class PillarManagerNode : Node
         foreach (PillarNode pillar in pillarPool.ActiveItemsSet)
             pillar.SetSpeed(model.PillarSpeed);
         
-        model.StartTimedSpawning(pillarSpawnTimer);
+        model.StartSpawning();
     }
 
     void HandlePillarMarkedForDestruction (PillarNode pillar)

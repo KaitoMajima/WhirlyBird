@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-public interface ILoadingModel : IDisposable
+public interface ILoadingSystem : IDisposable
 {
     event Action OnLoadingStarted;
     event Action OnLoadingInitiated;

@@ -1,9 +1,9 @@
 ﻿using System;
 using Godot;
 
-public class MusicManagerModel : IMusicManagerModel
+public class MusicManagerSystem : IMusicManagerSystem
 {
-    const int VOLUME_DB_MIN_THRESHOLD_VALUE = -33;
+    const int VOLUME_DB_MIN_THRESHOLD_VALUE = -42;
     
     public event Action<MusicClipEntryResource> OnMusicPlayTriggered;
     public event Action OnMusicResumeTriggered;
@@ -21,7 +21,7 @@ public class MusicManagerModel : IMusicManagerModel
 
     IGameStateProvider gameStateProvider;
     MusicResource musicResource;
-    Timer currentTimer;
+    ITimer currentTimer;
     MusicClipEntryResource currentClipEntry;
     float pastMusicVolume;
     double currentTimeStep;
@@ -34,6 +34,12 @@ public class MusicManagerModel : IMusicManagerModel
     {
         this.gameStateProvider = gameStateProvider;
         this.musicResource = musicResource;
+    }
+
+    public void SetTimer (ITimer timer)
+    {
+        currentTimer = timer;
+        AddTimerListeners();
     }
 
     public void Initialize ()
@@ -58,7 +64,6 @@ public class MusicManagerModel : IMusicManagerModel
     }
 
     public void Crossfade (
-        Timer timer, 
         MusicClipEntryResource clipEntry,
         float pastVolume
     )
@@ -66,7 +71,7 @@ public class MusicManagerModel : IMusicManagerModel
         isFading = true;
         currentClipEntry = clipEntry;
         pastMusicVolume = pastVolume;
-        UpdateTimer(timer);
+        UpdateTimer();
         
         OnMusicCrossfadeBegin?.Invoke();
     }
@@ -82,13 +87,10 @@ public class MusicManagerModel : IMusicManagerModel
         OnMusicCrossfadeStep?.Invoke();
     }
     
-    void UpdateTimer (Timer timer)
+    void UpdateTimer ()
     {
-        RemoveTimerListeners();
-        currentTimer = timer;
         currentTimer.WaitTime = CurrentCrossFadeTime;
         currentTimer.Start();
-        AddTimerListeners();
     }
     
     void HandleGamePauseTriggered ()
@@ -129,8 +131,7 @@ public class MusicManagerModel : IMusicManagerModel
     
     void RemoveTimerListeners ()
     {
-        if (currentTimer != null)
-            currentTimer.Timeout -= HandleTimerTimeout;
+        currentTimer.Timeout -= HandleTimerTimeout;
     }
 
     public void Dispose ()

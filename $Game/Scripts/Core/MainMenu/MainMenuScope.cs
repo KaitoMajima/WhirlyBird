@@ -29,7 +29,7 @@ public partial class MainMenuScope : Node
     {
         MainMenuModel = MainMenuFactory.CreateMainMenuModel(
             MainMenuSettingsResource, 
-            GameScope.GameModel.MusicManagerModel
+            GameScope.GameModel.MusicManagerSystem
         );
     }
     

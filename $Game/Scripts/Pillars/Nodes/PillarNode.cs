@@ -5,6 +5,9 @@ public partial class PillarNode : Node2D
 {
     public event Action<PillarNode> OnPillarMarkedForDestruction;
 
+    [Export] 
+    public TestableTimer PillarDestructionTimer { get; private set; }
+    
     [Export] Move2DTween upperPillarMoveInAnimation;
     [Export] Move2DTween upperPillarMoveAwayAnimation;
     [Export] Move2DTween lowerPillarMoveInAnimation;
@@ -12,7 +15,6 @@ public partial class PillarNode : Node2D
     [Export] PillarDamageHitboxNode upperPillarDamageHitbox;
     [Export] PillarDamageHitboxNode lowerPillarDamageHitbox;
     [Export] PillarScoreHitboxNode pillarScoreHitbox;
-    [Export] Timer pillarSpawnTimer;
 
     IPillarModel pillarModel;
     float moveSpeed;
@@ -35,7 +37,6 @@ public partial class PillarNode : Node2D
         AddTriggerListeners();
         
         ResetPillarHitboxes();
-        pillarModel.StartTimedDestruction(pillarSpawnTimer);
         upperPillarMoveInAnimation.PlayTween();
         lowerPillarMoveInAnimation.PlayTween();
     }
