@@ -77,7 +77,7 @@ public class PlayerModelTests
             Model.OnPlayerTransformed += () => hasKillEventTriggered = true;
 
             Model.Initialize();
-            LevelChangeModel.OnLevelChanged += Raise.Event<Action<int>>(Arg.Any<int>());
+            LevelChangeModel.OnLevelChanged += Raise.Event<Action>();
             
             Assert.IsTrue(hasKillEventTriggered);
         }

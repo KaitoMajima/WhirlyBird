@@ -11,7 +11,6 @@ public class LevelChangeModelTests
     {
         protected ILevelChangeSettings LevelChangeSettings { get; private set; }
         protected IPillarManagerModel PillarManagerModel { get; private set; }
-        protected IMusicManagerSystem MusicManagerSystem { get; private set; }
 
         protected LevelChangeModel Model { get; private set; }
 
@@ -20,7 +19,6 @@ public class LevelChangeModelTests
         {
             LevelChangeSettings = Substitute.For<ILevelChangeSettings>();
             PillarManagerModel = Substitute.For<IPillarManagerModel>();
-            MusicManagerSystem = Substitute.For<IMusicManagerSystem>();
             
             CreateModel();
         }
@@ -29,8 +27,7 @@ public class LevelChangeModelTests
         {
             Model = new LevelChangeModel(
                 LevelChangeSettings,
-                PillarManagerModel,
-                MusicManagerSystem
+                PillarManagerModel
             );
         }
         
@@ -59,7 +56,7 @@ public class LevelChangeModelTests
         {
             const int LEVEL_CHANGE_REQUIREMENT = 77;
             const int EXPECTED_LEVEL_CHANGE_ID = 1;
-            int actualId = 0;
+            bool hasLevelChangeEventTriggered = false;
 
             SetupLevelChanges();
                 
@@ -68,12 +65,14 @@ public class LevelChangeModelTests
             nextLevelChange.PillarsPassedRequirement.Returns(LEVEL_CHANGE_REQUIREMENT);
 
             PillarManagerModel.PillarsPassedCount.Returns(LEVEL_CHANGE_REQUIREMENT);
-            Model.OnLevelChanged += id => actualId = id;
+            Model.OnLevelChanged += () => hasLevelChangeEventTriggered = true;
+            
                 
             Model.Initialize();
             PillarManagerModel.OnPillarPassed += Raise.Event<Action>();
                 
-            Assert.AreEqual(EXPECTED_LEVEL_CHANGE_ID, actualId);
+            Assert.AreEqual(EXPECTED_LEVEL_CHANGE_ID, Model.CurrentLevelId);
+            Assert.IsTrue(hasLevelChangeEventTriggered);
         }
     }
 }

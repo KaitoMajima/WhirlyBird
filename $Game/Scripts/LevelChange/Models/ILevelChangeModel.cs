@@ -2,7 +2,8 @@
 
 public interface ILevelChangeModel : IDisposable
 {
-    event Action<int> OnLevelChanged;
+    event Action OnLevelChanged;
+    int CurrentLevelId { get; }
 
     void Initialize ();
 }

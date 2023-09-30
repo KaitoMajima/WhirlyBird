@@ -40,7 +40,7 @@ public class PlayerModel : IPlayerModel
         OnPlayerKilled?.Invoke();
     }
     
-    void HandleLevelChanged (int levelId)
+    void HandleLevelChanged ()
     {
         OnPlayerTransformed?.Invoke();
     }

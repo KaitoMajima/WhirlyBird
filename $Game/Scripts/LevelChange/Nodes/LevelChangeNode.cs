@@ -70,9 +70,9 @@ public partial class LevelChangeNode : Node2D
         finalStageNode.Visible = value;
     }
     
-    void HandleLevelChanged (int level)
+    void HandleLevelChanged ()
     {
-        SetLevelChange(level);
+        SetLevelChange(model.CurrentLevelId);
     }
     
     void AddModelListeners ()

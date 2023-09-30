@@ -3,17 +3,13 @@
     public IMapUICanvasModel MapUICanvasModel { get; }
     public IMapWorld2DModel MapWorld2DModel { get; }
     public IMapInputDetectionModel MapInputDetectionModel { get; }
-
-    readonly IMusicManagerSystem musicManagerSystem;
     
     public MapModel (
         IMapUICanvasModel mapUICanvasModel, 
         IMapWorld2DModel mapWorld2DModel,
-        IMapInputDetectionModel mapInputDetectionModel,
-        IMusicManagerSystem musicManagerSystem
+        IMapInputDetectionModel mapInputDetectionModel
     )
     {
-        this.musicManagerSystem = musicManagerSystem;
         MapUICanvasModel = mapUICanvasModel;
         MapWorld2DModel = mapWorld2DModel;
         MapInputDetectionModel = mapInputDetectionModel;
@@ -23,7 +19,6 @@
     {
         MapUICanvasModel.Initialize();
         MapWorld2DModel.Initialize();
-        musicManagerSystem.Play(MusicClipType.Level0);
     }
 
     public void Dispose ()

@@ -6,7 +6,11 @@
     
     public static ILevelChangeModel CreateLevelChangeModel (
         ILevelChangeSettings levelChangeSettings, 
-        IPillarManagerModel pillarManagerModel,
+        IPillarManagerModel pillarManagerModel
+    ) => new LevelChangeModel(levelChangeSettings, pillarManagerModel);
+
+    public static ILevelChangeMusicModel CreateLevelChangeMusicModel (
+        ILevelChangeModel levelChangeModel, 
         IMusicManagerSystem musicManagerSystem
-    ) => new LevelChangeModel(levelChangeSettings, pillarManagerModel, musicManagerSystem);
+    ) => new LevelChangeMusicModel(levelChangeModel, musicManagerSystem);
 }

@@ -28,8 +28,7 @@
         return new MapModel(
             mapUICanvasModel, 
             mapWorld2DModel, 
-            mapInputDetectionModel, 
-            musicManagerSystem
+            mapInputDetectionModel
         );
     }
     
@@ -90,7 +89,10 @@
             = LevelChangeFactory.CreateLevelChangeSettings(mapSettingsResource);
         ILevelChangeModel levelChangeModel = LevelChangeFactory.CreateLevelChangeModel(
             levelChangeSettings, 
-            pillarManagerModel,
+            pillarManagerModel
+        );
+        ILevelChangeMusicModel levelChangeMusicModel = LevelChangeFactory.CreateLevelChangeMusicModel(
+            levelChangeModel, 
             musicManagerSystem
         );
         IParallaxManagerModel parallaxManagerModel =
@@ -102,7 +104,8 @@
             playerModel, 
             pillarManagerModel,
             levelChangeModel,
-            parallaxManagerModel
+            parallaxManagerModel,
+            levelChangeMusicModel
         );
     }
 
