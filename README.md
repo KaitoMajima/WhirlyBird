@@ -35,7 +35,8 @@ All game animations are done using Godot's new tweening system, to simplify anim
 - **Click on the Pause button in the top right corner**: Pause game
 
 ## Releases :package:
-
+This game is available on Windows, downloadble from itch.io:
+https://kaitomajima.itch.io/whirly-bird
 
 ## Documentation :blue_book:
 
