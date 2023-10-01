@@ -13,6 +13,7 @@ config_version=5
 config/name="Whirly Bird"
 run/main_scene="res://$Game/Scenes/MainMenuScope.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+boot_splash/image="res://$Game/Art/SplashScreen/blue-gradient.png"
 config/icon="res://$Game/Art/Game/duck.png"
 
 [autoload]
