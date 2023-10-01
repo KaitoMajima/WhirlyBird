@@ -39,6 +39,7 @@ All game animations are done using Godot's new tweening system, to simplify anim
 
 ## Documentation :blue_book:
 
+- [Game's main code architecture](https://github.com/KaitoMajima/WhirlyBird/blob/main/~Docs/CodeArchitecture.md)
 
 ## Credits :pray:
 
