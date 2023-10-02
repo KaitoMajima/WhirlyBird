@@ -1,7 +1,7 @@
 # Whirly Bird :duck: 
 
 **Whirly Bird** is a reimagination of the famous game Flappy Bird created by Dong Nguyen, in which the player jumps through a series of pillars to score infinitely. This project was made in **Godot 4** with Mono support and **all scripts were written in C#**.
-![Godot_v4 1 1-stable_mono_win64_CSk69gEM2A](https://github.com/KaitoMajima/WhirlyBird/assets/68963406/43971b80-7bc1-4ea2-8f9b-4a2ced5593c6)
+![Godot_v4 1 1-stable_mono_win64_CSk69gEM2A](https://github.com/KaitoMajima/WhirlyBird/assets/68963406/8150526a-d5f2-4ca5-b490-ef1d47135090)
 
 ## About :book:
 
