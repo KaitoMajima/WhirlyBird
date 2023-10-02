@@ -32,3 +32,6 @@ The game's code architecture adopts a dual-concept approach: **Model and Node**.
 Each primary model and node is housed within a designated Scope, such as **GameScope** or **MapScope**. These scopes take charge of dependency management via injection, with models and nodes being instantiated through Factories. 
 
 Sub-models and nodes are nested within these core models and nodes, offering a robust foundation for an [IoC (Inversion of Control)](https://en.wikipedia.org/wiki/Inversion_of_control) dependency-injected system.
+
+### Unit Tests
+All models are tested individually with NUnit, you can find the tests within the $Tests folder in the root of this project. Any model's dependencies are mocked using NSubstitute, allowing to test most case scenarios.
