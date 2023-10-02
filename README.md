@@ -15,7 +15,7 @@ Quick and snappy jumps, forgiving gravity, and comprehensive visual & audio feed
 
 ### Adaptive Difficulty
 
-The game's speed adjusts whenever the player has reached certain score thresholds, offering a continuously challenging experience.
+The game's speed adjusts whenever the player reaches certain score thresholds, offering a continuously challenging experience.
 
 ### Encrypted High Scores in Local Save File
 
